@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/YazanHalawa/webApp#readme",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "html": "0.0.10",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
   }
 }
