@@ -1,6 +1,9 @@
 var Router = ReactRouter.Router;
 var Link = ReactRouter.Link;
 var Route = ReactRouter.Route;
+var Profile = require('./Profile')
+var Friends = require('./Friends')
+var SignUp = require('./SignUp')
 
 var App = React.createClass({
   render: function() {
@@ -20,6 +23,7 @@ var App = React.createClass({
 
     		<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       			<ul className="nav navbar-nav">
+      				<li><Link to="SignUp">SignUp</Link></li>
         			<li><Link to="profile">Profile</Link></li>
         			<li><Link to="WishListHist">WishList</Link></li>
         			<div class="dropdown">
@@ -48,32 +52,12 @@ var App = React.createClass({
   }
 });
 
-var Profile = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <h1>Home</h1>
-        <p>Put your home page here</p>
-      </div>
-    );
-  }
-});
-
-var Friends = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <h1>Page</h1>
-        <p>Demo another page here</p>
-      </div>
-    );
-  }
-});
 
 // Run the routes
 var routes = (
       <Router>
         <Route name="app" path="/" component={App}>
+          <Route name="SignUp" path="/signUp" component={SignUp}/>
           <Route name="Friends" path="/friends" component={Friends}/>
           <Route path="profile" path="/profile" component={Profile}/>
         </Route>

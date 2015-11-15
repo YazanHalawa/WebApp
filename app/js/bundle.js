@@ -49,11 +49,14 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Router = ReactRouter.Router;
 	var Link = ReactRouter.Link;
 	var Route = ReactRouter.Route;
+	var Profile = __webpack_require__(2)
+	var Friends = __webpack_require__(3)
+	var SignUp = __webpack_require__(4)
 	
 	var App = React.createClass({displayName: "App",
 	  render: function() {
@@ -73,6 +76,7 @@
 	
 	    		React.createElement("div", {className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1"}, 
 	      			React.createElement("ul", {className: "nav navbar-nav"}, 
+	      				React.createElement("li", null, React.createElement(Link, {to: "SignUp"}, "SignUp")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
 	        			React.createElement("div", {class: "dropdown"}, 
@@ -101,7 +105,26 @@
 	  }
 	});
 	
-	var Profile = React.createClass({displayName: "Profile",
+	
+	// Run the routes
+	var routes = (
+	      React.createElement(Router, null, 
+	        React.createElement(Route, {name: "app", path: "/", component: App}, 
+	          React.createElement(Route, {name: "SignUp", path: "/signUp", component: SignUp}), 
+	          React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
+	          React.createElement(Route, {path: "profile", path: "/profile", component: Profile})
+	        )
+	      )
+	);
+	
+	ReactDOM.render(routes, document.body);
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */var Profile = React.createClass({displayName: "Profile",
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -112,29 +135,57 @@
 	  }
 	});
 	
-	var Friends = React.createClass({displayName: "Friends",
+	module.exports = Profile
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
-	        React.createElement("h1", null, "Page"), 
-	        React.createElement("p", null, "Demo another page here")
+	        React.createElement("h1", null, "Friends"), 
+	        React.createElement("ul", null, "List Of Friends", 
+	        	React.createElement("li", null, "Friend 1"), 
+	        	React.createElement("li", null, "Friend 2"), 
+	        	React.createElement("li", null, "Friend 3")
+	        )
 	      )
 	    );
 	  }
 	});
 	
-	// Run the routes
-	var routes = (
-	      React.createElement(Router, null, 
-	        React.createElement(Route, {name: "app", path: "/", component: App}, 
-	          React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
-	          React.createElement(Route, {path: "profile", path: "/profile", component: Profile})
-	        )
-	      )
-	);
-	
-	ReactDOM.render(routes, document.body);
+	module.exports = Friends
 
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */var Box = React.createClass({displayName: "Box",
+		render: function(){
+			return (
+				React.createElement("form", null, 
+					React.createElement("input", {type: "text", placeholder: this.props.name})
+				)
+				);
+		}
+	})
+	
+	var SignUp = React.createClass({displayName: "SignUp",
+		render: function(){
+			return(
+				React.createElement("div", null, 
+					React.createElement(Box, {name: "First Name"}), 
+					React.createElement(Box, {name: "Last Name"}), 
+					React.createElement(Box, {name: "Email"}), 
+					React.createElement(Box, {name: "Birth"})
+				)
+				);
+		}
+	});
+	
+	module.exports = SignUp
 
 /***/ }
 /******/ ]);
