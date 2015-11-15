@@ -6,6 +6,7 @@ var Friends = require('./Friends')
 var SignUp = require('./SignUp')
 
 var App = React.createClass({
+
   render: function() {
     return (
       <div>
@@ -21,22 +22,19 @@ var App = React.createClass({
       			<a className="navbar-brand" href="/">Genie Lamp</a>
     		</div>
 
-    		<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    		<div className="collapse navbar-collapse">
       			<ul className="nav navbar-nav">
       				<li><Link to="SignUp">SignUp</Link></li>
         			<li><Link to="profile">Profile</Link></li>
         			<li><Link to="WishListHist">WishList</Link></li>
-        			<div class="dropdown">
-  						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    					Friends
-    					<span class="caret"></span>
-  						</button>
-  						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    						<li><a href="/AddFriend">Add Friend</a></li>
-    						<li><a href="/RemoveFriend">Remove Friend</a></li>
-    						<li><a href="/ViewFriends">View Friends else here</a></li>
-  						</ul>
-					</div>
+        			<li role="presentation" className="dropdown">
+          				<a className="dropdown-toggle" href ="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends<span className="caret"></span></a>
+          				<ul className="dropdown-menu">
+            				<li><Link to="Friends">View Friends</Link></li>
+            				<li><a href="#">Add Friend</a></li>
+            				<li><a href="#">Remove Friend</a></li>
+          				</ul>
+        			</li>
       			</ul>
       			<ul className="nav navbar-nav navbar-right">
         			<li><a href="/">Hello Yazan</a></li>
@@ -53,6 +51,7 @@ var App = React.createClass({
 });
 
 
+
 // Run the routes
 var routes = (
       <Router>
@@ -63,5 +62,6 @@ var routes = (
         </Route>
       </Router>
 );
+
 
 ReactDOM.render(routes, document.body);

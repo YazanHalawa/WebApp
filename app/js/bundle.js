@@ -59,6 +59,7 @@
 	var SignUp = __webpack_require__(4)
 	
 	var App = React.createClass({displayName: "App",
+	
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -74,22 +75,19 @@
 	      			React.createElement("a", {className: "navbar-brand", href: "/"}, "Genie Lamp")
 	    		), 
 	
-	    		React.createElement("div", {className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1"}, 
+	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
 	      			React.createElement("ul", {className: "nav navbar-nav"}, 
 	      				React.createElement("li", null, React.createElement(Link, {to: "SignUp"}, "SignUp")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
-	        			React.createElement("div", {class: "dropdown"}, 
-	  						React.createElement("button", {class: "btn btn-default dropdown-toggle", type: "button", id: "dropdownMenu1", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-	    					"Friends", 
-	    					React.createElement("span", {class: "caret"})
-	  						), 
-	  						React.createElement("ul", {class: "dropdown-menu", "aria-labelledby": "dropdownMenu1"}, 
-	    						React.createElement("li", null, React.createElement("a", {href: "/AddFriend"}, "Add Friend")), 
-	    						React.createElement("li", null, React.createElement("a", {href: "/RemoveFriend"}, "Remove Friend")), 
-	    						React.createElement("li", null, React.createElement("a", {href: "/ViewFriends"}, "View Friends else here"))
-	  						)
-						)
+	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
+	          				React.createElement("a", {className: "dropdown-toggle", href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
+	          				React.createElement("ul", {className: "dropdown-menu"}, 
+	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
+	          				)
+	        			)
 	      			), 
 	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
 	        			React.createElement("li", null, React.createElement("a", {href: "/"}, "Hello Yazan"))
@@ -106,6 +104,7 @@
 	});
 	
 	
+	
 	// Run the routes
 	var routes = (
 	      React.createElement(Router, null, 
@@ -116,6 +115,7 @@
 	        )
 	      )
 	);
+	
 	
 	ReactDOM.render(routes, document.body);
 
@@ -163,6 +163,14 @@
 /***/ function(module, exports) {
 
 	/** @jsx React.DOM */var Box = React.createClass({displayName: "Box",
+	
+		getInitialState: function() {
+	    	return {value: 'Hello!'};
+	  	},
+	
+	  	handleChange: function(event) {
+	    	this.setState({value: event.target.value});
+	  	},
 		render: function(){
 			return (
 				React.createElement("form", null, 

@@ -1,4 +1,12 @@
 var Box = React.createClass({
+
+	getInitialState: function() {
+    	return {value: 'Hello!'};
+  	},
+
+  	handleChange: function(event) {
+    	this.setState({value: event.target.value});
+  	},
 	render: function(){
 		return (
 			<form>
