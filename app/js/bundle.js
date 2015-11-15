@@ -51,26 +51,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	/** @jsx React.DOM */// var menuBar = require('./navBar');
-	
-	// var MainPage = React.createClass({
-	//   render: function() {
-	//     return (
-	//     	<div>
-	//     	<menuBar/>
-	//     	Hello {this.props.name}
-	//     	</div>
-	//     	);
-	//   }
-	// });
-	
-	
-	
-	// ReactDOM.render(<MainPage name="Yazan" />, document.querySelector('.app-container'));
-	
-	
-	
-	var Router = ReactRouter.Router;
+	/** @jsx React.DOM */var Router = ReactRouter.Router;
 	var Link = ReactRouter.Link;
 	var Route = ReactRouter.Route;
 	
@@ -92,27 +73,26 @@
 	
 	    		React.createElement("div", {className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1"}, 
 	      			React.createElement("ul", {className: "nav navbar-nav"}, 
-	        		React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
-	        		React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
-	        		React.createElement("li", {className: "dropdown"}, 
-	          			React.createElement("a", {href: "/", className: "dropdown-toggle", "data-toggle": "dropdown", role: "button", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {class: "caret"})), 
-	         			React.createElement("ul", {className: "dropdown-menu"}, 
-	            	React.createElement("li", null, React.createElement("a", {href: "/"}, "View Friends")), 
-	            React.createElement("li", null, React.createElement("a", {href: "/"}, "Add Friend")), 
-	            React.createElement("li", null, React.createElement("a", {href: "/"}, "Remove Friend")), 
-	            React.createElement("li", {role: "separator", className: "divider"}), 
-	            React.createElement("li", null, React.createElement("a", {href: "/"}, "Separated link")), 
-	            React.createElement("li", {role: "separator", className: "divider"}), 
-	            React.createElement("li", null, React.createElement("a", {href: "/"}, "One more separated link"))
-	          )
-	        )
-	      ), 
-	      React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
-	        React.createElement("li", null, React.createElement("a", {href: "/"}, "Hello Yazan"))
-	      )
-	    )
-	  )
-	  ), 
+	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
+	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
+	        			React.createElement("div", {class: "dropdown"}, 
+	  						React.createElement("button", {class: "btn btn-default dropdown-toggle", type: "button", id: "dropdownMenu1", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
+	    					"Friends", 
+	    					React.createElement("span", {class: "caret"})
+	  						), 
+	  						React.createElement("ul", {class: "dropdown-menu", "aria-labelledby": "dropdownMenu1"}, 
+	    						React.createElement("li", null, React.createElement("a", {href: "/AddFriend"}, "Add Friend")), 
+	    						React.createElement("li", null, React.createElement("a", {href: "/RemoveFriend"}, "Remove Friend")), 
+	    						React.createElement("li", null, React.createElement("a", {href: "/ViewFriends"}, "View Friends else here"))
+	  						)
+						)
+	      			), 
+	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
+	        			React.createElement("li", null, React.createElement("a", {href: "/"}, "Hello Yazan"))
+	      			)
+	    		)
+	  		  )
+	  		), 
 	        React.createElement("div", {className: "container"}, 
 	          this.props.children
 	        )
@@ -121,7 +101,7 @@
 	  }
 	});
 	
-	var Home = React.createClass({displayName: "Home",
+	var Profile = React.createClass({displayName: "Profile",
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -132,7 +112,7 @@
 	  }
 	});
 	
-	var Page = React.createClass({displayName: "Page",
+	var Friends = React.createClass({displayName: "Friends",
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -147,8 +127,8 @@
 	var routes = (
 	      React.createElement(Router, null, 
 	        React.createElement(Route, {name: "app", path: "/", component: App}, 
-	          React.createElement(Route, {name: "page", path: "/page", component: Page}), 
-	          React.createElement(Route, {path: "*", component: Home})
+	          React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
+	          React.createElement(Route, {path: "profile", path: "/profile", component: Profile})
 	        )
 	      )
 	);
