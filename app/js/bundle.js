@@ -77,7 +77,6 @@
 	
 	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
 	      			React.createElement("ul", {className: "nav navbar-nav"}, 
-	      				React.createElement("li", null, React.createElement(Link, {to: "SignUp"}, "SignUp")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
 	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 

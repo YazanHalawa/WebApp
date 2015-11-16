@@ -24,7 +24,6 @@ var App = React.createClass({
 
     		<div className="collapse navbar-collapse">
       			<ul className="nav navbar-nav">
-      				<li><Link to="SignUp">SignUp</Link></li>
         			<li><Link to="profile">Profile</Link></li>
         			<li><Link to="WishListHist">WishList</Link></li>
         			<li role="presentation" className="dropdown">
