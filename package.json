@@ -21,6 +21,7 @@
     "express": "^4.13.3",
     "html": "0.0.10",
     "jsx-loader": "^0.13.2",
+    "mongoose": "^4.2.6",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
   }
