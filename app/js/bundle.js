@@ -77,6 +77,7 @@
 	
 	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
 	      			React.createElement("ul", {className: "nav navbar-nav"}, 
+	              React.createElement("li", null, React.createElement(Link, {to: "SignUp"}, "Log In")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
 	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
 	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
@@ -107,8 +108,8 @@
 	// Run the routes
 	var routes = (
 	      React.createElement(Router, null, 
-	        React.createElement(Route, {name: "SignUp", path: "/", component: SignUp}), 
-	        React.createElement(Route, {name: "app", path: "/main", component: App}, 
+	        React.createElement(Route, {name: "app", path: "/", component: App}, 
+	          React.createElement(Route, {name: "SignUp", path: "/SignUp", component: SignUp}), 
 	          React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
 	          React.createElement(Route, {name: "profile", path: "/profile", component: Profile})
 	        )
@@ -161,23 +162,23 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	/** @jsx React.DOM */var Box = React.createClass({displayName: "Box",
+	/** @jsx React.DOM */// var Box = React.createClass({
 	
-		getInitialState: function() {
-	    	return {value: 'Hello!'};
-	  	},
+	// 	getInitialState: function() {
+	//     	return {value: 'Hello!'};
+	//   	},
 	
-	  	handleChange: function(event) {
-	    	this.setState({value: event.target.value});
-	  	},
-		render: function(){
-			return (
-				React.createElement("li", null, 
-					React.createElement("input", {type: "text", placeholder: this.props.name})
-				)
-				);
-		}
-	})
+	//   	handleChange: function(event) {
+	//     	this.setState({value: event.target.value});
+	//   	},
+	// 	render: function(){
+	// 		return (
+	// 			<li>
+	// 				<input type="text" placeholder={this.props.name} />
+	// 			</li>
+	// 			);
+	// 	}
+	// })
 	
 	var SignUp = React.createClass({displayName: "SignUp",
 		render: function(){
@@ -198,7 +199,8 @@
 				  ), 
 				  React.createElement("div", {class: "form-group"}, 
 				    React.createElement("div", {class: "col-sm-offset-2 col-sm-10"}, 
-				      React.createElement("button", {type: "submit", class: "btn btn-default"}, "Sign in")
+				      React.createElement("a", {id: "LogInBtn", href: "http://www.google.com", class: "btn btn-primary btn-lg active", role: "button"}, "Log In"), 
+				      React.createElement("a", {id: "SignUpBtn", href: "Friends", class: "btn btn-primary btn-lg active", role: "button"}, "Sign Up")
 				    )
 				  )
 				)

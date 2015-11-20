@@ -31,11 +31,10 @@ form {
   height: 300px;
   width: 300px;
   margin: 0 auto;
-  margin-top: 2cm;
+  margin-top: 4cm;
 }
 
-button {
-  color: BLACK;
+#SignUpBtn {
   margin-left: 1.5cm;
 }
 

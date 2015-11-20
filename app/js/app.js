@@ -24,6 +24,7 @@ var App = React.createClass({
 
     		<div className="collapse navbar-collapse">
       			<ul className="nav navbar-nav">
+              <li><Link to="SignUp">Log In</Link></li>
         			<li><Link to="profile">Profile</Link></li>
         			<li><Link to="WishListHist">WishList</Link></li>
         			<li role="presentation" className="dropdown">
@@ -54,8 +55,8 @@ var App = React.createClass({
 // Run the routes
 var routes = (
       <Router>
-        <Route name="SignUp" path="/" component={SignUp}/>
-        <Route name="app" path="/main" component={App}>
+        <Route name="app" path="/" component={App}>
+          <Route name="SignUp" path="/SignUp" component={SignUp}/>  
           <Route name="Friends" path="/friends" component={Friends}/>
           <Route name="profile" path="/profile" component={Profile}/>
         </Route>

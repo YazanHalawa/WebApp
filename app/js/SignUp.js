@@ -1,20 +1,20 @@
-var Box = React.createClass({
+// var Box = React.createClass({
 
-	getInitialState: function() {
-    	return {value: 'Hello!'};
-  	},
+// 	getInitialState: function() {
+//     	return {value: 'Hello!'};
+//   	},
 
-  	handleChange: function(event) {
-    	this.setState({value: event.target.value});
-  	},
-	render: function(){
-		return (
-			<li>
-				<input type="text" placeholder={this.props.name} />
-			</li>
-			);
-	}
-})
+//   	handleChange: function(event) {
+//     	this.setState({value: event.target.value});
+//   	},
+// 	render: function(){
+// 		return (
+// 			<li>
+// 				<input type="text" placeholder={this.props.name} />
+// 			</li>
+// 			);
+// 	}
+// })
 
 var SignUp = React.createClass({
 	render: function(){
@@ -35,7 +35,8 @@ var SignUp = React.createClass({
 			  </div>
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" class="btn btn-default">Sign in</button>
+			      <a id="LogInBtn" href="http://www.google.com" class="btn btn-primary btn-lg active" role="button">Log In</a>
+			      <a id="SignUpBtn" href="Friends" class="btn btn-primary btn-lg active" role="button">Sign Up</a>
 			    </div>
 			  </div>
 			</form>
