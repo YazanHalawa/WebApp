@@ -22,11 +22,20 @@ body {
   vertical-align: center;
   background-repeat:no-repeat;
   background-attachment: fixed;
+  text-align: center
   display: compact;
   background-image: url(../../../background.jpg);
 }
 
+form {
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 2cm;
+}
 
-
-
+button {
+  color: BLACK;
+  margin-left: 1.5cm;
+}
 

@@ -107,10 +107,10 @@
 	// Run the routes
 	var routes = (
 	      React.createElement(Router, null, 
-	        React.createElement(Route, {name: "app", path: "/", component: App}, 
-	          React.createElement(Route, {name: "SignUp", path: "/signUp", component: SignUp}), 
+	        React.createElement(Route, {name: "SignUp", path: "/", component: SignUp}), 
+	        React.createElement(Route, {name: "app", path: "/main", component: App}, 
 	          React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
-	          React.createElement(Route, {path: "profile", path: "/profile", component: Profile})
+	          React.createElement(Route, {name: "profile", path: "/profile", component: Profile})
 	        )
 	      )
 	);
@@ -172,7 +172,7 @@
 	  	},
 		render: function(){
 			return (
-				React.createElement("form", null, 
+				React.createElement("li", null, 
 					React.createElement("input", {type: "text", placeholder: this.props.name})
 				)
 				);
@@ -182,11 +182,25 @@
 	var SignUp = React.createClass({displayName: "SignUp",
 		render: function(){
 			return(
-				React.createElement("div", null, 
-					React.createElement(Box, {name: "First Name"}), 
-					React.createElement(Box, {name: "Last Name"}), 
-					React.createElement(Box, {name: "Email"}), 
-					React.createElement(Box, {name: "Birth"})
+				React.createElement("form", {class: "form-horizontal"}, 
+				React.createElement("link", {rel: "stylesheet", type: "text/css", href: "../bootstrap/css/custom.css"}), 
+				  React.createElement("div", {class: "form-group"}, 
+				    React.createElement("label", {for: "inputEmail3", class: "col-sm-2 control-label"}, "Email"), 
+				    React.createElement("div", {class: "col-sm-10"}, 
+				      React.createElement("input", {type: "email", class: "form-control", id: "inputEmail3", placeholder: "Email"})
+				    )
+				  ), 
+				  React.createElement("div", {class: "form-group"}, 
+				    React.createElement("label", {for: "inputPassword3", class: "col-sm-2 control-label"}, "Password"), 
+				    React.createElement("div", {class: "col-sm-10"}, 
+				      React.createElement("input", {type: "password", class: "form-control", id: "inputPassword3", placeholder: "Password"})
+				    )
+				  ), 
+				  React.createElement("div", {class: "form-group"}, 
+				    React.createElement("div", {class: "col-sm-offset-2 col-sm-10"}, 
+				      React.createElement("button", {type: "submit", class: "btn btn-default"}, "Sign in")
+				    )
+				  )
 				)
 				);
 		}

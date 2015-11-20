@@ -54,10 +54,10 @@ var App = React.createClass({
 // Run the routes
 var routes = (
       <Router>
-        <Route name="app" path="/" component={App}>
-          <Route name="SignUp" path="/signUp" component={SignUp}/>
+        <Route name="SignUp" path="/" component={SignUp}/>
+        <Route name="app" path="/main" component={App}>
           <Route name="Friends" path="/friends" component={Friends}/>
-          <Route path="profile" path="/profile" component={Profile}/>
+          <Route name="profile" path="/profile" component={Profile}/>
         </Route>
       </Router>
 );
