@@ -21,6 +21,7 @@ body {
   background-position: center center;
   vertical-align: center;
   background-repeat:no-repeat;
+  background-attachment: fixed;
   display: compact;
   background-image: url(../../../background.jpg);
 }
