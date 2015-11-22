@@ -22,19 +22,76 @@ body {
   vertical-align: center;
   background-repeat:no-repeat;
   background-attachment: fixed;
-  text-align: center
+  text-align: center;
   display: compact;
-  background-image: url(../../../background.jpg);
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url(http://7-themes.com/data_images/out/39/6904494-beautiful-beach-resort-view.jpg);
+}
+
+#key_phrase{
+margin-top: 4cm;
+float: center;
+color: ORANGE;
+display: compact;
+text-align: center;
+vertical-align: center;
+background-size: 100% 100%s;
+font-family: Open Sansorgia;
+font-size: 50px;
+line-height: 1.428571429;
+}
+
+#firstSuppPhrase{
+float: center;
+color: WHITE;
+display: compact;
+text-align: center;
+vertical-align: center;
+background-size: 100% 100%s;
+font-family: Open Sansorgia;
+font-size: 40px;
+line-height: 1.428571429;
+}
+
+#secondSuppPhrase{
+float: center;
+color: YELLOW;
+display: compact;
+text-align: center;
+vertical-align: center;
+background-size: 100% 100%s;
+font-family: Open Sansorgia;
+font-size: 40px;
+line-height: 1.428571429;
 }
 
 form {
+  float: center;
   height: 300px;
   width: 300px;
   margin: 0 auto;
-  margin-top: 4cm;
+  margin-top: 1.5cm;
+}
+
+#LogInBtn {
+  margin-right: .25cm;
+  margin-top: .5cm;
+  float: center;
+  color: WHITE;
 }
 
 #SignUpBtn {
-  margin-left: 1.5cm;
+  margin-left: .25cm;
+  margin-top: .5cm;
+  float: center;
+  color: WHITE;
 }
 
+
+.navbar {
+   float: center;
+   
+}

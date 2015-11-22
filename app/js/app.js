@@ -3,50 +3,44 @@ var Link = ReactRouter.Link;
 var Route = ReactRouter.Route;
 var Profile = require('./Profile')
 var Friends = require('./Friends')
-var SignUp = require('./SignUp')
+var mainAppWin = require('./mainAppWin')
 
 var App = React.createClass({
 
-  render: function() {
-    return (
-      <div>
-		<nav className="navbar navbar-default" role ="navigation">
- 		 <div className="container">
-    		<div className="navbar-header">
-      			<button type="button" className="navbar-toggle" data-toggle="collapse">
-        			<span className="sr-only">Toggle navigation</span>
-        			<span className="icon-bar"></span>
-        			<span className="icon-bar"></span>
-        			<span className="icon-bar"></span>
-      			</button>
-      			<a className="navbar-brand" href="/">Genie Lamp</a>
-    		</div>
-
-    		<div className="collapse navbar-collapse">
-      			<ul className="nav navbar-nav">
-              <li><Link to="SignUp">Log In</Link></li>
-        			<li><Link to="profile">Profile</Link></li>
-        			<li><Link to="WishListHist">WishList</Link></li>
-        			<li role="presentation" className="dropdown">
-          				<a className="dropdown-toggle" href ="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends<span className="caret"></span></a>
-          				<ul className="dropdown-menu">
-            				<li><Link to="Friends">View Friends</Link></li>
-            				<li><a href="#">Add Friend</a></li>
-            				<li><a href="#">Remove Friend</a></li>
-          				</ul>
-        			</li>
-      			</ul>
-      			<ul className="nav navbar-nav navbar-right">
-        			<li><a href="/">Hello Yazan</a></li>
-      			</ul>
-    		</div>
-  		  </div>
-  		</nav>
-        <div className="container">
-          {this.props.children}
-        </div>
+  render: function(){
+    return(
+      <div class="container-fluid" id="Home">
+        <div id="key_phrase">Make you wishes Come True</div>
+        <div id="firstSuppPhrase">Genie Lamp allows you to make wishes</div>
+        <div id="firstSuppPhrase">And have you friends GRANT them</div>
+        <div id="secondSuppPhrase">Join NOW!</div>
+        <form class="form-horizontal">
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/custom.css"/>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="Email"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="inputPassword3" placeholder="Password"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button id="LogInBtn">
+              <a href="http://www.google.com" class="btn btn-primary btn-lg active" role="button">Log In</a>
+              </button>
+              <button id="SignUpBtn">
+              <a class="btn btn-primary btn-lg active" role="button">Sign Up
+              <Link to="mainAppWin"/></a></button>
+            </div>
+          </div>
+        </form>
       </div>
-    );
+      );
   }
 });
 
@@ -56,9 +50,9 @@ var App = React.createClass({
 var routes = (
       <Router>
         <Route name="app" path="/" component={App}>
-          <Route name="SignUp" path="/SignUp" component={SignUp}/>  
-          <Route name="Friends" path="/friends" component={Friends}/>
-          <Route name="profile" path="/profile" component={Profile}/>
+          <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}/>
+            <Route name="Friends" path="/friends" component={Friends}/>
+            <Route name="profile" path="/profile" component={Profile}/>
         </Route>
       </Router>
 );

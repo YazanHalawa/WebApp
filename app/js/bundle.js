@@ -56,50 +56,44 @@
 	var Route = ReactRouter.Route;
 	var Profile = __webpack_require__(2)
 	var Friends = __webpack_require__(3)
-	var SignUp = __webpack_require__(4)
+	var mainAppWin = __webpack_require__(4)
 	
 	var App = React.createClass({displayName: "App",
 	
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-			React.createElement("nav", {className: "navbar navbar-default", role: "navigation"}, 
-	 		 React.createElement("div", {className: "container"}, 
-	    		React.createElement("div", {className: "navbar-header"}, 
-	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
-	        			React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
-	        			React.createElement("span", {className: "icon-bar"}), 
-	        			React.createElement("span", {className: "icon-bar"}), 
-	        			React.createElement("span", {className: "icon-bar"})
-	      			), 
-	      			React.createElement("a", {className: "navbar-brand", href: "/"}, "Genie Lamp")
-	    		), 
-	
-	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
-	      			React.createElement("ul", {className: "nav navbar-nav"}, 
-	              React.createElement("li", null, React.createElement(Link, {to: "SignUp"}, "Log In")), 
-	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
-	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
-	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
-	          				React.createElement("a", {className: "dropdown-toggle", href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
-	          				React.createElement("ul", {className: "dropdown-menu"}, 
-	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
-	          				)
-	        			)
-	      			), 
-	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
-	        			React.createElement("li", null, React.createElement("a", {href: "/"}, "Hello Yazan"))
-	      			)
-	    		)
-	  		  )
-	  		), 
-	        React.createElement("div", {className: "container"}, 
-	          this.props.children
+	  render: function(){
+	    return(
+	      React.createElement("div", {class: "container-fluid", id: "Home"}, 
+	        React.createElement("div", {id: "key_phrase"}, "Make you wishes Come True"), 
+	        React.createElement("div", {id: "firstSuppPhrase"}, "Genie Lamp allows you to make wishes"), 
+	        React.createElement("div", {id: "firstSuppPhrase"}, "And have you friends GRANT them"), 
+	        React.createElement("div", {id: "secondSuppPhrase"}, "Join NOW!"), 
+	        React.createElement("form", {class: "form-horizontal"}, 
+	        React.createElement("link", {rel: "stylesheet", type: "text/css", href: "../bootstrap/css/custom.css"}), 
+	          React.createElement("div", {class: "form-group"}, 
+	            React.createElement("label", {for: "inputEmail3", class: "col-sm-2 control-label"}, "Email"), 
+	            React.createElement("div", {class: "col-sm-10"}, 
+	              React.createElement("input", {type: "email", class: "form-control", id: "inputEmail3", placeholder: "Email"})
+	            )
+	          ), 
+	          React.createElement("div", {class: "form-group"}, 
+	            React.createElement("label", {for: "inputPassword3", class: "col-sm-2 control-label"}, "Password"), 
+	            React.createElement("div", {class: "col-sm-10"}, 
+	              React.createElement("input", {type: "password", class: "form-control", id: "inputPassword3", placeholder: "Password"})
+	            )
+	          ), 
+	          React.createElement("div", {class: "form-group"}, 
+	            React.createElement("div", {class: "col-sm-offset-2 col-sm-10"}, 
+	              React.createElement("button", {id: "LogInBtn"}, 
+	              React.createElement("a", {href: "http://www.google.com", class: "btn btn-primary btn-lg active", role: "button"}, "Log In")
+	              ), 
+	              React.createElement("button", {id: "SignUpBtn"}, 
+	              React.createElement("a", {class: "btn btn-primary btn-lg active", role: "button"}, "Sign Up", 
+	              React.createElement(Link, {to: "mainAppWin"})))
+	            )
+	          )
 	        )
 	      )
-	    );
+	      );
 	  }
 	});
 	
@@ -109,9 +103,9 @@
 	var routes = (
 	      React.createElement(Router, null, 
 	        React.createElement(Route, {name: "app", path: "/", component: App}, 
-	          React.createElement(Route, {name: "SignUp", path: "/SignUp", component: SignUp}), 
-	          React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
-	          React.createElement(Route, {name: "profile", path: "/profile", component: Profile})
+	          React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}), 
+	            React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
+	            React.createElement(Route, {name: "profile", path: "/profile", component: Profile})
 	        )
 	      )
 	);
@@ -162,53 +156,51 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	/** @jsx React.DOM */// var Box = React.createClass({
+	/** @jsx React.DOM */var mainAppWin = React.createClass({displayName: "mainAppWin",
 	
-	// 	getInitialState: function() {
-	//     	return {value: 'Hello!'};
-	//   	},
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+			React.createElement("nav", {className: "navbar navbar-default", role: "navigation"}, 
+	 		 React.createElement("div", {className: "container"}, 
+	    		React.createElement("div", {className: "navbar-header"}, 
+	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
+	        			React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+	        			React.createElement("span", {className: "icon-bar"}), 
+	        			React.createElement("span", {className: "icon-bar"}), 
+	        			React.createElement("span", {className: "icon-bar"})
+	      			), 
+	      			React.createElement("a", {className: "navbar-brand", href: "/"}, "Genie Lamp")
+	    		), 
 	
-	//   	handleChange: function(event) {
-	//     	this.setState({value: event.target.value});
-	//   	},
-	// 	render: function(){
-	// 		return (
-	// 			<li>
-	// 				<input type="text" placeholder={this.props.name} />
-	// 			</li>
-	// 			);
-	// 	}
-	// })
-	
-	var SignUp = React.createClass({displayName: "SignUp",
-		render: function(){
-			return(
-				React.createElement("form", {class: "form-horizontal"}, 
-				React.createElement("link", {rel: "stylesheet", type: "text/css", href: "../bootstrap/css/custom.css"}), 
-				  React.createElement("div", {class: "form-group"}, 
-				    React.createElement("label", {for: "inputEmail3", class: "col-sm-2 control-label"}, "Email"), 
-				    React.createElement("div", {class: "col-sm-10"}, 
-				      React.createElement("input", {type: "email", class: "form-control", id: "inputEmail3", placeholder: "Email"})
-				    )
-				  ), 
-				  React.createElement("div", {class: "form-group"}, 
-				    React.createElement("label", {for: "inputPassword3", class: "col-sm-2 control-label"}, "Password"), 
-				    React.createElement("div", {class: "col-sm-10"}, 
-				      React.createElement("input", {type: "password", class: "form-control", id: "inputPassword3", placeholder: "Password"})
-				    )
-				  ), 
-				  React.createElement("div", {class: "form-group"}, 
-				    React.createElement("div", {class: "col-sm-offset-2 col-sm-10"}, 
-				      React.createElement("a", {id: "LogInBtn", href: "http://www.google.com", class: "btn btn-primary btn-lg active", role: "button"}, "Log In"), 
-				      React.createElement("a", {id: "SignUpBtn", href: "Friends", class: "btn btn-primary btn-lg active", role: "button"}, "Sign Up")
-				    )
-				  )
-				)
-				);
-		}
+	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
+	      			React.createElement("ul", {className: "nav navbar-nav"}, 
+	        			React.createElement("li", null, React.createElement(Link, {to: "profile"}, "Profile")), 
+	        			React.createElement("li", null, React.createElement(Link, {to: "WishListHist"}, "WishList")), 
+	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
+	          				React.createElement("a", {className: "dropdown-toggle", href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
+	          				React.createElement("ul", {className: "dropdown-menu"}, 
+	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
+	          				)
+	        			)
+	      			), 
+	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
+	        			React.createElement("li", null, React.createElement("a", {href: "/"}, "Hello Yazan"))
+	      			)
+	    		)
+	  		  )
+	  		), 
+	        React.createElement("div", {className: "container"}, 
+	          this.props.children
+	        )
+	      )
+	    );
+	  }
 	});
 	
-	module.exports = SignUp
+	module.exports = mainAppWin
 
 /***/ }
 /******/ ]);
