@@ -12,7 +12,8 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: Calibri;
+  font-family: "Calibri";
+  font-style: italic;
   font-size: 14px;
   line-height: 1.428571429;
   color: #e2e1c8;
@@ -32,7 +33,7 @@ body {
 }
 
 #mainPage{
-  font-family: Calibri;
+  font-family: "Calibri";
   font-size: 14px;
   line-height: 1.428571429;
   color: #e2e1c8;
@@ -54,7 +55,7 @@ display: compact;
 text-align: center;
 vertical-align: center;
 background-size: 100% 100%s;
-font-family: Open Sansorgia;
+font-family: "Calibri";
 font-size: 50px;
 line-height: 1.428571429;
 }
@@ -66,7 +67,7 @@ display: compact;
 text-align: center;
 vertical-align: center;
 background-size: 100% 100%s;
-font-family: Open Sansorgia;
+font-family: "Calibri";
 font-size: 40px;
 line-height: 1.428571429;
 }
@@ -78,7 +79,7 @@ display: compact;
 text-align: center;
 vertical-align: center;
 background-size: 100% 100%s;
-font-family: Open Sansorgia;
+font-family: "Calibri";
 font-size: 40px;
 line-height: 1.428571429;
 }
