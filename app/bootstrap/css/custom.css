@@ -47,41 +47,41 @@ body {
 }
 
 #key_phrase{
-margin-top: 4cm;
-float: center;
-color: ORANGE;
-display: compact;
-text-align: center;
-vertical-align: center;
-background-size: 100% 100%s;
-font-family: "Calibri";
-font-size: 50px;
-line-height: 1.428571429;
+  margin-top: 4cm;
+  float: center;
+  color: ORANGE;
+  display: compact;
+  text-align: center;
+  vertical-align: center;
+  background-size: 100% 100%s;
+  font-family: "Calibri";
+  font-size: 50px;
+  line-height: 1.428571429;
 }
 
 #firstSuppPhrase{
-float: center;
-color: WHITE;
-display: compact;
-text-align: center;
-vertical-align: center;
-background-size: 100% 100%s;
-font-family: "Calibri";
-font-size: 40px;
-line-height: 1.428571429;
+  float: center;
+  color: WHITE;
+  display: compact;
+  text-align: center;
+  vertical-align: center;
+  background-size: 100% 100%s;
+  font-family: "Calibri";
+  font-size: 40px;
+  line-height: 1.428571429;
 }
 
 #secondSuppPhrase{
-float: center;
-font-style: italic;
-color: Gold;
-display: compact;
-text-align: center;
-vertical-align: center;
-background-size: 100% 100%s;
-font-family: "Calibri";
-font-size: 40px;
-line-height: 1.428571429;
+  float: center;
+  font-style: italic;
+  color: Gold;
+  display: compact;
+  text-align: center;
+  vertical-align: center;
+  background-size: 100% 100%s;
+  font-family: "Calibri";
+  font-size: 40px;
+  line-height: 1.428571429;
 }
 
 form {
@@ -90,6 +90,10 @@ form {
   width: 300px;
   margin: 0 auto;
   margin-top: 1.5cm;
+}
+
+input, select, textarea {
+  color: #000;
 }
 
 #LogInBtn {
