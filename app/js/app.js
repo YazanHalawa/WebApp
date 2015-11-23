@@ -30,12 +30,12 @@ var App = React.createClass({
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button id="LogInBtn">
-              <a href="http://www.google.com" class="btn btn-primary btn-lg active" role="button">Log In</a>
+              <button id="LogInBtn" class="btn btn-primary btn-lg active" role="button">
+                <Link to="mainAppWin">Log In</Link>
               </button>
-              <button id="SignUpBtn">
-              <a class="btn btn-primary btn-lg active" role="button">Sign Up
-              <Link to="mainAppWin"/></a></button>
+              <button id="SignUpBtn" class="btn btn-primary btn-lg active" role="button">
+                <Link to="SignUp">Sign Up</Link>
+              </button>
             </div>
           </div>
         </form>
@@ -50,9 +50,10 @@ var App = React.createClass({
 var routes = (
       <Router>
         <Route name="app" path="/" component={App}>
-          <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}/>
+          <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
             <Route name="Friends" path="/friends" component={Friends}/>
             <Route name="profile" path="/profile" component={Profile}/>
+          </Route>
         </Route>
       </Router>
 );

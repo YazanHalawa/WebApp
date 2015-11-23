@@ -83,12 +83,12 @@
 	          ), 
 	          React.createElement("div", {class: "form-group"}, 
 	            React.createElement("div", {class: "col-sm-offset-2 col-sm-10"}, 
-	              React.createElement("button", {id: "LogInBtn"}, 
-	              React.createElement("a", {href: "http://www.google.com", class: "btn btn-primary btn-lg active", role: "button"}, "Log In")
+	              React.createElement("button", {id: "LogInBtn", class: "btn btn-primary btn-lg active", role: "button"}, 
+	                React.createElement(Link, {to: "mainAppWin"}, "Log In")
 	              ), 
-	              React.createElement("button", {id: "SignUpBtn"}, 
-	              React.createElement("a", {class: "btn btn-primary btn-lg active", role: "button"}, "Sign Up", 
-	              React.createElement(Link, {to: "mainAppWin"})))
+	              React.createElement("button", {id: "SignUpBtn", class: "btn btn-primary btn-lg active", role: "button"}, 
+	                React.createElement(Link, {to: "SignUp"}, "Sign Up")
+	              )
 	            )
 	          )
 	        )
@@ -103,9 +103,10 @@
 	var routes = (
 	      React.createElement(Router, null, 
 	        React.createElement(Route, {name: "app", path: "/", component: App}, 
-	          React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}), 
+	          React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
 	            React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
 	            React.createElement(Route, {name: "profile", path: "/profile", component: Profile})
+	          )
 	        )
 	      )
 	);
@@ -160,8 +161,7 @@
 	
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
-			React.createElement("nav", {className: "navbar navbar-default", role: "navigation"}, 
+			React.createElement("nav", {className: "navbar navbar-default", role: "navigation", id: "mainPage"}, 
 	 		 React.createElement("div", {className: "container"}, 
 	    		React.createElement("div", {className: "navbar-header"}, 
 	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
@@ -170,7 +170,7 @@
 	        			React.createElement("span", {className: "icon-bar"}), 
 	        			React.createElement("span", {className: "icon-bar"})
 	      			), 
-	      			React.createElement("a", {className: "navbar-brand", href: "/"}, "Genie Lamp")
+	      			React.createElement("a", {className: "navbar-brand", href: "#"}, "Genie Lamp")
 	    		), 
 	
 	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
@@ -191,11 +191,7 @@
 	      			)
 	    		)
 	  		  )
-	  		), 
-	        React.createElement("div", {className: "container"}, 
-	          this.props.children
-	        )
-	      )
+	  		)
 	    );
 	  }
 	});

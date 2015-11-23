@@ -2,8 +2,7 @@ var mainAppWin = React.createClass({
 
   render: function() {
     return (
-      <div>
-		<nav className="navbar navbar-default" role ="navigation">
+		<nav className="navbar navbar-default" role ="navigation" id="mainPage">
  		 <div className="container">
     		<div className="navbar-header">
       			<button type="button" className="navbar-toggle" data-toggle="collapse">
@@ -12,7 +11,7 @@ var mainAppWin = React.createClass({
         			<span className="icon-bar"></span>
         			<span className="icon-bar"></span>
       			</button>
-      			<a className="navbar-brand" href="/">Genie Lamp</a>
+      			<a className="navbar-brand" href="#">Genie Lamp</a>
     		</div>
 
     		<div className="collapse navbar-collapse">
@@ -34,10 +33,6 @@ var mainAppWin = React.createClass({
     		</div>
   		  </div>
   		</nav>
-        <div className="container">
-          {this.props.children}
-        </div>
-      </div>
     );
   }
 });
