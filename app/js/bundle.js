@@ -63,7 +63,7 @@
 	  render: function(){
 	    return(
 	      React.createElement("div", {class: "container-fluid", id: "Home"}, 
-	        React.createElement("div", {id: "key_phrase"}, "Make you wishes Come True"), 
+	        React.createElement("div", {id: "key_phrase"}, "Make your wishes come true"), 
 	        React.createElement("div", {id: "firstSuppPhrase"}, "Genie Lamp allows you to make wishes"), 
 	        React.createElement("div", {id: "firstSuppPhrase"}, "And have you friends GRANT them"), 
 	        React.createElement("div", {id: "secondSuppPhrase"}, "Join NOW!"), 

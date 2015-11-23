@@ -10,7 +10,7 @@ var App = React.createClass({
   render: function(){
     return(
       <div class="container-fluid" id="Home">
-        <div id="key_phrase">Make you wishes Come True</div>
+        <div id="key_phrase">Make your wishes come true</div>
         <div id="firstSuppPhrase">Genie Lamp allows you to make wishes</div>
         <div id="firstSuppPhrase">And have you friends GRANT them</div>
         <div id="secondSuppPhrase">Join NOW!</div>

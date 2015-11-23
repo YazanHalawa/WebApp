@@ -13,7 +13,6 @@ html {
 }
 body {
   font-family: "Calibri";
-  font-style: italic;
   font-size: 14px;
   line-height: 1.428571429;
   color: #e2e1c8;
@@ -74,7 +73,8 @@ line-height: 1.428571429;
 
 #secondSuppPhrase{
 float: center;
-color: YELLOW;
+font-style: italic;
+color: Gold;
 display: compact;
 text-align: center;
 vertical-align: center;
