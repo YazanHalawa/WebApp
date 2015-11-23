@@ -1,6 +1,7 @@
 var mainAppWin = React.createClass({
 
   render: function() {
+    console.log("reaching here");
     return (
 		<nav className="navbar navbar-default" role ="navigation" id="mainPage">
  		 <div className="container">
@@ -31,8 +32,8 @@ var mainAppWin = React.createClass({
         			<li><a href="/">Hello Yazan</a></li>
       			</ul>
     		</div>
-  		  </div>
-  		</nav>
+  		</div>
+  	</nav>
     );
   }
 });
