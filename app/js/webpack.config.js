@@ -3,7 +3,7 @@ module.exports = {
 
     // Where the app starts - all other dependencies are bundled from this point.
     entry: [
-      './app.js'
+      './indexLogger.js'
     ],
 
     output: {

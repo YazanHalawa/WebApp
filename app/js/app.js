@@ -1,9 +1,4 @@
-var Router = ReactRouter.Router;
 var Link = ReactRouter.Link;
-var Route = ReactRouter.Route;
-var Profile = require('./Profile')
-var Friends = require('./Friends')
-var mainAppWin = require('./mainAppWin')
 
 var App = React.createClass({
 
@@ -30,12 +25,12 @@ var App = React.createClass({
           </div>
           <div className="form-group">
             <div className="col-sm-offset-2 col-sm-10">
-              <button id="LogInBtn" className="btn btn-primary btn-lg active" role="button" onClick=>
-                <Link to="mainAppWin">Log In</Link>
-              </button>
-              <button id="SignUpBtn" className="btn btn-primary btn-lg active" role="button">
-                <Link to="SignUp">Sign Up</Link>
-              </button>
+                <Link to="/mainAppWin">
+                  <button id="LogInBtn" className="btn btn-primary btn-lg active" >Log In</button>
+                </Link>
+                <Link to="SignUp">
+                  <button id="SignUpBtn" className="btn btn-primary btn-lg active" >Sign Up</button>
+                </Link>
             </div>
           </div>
         </form>
@@ -44,20 +39,4 @@ var App = React.createClass({
   }
 });
 
-
-
-// Run the routes
-var routes = (
-      <Router>
-        <Route name="app" path="/" component={App}>
-          <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
-            <Route name="Friends" path="/friends" component={Friends}/>
-            <Route name="profile" path="/profile" component={Profile}/>
-          </Route>
-          <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}/>
-        </Route>
-      </Router>
-);
-
-
-ReactDOM.render(routes, document.body);
+module.exports = App;

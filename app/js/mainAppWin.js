@@ -1,7 +1,8 @@
+var Link = ReactRouter.Link;
+
 var mainAppWin = React.createClass({
 
   render: function() {
-    console.log("reaching here");
     return (
 		<nav className="navbar navbar-default" role ="navigation" id="mainPage">
  		 <div className="container">
@@ -12,7 +13,7 @@ var mainAppWin = React.createClass({
         			<span className="icon-bar"></span>
         			<span className="icon-bar"></span>
       			</button>
-      			<a className="navbar-brand" href="#">Genie Lamp</a>
+      			<a className="navbar-brand" href="/mainAppWin">Genie Lamp</a>
     		</div>
 
     		<div className="collapse navbar-collapse">
@@ -20,7 +21,7 @@ var mainAppWin = React.createClass({
         			<li><Link to="profile">Profile</Link></li>
         			<li><Link to="WishListHist">WishList</Link></li>
         			<li role="presentation" className="dropdown">
-          				<a className="dropdown-toggle" href ="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends<span className="caret"></span></a>
+          				<a className="dropdown-toggle" href ="mainAppWin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends<span className="caret"></span></a>
           				<ul className="dropdown-menu">
             				<li><Link to="Friends">View Friends</Link></li>
             				<li><a href="#">Add Friend</a></li>
@@ -29,7 +30,7 @@ var mainAppWin = React.createClass({
         			</li>
       			</ul>
       			<ul className="nav navbar-nav navbar-right">
-        			<li><a href="/">Hello Yazan</a></li>
+        			<li><a href="mainAppWin">Hello Yazan</a></li>
       			</ul>
     		</div>
   		</div>
