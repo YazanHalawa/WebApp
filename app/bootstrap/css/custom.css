@@ -120,8 +120,15 @@ input, select, textarea {
   color: WHITE;
 }
 
+#mainText {
+  margin-right: 1.5cm;
+}
+
+#mainForm {
+  margin: 0 auto;
+  position: center;
+}
 
 .navbar {
    float: center;
-   
 }

@@ -99,11 +99,13 @@
 	  render: function(){
 	    return(
 	      React.createElement("div", {className: "container-fluid", id: "Home"}, 
-	        React.createElement("div", {id: "key_phrase"}, "Make your wishes come true"), 
-	        React.createElement("div", {id: "firstSuppPhrase"}, "Genie Lamp allows you to make wishes"), 
-	        React.createElement("div", {id: "firstSuppPhrase"}, "And have you friends GRANT them"), 
-	        React.createElement("div", {id: "secondSuppPhrase"}, "Join NOW!"), 
-	        React.createElement("form", {className: "form-horizontal"}, 
+	        React.createElement("div", {id: "mainText"}, 
+	          React.createElement("div", {id: "key_phrase"}, "Make your wishes come true"), 
+	          React.createElement("div", {id: "firstSuppPhrase"}, "Genie Lamp allows you to make wishes"), 
+	          React.createElement("div", {id: "firstSuppPhrase"}, "And have you friends GRANT them"), 
+	          React.createElement("div", {id: "secondSuppPhrase"}, "Join NOW!")
+	        ), 
+	        React.createElement("form", {id: "mainForm", className: "form-horizontal"}, 
 	        React.createElement("link", {rel: "stylesheet", type: "text/css", href: "../bootstrap/css/custom.css"}), 
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("label", {id: "emailLabel", htmlFor: "inputEmail3", className: "col-sm-2 control-label"}, "Email"), 

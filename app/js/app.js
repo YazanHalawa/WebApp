@@ -5,11 +5,13 @@ var App = React.createClass({
   render: function(){
     return(
       <div className="container-fluid" id="Home">
-        <div id="key_phrase">Make your wishes come true</div>
-        <div id="firstSuppPhrase">Genie Lamp allows you to make wishes</div>
-        <div id="firstSuppPhrase">And have you friends GRANT them</div>
-        <div id="secondSuppPhrase">Join NOW!</div>
-        <form className="form-horizontal">
+        <div id="mainText">
+          <div id="key_phrase">Make your wishes come true</div>
+          <div id="firstSuppPhrase">Genie Lamp allows you to make wishes</div>
+          <div id="firstSuppPhrase">And have you friends GRANT them</div>
+          <div id="secondSuppPhrase">Join NOW!</div>
+        </div>
+        <form id="mainForm" className="form-horizontal">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/custom.css"/>
           <div className="form-group">
             <label id="emailLabel" htmlFor="inputEmail3" className="col-sm-2 control-label">Email</label>
