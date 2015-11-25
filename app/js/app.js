@@ -30,7 +30,7 @@ var App = React.createClass({
                 <Link to="/mainAppWin">
                   <button id="LogInBtn" className="btn btn-primary btn-lg active" >Log In</button>
                 </Link>
-                <Link to="SignUp">
+                <Link to="/SignUp">
                   <button id="SignUpBtn" className="btn btn-primary btn-lg active" >Sign Up</button>
                 </Link>
             </div>

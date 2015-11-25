@@ -1,5 +1,6 @@
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
+var SignUp = require('./SignUp');
 var App = require('./App');
 var Profile = require('./Profile');
 var Friends = require('./Friends');
@@ -21,9 +22,15 @@ var routes = (
     <Router>
       	<Route name="parent" path="/" component={indexLogger}>
       		<IndexRoute component={App}/>
-	        <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
-	            <Route name="Friends" path="/friends" component={Friends}/>
+      		<Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
+      			<Route name="Friends" path="/friends" component={Friends}/>
 	            <Route name="profile" path="/profile" component={Profile}/>
+	        </Route>
+      		<Route name="SignUp" path="/SignUp" component={SignUp}>
+  			    <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
+            		<Route name="Friends" path="/friends" component={Friends}/>
+            		<Route name="profile" path="/profile" component={Profile}/>
+            	</Route>
 	        </Route>
         </Route>
     </Router>
