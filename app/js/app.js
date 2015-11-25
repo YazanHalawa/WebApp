@@ -12,13 +12,13 @@ var App = React.createClass({
         <form className="form-horizontal">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/custom.css"/>
           <div className="form-group">
-            <label htmlFor="inputEmail3" className="col-sm-2 control-label">Email</label>
+            <label id="emailLabel" htmlFor="inputEmail3" className="col-sm-2 control-label">Email</label>
             <div className="col-sm-10">
               <input type="email" className="form-control" id="inputEmail3" placeholder="Email"/>
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor="inputPassword3" className="col-sm-2 control-label">Password</label>
+            <label id="passwordLabel" htmlFor="inputPassword3" className="col-sm-2 control-label">Password</label>
             <div className="col-sm-10">
               <input type="password" className="form-control" id="inputPassword3" placeholder="Password"/>
             </div>

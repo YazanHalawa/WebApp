@@ -106,13 +106,13 @@
 	        React.createElement("form", {className: "form-horizontal"}, 
 	        React.createElement("link", {rel: "stylesheet", type: "text/css", href: "../bootstrap/css/custom.css"}), 
 	          React.createElement("div", {className: "form-group"}, 
-	            React.createElement("label", {htmlFor: "inputEmail3", className: "col-sm-2 control-label"}, "Email"), 
+	            React.createElement("label", {id: "emailLabel", htmlFor: "inputEmail3", className: "col-sm-2 control-label"}, "Email"), 
 	            React.createElement("div", {className: "col-sm-10"}, 
 	              React.createElement("input", {type: "email", className: "form-control", id: "inputEmail3", placeholder: "Email"})
 	            )
 	          ), 
 	          React.createElement("div", {className: "form-group"}, 
-	            React.createElement("label", {htmlFor: "inputPassword3", className: "col-sm-2 control-label"}, "Password"), 
+	            React.createElement("label", {id: "passwordLabel", htmlFor: "inputPassword3", className: "col-sm-2 control-label"}, "Password"), 
 	            React.createElement("div", {className: "col-sm-10"}, 
 	              React.createElement("input", {type: "password", className: "form-control", id: "inputPassword3", placeholder: "Password"})
 	            )
