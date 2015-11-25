@@ -118,7 +118,7 @@
 	            )
 	          ), 
 	          React.createElement("div", {className: "form-group"}, 
-	            React.createElement("div", {className: "col-sm-offset-2 col-sm-10"}, 
+	            React.createElement("div", {className: "col-sm-10"}, 
 	                React.createElement(Link, {to: "/mainAppWin"}, 
 	                  React.createElement("button", {id: "LogInBtn", className: "btn btn-primary btn-lg active"}, "Log In")
 	                ), 
