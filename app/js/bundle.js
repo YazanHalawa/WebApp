@@ -349,6 +349,13 @@
 	
 	var App = React.createClass({displayName: "App",
 	
+	  getInitialState: function(){
+	    return{
+	      emailText: '',
+	      passwordText: ''
+	    }
+	  },
+	
 	  render: function(){
 	    return(
 	      React.createElement("div", {className: "container-fluid", id: "Home"}, 
@@ -363,19 +370,36 @@
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("label", {id: "emailLabel", htmlFor: "inputEmail3", className: "col-sm-2 control-label"}, "Email"), 
 	            React.createElement("div", {className: "col-sm-10"}, 
-	              React.createElement("input", {type: "email", className: "form-control", id: "inputEmail3", placeholder: "Email"})
+	              React.createElement("input", {
+	                value: this.state.emailText, 
+	                onChange: this.handleInputChange, 
+	                type: "email", 
+	                className: "form-control", 
+	                id: "inputEmail3", 
+	                placeholder: "Email"})
 	            )
 	          ), 
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("label", {id: "passwordLabel", htmlFor: "inputPassword3", className: "col-sm-2 control-label"}, "Password"), 
 	            React.createElement("div", {className: "col-sm-10"}, 
-	              React.createElement("input", {type: "password", className: "form-control", id: "inputPassword3", placeholder: "Password"})
+	              React.createElement("input", {
+	                value: this.state.passwordText, 
+	                onChange: this.handleInputChange, 
+	                type: "password", 
+	                className: "form-control", 
+	                id: "inputPassword3", 
+	                placeholder: "Password"})
 	            )
 	          ), 
 	          React.createElement("div", {className: "form-group"}, 
 	            React.createElement("div", {className: "col-sm-10"}, 
 	                React.createElement(Link, {to: "/mainAppWin"}, 
-	                  React.createElement("button", {id: "LogInBtn", className: "btn btn-primary btn-lg active"}, "Log In")
+	                  React.createElement("button", {
+	                    onClick: this.handleClick, 
+	                    id: "LogInBtn", 
+	                    className: "btn btn-primary btn-lg active"}, 
+	                    "Log In"
+	                  )
 	                ), 
 	                React.createElement(Link, {to: "/SignUp"}, 
 	                  React.createElement("button", {id: "SignUpBtn", className: "btn btn-primary btn-lg active"}, "Sign Up")
@@ -385,8 +409,25 @@
 	        )
 	      )
 	      );
+	  },
+	
+	  // event handlers
+	  handleInputChange: function(event) {
+	    if (event.target.id === "inputPassword3"){
+	      this.setState({passwordText:event.target.value});
+	    }
+	    else if (event.target.id === "inputEmail3"){
+	      this.setState({emailText:event.target.value});
+	    }
+	  },
+	
+	  handleClick: function(){
+	    // Send value of text input to Mongo
+	
 	  }
 	});
+	
+	
 	
 	module.exports = App;
 
