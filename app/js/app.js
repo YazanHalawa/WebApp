@@ -75,8 +75,13 @@ var App = React.createClass({
   },
 
   handleClick: function(){
+    console.log(this.state.passwordText);
+    console.log(this.state.emailText);
     // Send value of text input to Mongo
-
+    this.setState({
+      emailText:'',
+      passwordText: ''
+    });
   }
 });
 
