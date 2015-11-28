@@ -7,23 +7,27 @@ var Person = require('../models/personSchema');
 //route
 router.get ('/', function(req,res){
 	console.log("index.html");
-	res.render('index');
+	res.sendFile('index.html');
 });
 
 router.post ('/register', function(req,res){
-	console.log('Register new user');
+	console.log('Register route');
 	console.log(req.body.username);
 	console.log(req.body.password);
-	
-	var db = req.db;
+
 	var user = Person ({ 
 		username : req.body.username, 
-		password: req.body.password
+		password: req.body.password,
+		firstName: req.body.lastName,
+		lastName: req.body.lastName
 		});
 	
 	user.save(function(err){
-		if (err) throw err;
-		console.log('new resigter user');
+		if (err) {
+			return res.send("User already exist!");	
+		}; 
+	res.redirect("/login_Success.html");
+	console.log('new resigtered user');
 	});
 });
 	
