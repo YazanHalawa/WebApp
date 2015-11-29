@@ -129,6 +129,7 @@ input, select, textarea {
   position: center;
 }
 
-.navbar {
+#mainPage {
    float: center;
+   background-color: WHITE;
 }

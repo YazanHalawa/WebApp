@@ -18,7 +18,7 @@ router.post ('/register', function(req,res){
 	var user = Person ({ 
 		username : req.body.username, 
 		password: req.body.password,
-		firstName: req.body.lastName,
+		firstName: req.body.firstName,
 		lastName: req.body.lastName
 		});
 	

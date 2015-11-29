@@ -102,6 +102,12 @@
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
 	
 	var SignUp = React.createClass({displayName: "SignUp",
+	
+		// context so the component can access the router
+	  	contextTypes: {
+	      router: React.PropTypes.func
+	  	},
+	  	
 		render: function(){
 			return(
 				React.createElement("form", {method: "post", id: "reg", name: "reg", action: "https://m.facebook.com/r.php", onsubmit: "return function(event){return false;}.call(this,event)!==false && window.Event && Event.__inlineSubmit && Event.__inlineSubmit(this,event)"}, 
@@ -130,8 +136,8 @@
 						React.createElement("div", {className: "mbm"}, 
 							React.createElement("div", {className: "_5dbb", id: "u_0_e"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
-									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Email or mobile number"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_email__", "aria-required": "1", placeholder: "", id: "u_0_f", "aria-label": "Email or mobile number"})
+									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Email"), 
+									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_email__", "aria-required": "1", placeholder: "", id: "u_0_f", "aria-label": "Email"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -139,8 +145,8 @@
 						React.createElement("div", {className: "mbm", id: "u_0_g"}, 
 							React.createElement("div", {className: "_5dbb", id: "u_0_h"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
-									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Re-enter email or mobile number"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_email_confirmation__", "aria-required": "1", placeholder: "", id: "u_0_i", "aria-label": "Re-enter email or mobile number"})
+									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Re-enter email"), 
+									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_email_confirmation__", "aria-required": "1", placeholder: "", id: "u_0_i", "aria-label": "Re-enter email"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -150,6 +156,33 @@
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "New password"), 
 									React.createElement("input", {type: "password", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_passwd__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "New password"})
+								), 
+								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+							)
+						), 
+						React.createElement("div", {className: "mbm"}, 
+							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "First Wish"), 
+									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_first_wish__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "First Wish"})
+								), 
+								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+							)
+						), 
+						React.createElement("div", {className: "mbm"}, 
+							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Second Wish"), 
+									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_second_wish__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "second wish"})
+								), 
+								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+							)
+						), 
+						React.createElement("div", {className: "mbm"}, 
+							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Third Wish"), 
+									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_third_wish__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "third wish"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -343,16 +376,23 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
+	var auth = __webpack_require__ (7);
 	
 	var App = React.createClass({displayName: "App",
+	
+	  // context so the component can access the router
+	  contextTypes: {
+	      router: React.PropTypes.func
+	  },
 	
 	  getInitialState: function(){
 	    return{
 	      emailText: '',
-	      passwordText: ''
+	      passwordText: '',
+	      error: false
 	    }
 	  },
 	
@@ -422,15 +462,33 @@
 	  },
 	
 	  handleClick: function(){
-	    console.log(this.state.passwordText);
-	    console.log(this.state.emailText);
-	    // Send value of text input to Mongo
+	    //----- Send value of text input to Mongo------//
+	    // prevent default browser submit
+	    event.preventDefault();
+	    // get data from form
+	    var username = this.state.emailText;
+	    var password = this.state.passwordText;
+	    if (!username || !password) {
+	        return;
+	    }
+	    // login via API
+	    auth.login(username, password, function(loggedIn) {
+	        // login callback
+	        if (!loggedIn)
+	            return this.setState({
+	                error: true
+	            });
+	        this.context.router.transitionTo('/mainAppWin');
+	    }.bind(this));
+	    //------ Empty the values ---------//
 	    this.setState({
 	      emailText:'',
 	      passwordText: ''
 	    });
 	  }
 	});
+	
+	
 	
 	
 	
@@ -442,14 +500,20 @@
 /***/ function(module, exports) {
 
 	/** @jsx React.DOM */var Profile = React.createClass({displayName: "Profile",
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	        React.createElement("h1", null, "Home"), 
-	        React.createElement("p", null, "Put your home page here")
-	      )
-	    );
-	  }
+	
+		// context so the component can access the router
+	  	contextTypes: {
+	      router: React.PropTypes.func
+	  	},
+	
+		render: function() {
+		    return (
+		      React.createElement("div", null, 
+		        React.createElement("h1", null, "Home"), 
+		        React.createElement("p", null, "Put your home page here")
+		      )
+		    );
+		  }
 	});
 	
 	module.exports = Profile
@@ -459,6 +523,11 @@
 /***/ function(module, exports) {
 
 	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
+	  // context so the component can access the router
+	  contextTypes: {
+	      router: React.PropTypes.func
+	  },
+	
 	  render: function() {
 	    return (
 	      React.createElement("div", null, 
@@ -482,6 +551,11 @@
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
 	
 	var mainAppWin = React.createClass({displayName: "mainAppWin",
+	
+	  // context so the component can access the router
+	  contextTypes: {
+	      router: React.PropTypes.func
+	  },
 	
 	  render: function() {
 	    return (
@@ -521,6 +595,104 @@
 	});
 	
 	module.exports = mainAppWin
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */// authentication object
+	var auth = {
+	    register: function(name, username, password, cb) {
+	        // submit request to server, call the callback when complete
+	        var url = "/api/users/register";
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            type: 'POST',
+	            data: {
+	                name: name,
+	                username: username,
+	                password: password
+	            },
+	            // on success, store a login token
+	            success: function(res) {
+	                localStorage.token = res.token;
+	                localStorage.name = res.name;
+	                if (cb)
+	                    cb(true);
+	                this.onChange(true);
+	            }.bind(this),
+	            error: function(xhr, status, err) {
+	                // if there is an error, remove any login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false);
+	                this.onChange(false);
+	            }.bind(this)
+	        });
+	    },
+	    // login the user
+	    login: function(username, password, cb) {
+	        // submit login request to server, call callback when complete
+	        cb = arguments[arguments.length - 1];
+	        // check if token in local storage
+	        if (localStorage.token) {
+	            if (cb)
+	                cb(true);
+	            this.onChange(true);
+	            return;
+	        }
+	
+	        // submit request to server
+	        var url = "/api/users/login";
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            type: 'POST',
+	            data: {
+	                username: username,
+	                password: password
+	            },
+	            success: function(res) {
+	                // on success, store a login token
+	                localStorage.token = res.token;
+	                localStorage.name = res.name;
+	                if (cb)
+	                    cb(true);
+	                this.onChange(true);
+	            }.bind(this),
+	            error: function(xhr, status, err) {
+	                // if there is an error, remove any login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false);
+	                this.onChange(false);
+	            }.bind(this)
+	        });
+	    },
+	    // get the token from local storage
+	    getToken: function() {
+	        return localStorage.token;
+	    },
+	    // get the name from local storage
+	    getName: function() {
+	        return localStorage.name;
+	    },
+	    // logout the user, call the callback when complete
+	    logout: function(cb) {
+	        delete localStorage.token;
+	        if (cb) cb();
+	        this.onChange(false);
+	    },
+	    // check if user is logged in
+	    loggedIn: function() {
+	        return !!localStorage.token;
+	    },
+	    // default onChange function
+	    onChange: function() {},
+	};
+	
+	module.exports = auth
 
 /***/ }
 /******/ ]);

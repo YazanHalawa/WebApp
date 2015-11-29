@@ -1,6 +1,12 @@
 var Link = ReactRouter.Link;
 
 var SignUp = React.createClass({
+
+	// context so the component can access the router
+  	contextTypes: {
+      router: React.PropTypes.func
+  	},
+  	
 	render: function(){
 		return(
 			<form method="post" id="reg" name="reg" action="https://m.facebook.com/r.php" onsubmit="return function(event){return false;}.call(this,event)!==false &amp;&amp; window.Event &amp;&amp; Event.__inlineSubmit &amp;&amp; Event.__inlineSubmit(this,event)">
@@ -29,8 +35,8 @@ var SignUp = React.createClass({
 					<div className="mbm">
 						<div className="_5dbb" id="u_0_e">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
-								<div className="placeholder" aria-hidden="true">Email or mobile number</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_email__" aria-required="1" placeholder="" id="u_0_f" aria-label="Email or mobile number"/>
+								<div className="placeholder" aria-hidden="true">Email</div>
+								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_email__" aria-required="1" placeholder="" id="u_0_f" aria-label="Email"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -38,8 +44,8 @@ var SignUp = React.createClass({
 					<div className="mbm" id="u_0_g">
 						<div className="_5dbb" id="u_0_h">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
-								<div className="placeholder" aria-hidden="true">Re-enter email or mobile number</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_email_confirmation__" aria-required="1" placeholder="" id="u_0_i" aria-label="Re-enter email or mobile number"/>
+								<div className="placeholder" aria-hidden="true">Re-enter email</div>
+								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_email_confirmation__" aria-required="1" placeholder="" id="u_0_i" aria-label="Re-enter email"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -49,6 +55,33 @@ var SignUp = React.createClass({
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 								<div className="placeholder" aria-hidden="true">New password</div>
 								<input type="password" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_passwd__" aria-required="1" placeholder="" id="u_0_k" aria-label="New password"/>
+							</div>
+							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
+						</div>
+					</div>
+					<div className="mbm">
+						<div className="_5dbb" id="u_0_j">
+							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
+								<div className="placeholder" aria-hidden="true">First Wish</div>
+								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_first_wish__" aria-required="1" placeholder="" id="u_0_k" aria-label="First Wish"/>
+							</div>
+							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
+						</div>
+					</div>
+					<div className="mbm">
+						<div className="_5dbb" id="u_0_j">
+							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
+								<div className="placeholder" aria-hidden="true">Second Wish</div>
+								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_second_wish__" aria-required="1" placeholder="" id="u_0_k" aria-label="second wish"/>
+							</div>
+							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
+						</div>
+					</div>
+					<div className="mbm">
+						<div className="_5dbb" id="u_0_j">
+							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
+								<div className="placeholder" aria-hidden="true">Third Wish</div>
+								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_third_wish__" aria-required="1" placeholder="" id="u_0_k" aria-label="third wish"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>

@@ -2,6 +2,11 @@ var Link = ReactRouter.Link;
 
 var mainAppWin = React.createClass({
 
+  // context so the component can access the router
+  contextTypes: {
+      router: React.PropTypes.func
+  },
+
   render: function() {
     return (
 		<nav className="navbar navbar-default" role ="navigation" id="mainPage">

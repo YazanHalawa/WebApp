@@ -1,11 +1,18 @@
 var Link = ReactRouter.Link;
+var auth = require ('./auth');
 
 var App = React.createClass({
+
+  // context so the component can access the router
+  contextTypes: {
+      router: React.PropTypes.func
+  },
 
   getInitialState: function(){
     return{
       emailText: '',
-      passwordText: ''
+      passwordText: '',
+      error: false
     }
   },
 
@@ -75,15 +82,33 @@ var App = React.createClass({
   },
 
   handleClick: function(){
-    console.log(this.state.passwordText);
-    console.log(this.state.emailText);
-    // Send value of text input to Mongo
+    //----- Send value of text input to Mongo------//
+    // prevent default browser submit
+    event.preventDefault();
+    // get data from form
+    var username = this.state.emailText;
+    var password = this.state.passwordText;
+    if (!username || !password) {
+        return;
+    }
+    // login via API
+    auth.login(username, password, function(loggedIn) {
+        // login callback
+        if (!loggedIn)
+            return this.setState({
+                error: true
+            });
+        this.context.router.transitionTo('/mainAppWin');
+    }.bind(this));
+    //------ Empty the values ---------//
     this.setState({
       emailText:'',
       passwordText: ''
     });
   }
 });
+
+
 
 
 
