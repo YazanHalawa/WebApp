@@ -7,7 +7,7 @@ var Person = require('../models/personSchema');
 //route
 router.get ('/', function(req,res){
 	console.log("index.html");
-	res.sendfile('index.html');
+	res.send('index.html');
 });
 
 router.post ('/register', function(req,res){
