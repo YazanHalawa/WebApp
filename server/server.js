@@ -34,7 +34,7 @@ passport.serializeUser(Person.serializeUser());
 passport.deserializeUser(Person.deserializeUser());
 
 
-app.use(express.static('./client')); // setup static directory
+app.use(express.static('./app')); // setup static directory
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/', routesIndex);

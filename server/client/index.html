@@ -5,21 +5,16 @@
   </head>
   <body bgcolor=white>
  <script language = "Javascript">
-  var user = Session["user"];
-  
-  if (!user)
-  {
+
+   
       document.write("<a href='/login' > Login </a>");
       document.write("<a href='/resigter' > Register </a>");
-  }
+  
       
-  if (user)
-  {
+ 
      document.write( "<p> You are currently logged in as " + user);
      document.write( "<br> <a href='/logout'> Logout </a>");
       
-  }
-    
    </script>
   </body>
 </html>
