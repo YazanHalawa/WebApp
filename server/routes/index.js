@@ -41,9 +41,10 @@ router.post ('/login', function(req,res){
 			if (err) {return console.error(err); };
 			if(!results.length)
 				res.send("not found");
-			else
-				//res.send("found");
+			else{
 				res.write(JSON.stringify({username:'hello', password:'yo'}),encoding='utf8');
+			}
+				//res.send("found");
 		//res.redirect("/login_Success.html");
 	});	
 	

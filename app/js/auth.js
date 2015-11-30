@@ -52,6 +52,7 @@ var auth = {
                 password: password
             },
             success: function(res) {
+                console.log("it worked");
                 // on success, store a login token
                 localStorage.token = res.token;
                 localStorage.name = res.name;
@@ -60,6 +61,7 @@ var auth = {
                 this.onChange(true);
             }.bind(this),
             error: function(xhr, status, err) {
+                console.log("did not work");
                 // if there is an error, remove any login token
                 delete localStorage.token;
                 if (cb)
