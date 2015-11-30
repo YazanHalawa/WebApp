@@ -1,7 +1,8 @@
 //setup express
 var express = require('express'),
 	app = express();
-var routes = require('./routes/index')	
+var routesIndex = require('./routes/index')	
+
 
 //setup http parser structure and filesystem
 var bodyParser = require('body-parser'),
@@ -14,7 +15,6 @@ var mongoose = require('mongoose'),
 	mongoose.connect(dbURL);
 
 var db = mongoose.connection;
- 
 db.on('error', function (err) {
 console.log('MongoDB connection error', err);
 });
@@ -23,11 +23,30 @@ console.log('MongoDB connected.');
 });
 
 
+// passport config
+var passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy,
+	cookieParser = require('cookie-parser'),
+	Person = require('./models/personSchema');
+	
+passport.use(new LocalStrategy(Person.authenticate()));
+passport.serializeUser(Person.serializeUser());
+passport.deserializeUser(Person.deserializeUser());
+
+
 app.use(express.static('./client')); // setup static directory
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/', routes);
+app.use('/', routesIndex);
 
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'cs360',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // start the server

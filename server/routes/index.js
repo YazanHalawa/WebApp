@@ -7,7 +7,7 @@ var Person = require('../models/personSchema');
 //route
 router.get ('/', function(req,res){
 	console.log("index.html");
-	res.sendFile('index.html');
+	res.sendfile('index.html');
 });
 
 router.post ('/register', function(req,res){
@@ -23,18 +23,28 @@ router.post ('/register', function(req,res){
 		});
 	
 	user.save(function(err){
-		if (err) {
-			return res.send("User already exist!");	
-		}; 
-	res.redirect("/login_Success.html");
-	console.log('new resigtered user');
+		if (err) { return res.send("User already exist!");	}; 
+		
+		//passport.authenticate('local')(req, res, function () {
+		//res.redirect("/login_Success.html");});
+		res.redirect("/login_Success.html");
+		console.log('new resigtered user');
 	});
 });
 	
 router.post ('/login', function(req,res){
-	console.log('Register new user');
+	console.log('Login route');
 	console.log(req.body.username);
 	console.log(req.body.password);
+	
+		Person.find({username: req.body.username, password: req.body.password},function (err,results) {
+			if (err) {return console.error(err); };
+			if(!results.length)
+				res.send("not found");
+			else
+				res.send("found");
+		//res.redirect("/login_Success.html");
+	});	
 	
 });
 
