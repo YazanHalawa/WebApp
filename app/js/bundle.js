@@ -644,7 +644,7 @@
 	        }
 	
 	        // submit request to server
-	        var url = "/api/users/login";
+	        var url = "/login";
 	        $.ajax({
 	            url: url,
 	            dataType: 'json',
