@@ -83,6 +83,7 @@ var App = React.createClass({
 
   handleClick: function(){
     //----- Send value of text input to Mongo------//
+
     // prevent default browser submit
     event.preventDefault();
     // get data from form
@@ -91,6 +92,7 @@ var App = React.createClass({
     if (!username || !password) {
         return;
     }
+    
     // login via API
     auth.login(username, password, function(loggedIn) {
         // login callback
@@ -100,6 +102,7 @@ var App = React.createClass({
             });
         this.context.router.transitionTo('/mainAppWin');
     }.bind(this));
+
     //------ Empty the values ---------//
     this.setState({
       emailText:'',
