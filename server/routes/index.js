@@ -42,14 +42,10 @@ router.post ('/login', function(req,res){
 			if(!results.length)
 				res.send("not found");
 			else{
-<<<<<<< HEAD
-				res.json({username:'hello', password:'yo'});
-=======
-				var token = User.generateToken(username);
-				console.log("found");
-				res.json({name: username, token: token});
 
->>>>>>> origin/master
+
+				console.log("found");
+				res.json({name: req.body.username});
 			}
 				//res.send("found");
 		//res.redirect("/login_Success.html");
