@@ -482,12 +482,6 @@
 	            });
 	        this.context.router.transitionTo('/mainAppWin');
 	    }.bind(this));
-	
-	    //------ Empty the values ---------//
-	    this.setState({
-	      emailText:'',
-	      passwordText: ''
-	    });
 	  }
 	});
 	
@@ -619,6 +613,7 @@
 	            },
 	            // on success, store a login token
 	            success: function(res) {
+	                console.log("found");
 	                localStorage.token = res.token;
 	                localStorage.name = res.name;
 	                if (cb)
@@ -626,6 +621,7 @@
 	                this.onChange(true);
 	            }.bind(this),
 	            error: function(xhr, status, err) {
+	                console.log("not found");
 	                // if there is an error, remove any login token
 	                delete localStorage.token;
 	                if (cb)
