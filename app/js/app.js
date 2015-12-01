@@ -102,12 +102,6 @@ var App = React.createClass({
             });
         this.context.router.transitionTo('/mainAppWin');
     }.bind(this));
-
-    //------ Empty the values ---------//
-    this.setState({
-      emailText:'',
-      passwordText: ''
-    });
   }
 });
 
