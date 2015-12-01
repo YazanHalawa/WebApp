@@ -9,6 +9,7 @@ var mainAppWin = React.createClass({
 
   render: function() {
     return (
+      <div>
 		<nav className="navbar navbar-default" role ="navigation" id="mainPage">
  		 <div className="container">
     		<div className="navbar-header">
@@ -23,8 +24,7 @@ var mainAppWin = React.createClass({
 
     		<div className="collapse navbar-collapse">
       			<ul className="nav navbar-nav">
-        			<li><Link to="profile">Profile</Link></li>
-        			<li><Link to="WishListHist">WishList</Link></li>
+        			<li><Link to="Profile">Profile</Link></li>
         			<li role="presentation" className="dropdown">
           				<a className="dropdown-toggle" href ="mainAppWin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends<span className="caret"></span></a>
           				<ul className="dropdown-menu">
@@ -39,7 +39,12 @@ var mainAppWin = React.createClass({
       			</ul>
     		</div>
   		</div>
+
   	</nav>
+          <div className="detail">
+          {this.props.children}
+      </div>
+      </div>
     );
   }
 });

@@ -24,7 +24,7 @@ var routes = (
       		<IndexRoute component={App}/>
       		<Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
       			<Route name="Friends" path="/friends" component={Friends}/>
-	            <Route name="profile" path="/profile" component={Profile}/>
+	          <Route name="Profile" path="/profile" component={Profile}/>
 	        </Route>
       		<Route name="SignUp" path="/SignUp" component={SignUp}>
   			    <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
