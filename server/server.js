@@ -32,7 +32,7 @@ var passport = require('passport'),
 	Person = require('./models/personSchema');
 	
 
-app.use(express.static('./client')); // setup static directory
+app.use(express.static('../app')); // setup static directory
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', routeAuth);
