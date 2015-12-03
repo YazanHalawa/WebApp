@@ -1,11 +1,12 @@
 var Link = ReactRouter.Link;
+var Router = ReactRouter;
 var auth = require ('./auth');
 
 var App = React.createClass({
 
   // context so the component can access the router
   contextTypes: {
-      router: React.PropTypes.func
+      history: React.PropTypes.object.isRequired
   },
 
   getInitialState: function(){
@@ -53,14 +54,12 @@ var App = React.createClass({
           </div>
           <div className="form-group">
             <div className="col-sm-10">
-                <Link to="/mainAppWin">
                   <button
                     onClick={this.handleClick} 
                     id="LogInBtn" 
                     className="btn btn-primary btn-lg active" >
                     Log In
                   </button>
-                </Link>
                 <Link to="/SignUp">
                   <button id="SignUpBtn" className="btn btn-primary btn-lg active" >Sign Up</button>
                 </Link>
@@ -96,11 +95,14 @@ var App = React.createClass({
     // login via API
     auth.login(username, password, function(loggedIn) {
         // login callback
-        if (!loggedIn)
+        if (!loggedIn){
+          console.log("failed");
             return this.setState({
                 error: true
             });
-        this.context.router.transitionTo('/mainAppWin');
+          }
+        else 
+          this.context.history.pushState(null, '/mainAppWin');
     }.bind(this));
   }
 });
