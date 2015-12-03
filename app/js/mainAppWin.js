@@ -1,10 +1,11 @@
 var Link = ReactRouter.Link;
+var auth = require ('./auth');
 
 var mainAppWin = React.createClass({
 
   // context so the component can access the router
   contextTypes: {
-      router: React.PropTypes.func
+      history: React.PropTypes.object.isRequired
   },
 
   render: function() {
@@ -35,7 +36,13 @@ var mainAppWin = React.createClass({
         			</li>
       			</ul>
       			<ul className="nav navbar-nav navbar-right">
-        			<li><a href="mainAppWin">Hello Yazan</a></li>
+        			<li><a href="/mainAppWin">Hello Yazan</a></li>
+              <li><a
+                    onClick={this.handleClick} 
+                    id="LogOutBtn" 
+                    className="btn btn-primary btn-lg active" >
+                    Log Out
+                  </a></li>
       			</ul>
     		</div>
   		</div>
@@ -46,6 +53,11 @@ var mainAppWin = React.createClass({
       </div>
       </div>
     );
+  },
+
+  handleClick: function(){
+    auth.logout();
+    this.context.history.pushState(null, '/');  
   }
 });
 

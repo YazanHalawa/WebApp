@@ -39,8 +39,8 @@ app.use('/', routeAuth);
 
 
 // start the server
-var server = app.listen(3002, function() {
-console.log("Started on port 3002");
+var server = app.listen(3004, function() {
+console.log("Started on port 3004");
 var host = server.address().address;
 var port = server.address().port;
 

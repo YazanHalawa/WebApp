@@ -545,15 +545,16 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
+	var auth = __webpack_require__ (7);
 	
 	var mainAppWin = React.createClass({displayName: "mainAppWin",
 	
 	  // context so the component can access the router
 	  contextTypes: {
-	      router: React.PropTypes.func
+	      history: React.PropTypes.object.isRequired
 	  },
 	
 	  render: function() {
@@ -584,7 +585,13 @@
 	        			)
 	      			), 
 	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
-	        			React.createElement("li", null, React.createElement("a", {href: "mainAppWin"}, "Hello Yazan"))
+	        			React.createElement("li", null, React.createElement("a", {href: "/mainAppWin"}, "Hello Yazan")), 
+	              React.createElement("li", null, React.createElement("a", {
+	                    onClick: this.handleClick, 
+	                    id: "LogOutBtn", 
+	                    className: "btn btn-primary btn-lg active"}, 
+	                    "Log Out"
+	                  ))
 	      			)
 	    		)
 	  		)
@@ -595,6 +602,11 @@
 	      )
 	      )
 	    );
+	  },
+	
+	  handleClick: function(){
+	    auth.logout();
+	    this.context.history.pushState(null, '/');  
 	  }
 	});
 	
