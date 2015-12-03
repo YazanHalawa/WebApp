@@ -1,7 +1,9 @@
 //setup express
 var express = require('express'),
 	app = express();
-var routesIndex = require('./routes/index')	
+
+//set up routes
+var routeAuth = require('./routes/auth')	
 
 
 //setup http parser structure and filesystem
@@ -29,24 +31,11 @@ var passport = require('passport'),
 	cookieParser = require('cookie-parser'),
 	Person = require('./models/personSchema');
 	
-passport.use(new LocalStrategy(Person.authenticate()));
-passport.serializeUser(Person.serializeUser());
-passport.deserializeUser(Person.deserializeUser());
 
-
-app.use(express.static('../app')); // setup static directory
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('./client')); // setup static directory
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/', routesIndex);
-
-app.use(cookieParser());
-app.use(require('express-session')({
-    secret: 'cs360',
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use('/', routeAuth);
 
 
 // start the server
