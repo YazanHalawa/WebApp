@@ -1,6 +1,6 @@
 // authentication object
 var auth = {
-    register: function(name, username, password, cb) {
+    register: function(firstName, lastName, username, password, wish1, wish2, wish3, bdMonth, bdDay, bdYear, gender, profilePic, cb) {
         // submit request to server, call the callback when complete
         var url = "/api/users/register";
         $.ajax({
@@ -8,9 +8,18 @@ var auth = {
             dataType: 'json',
             type: 'POST',
             data: {
-                name: name,
+                firstName: firstName,
+                lastName: lastName,
                 username: username,
-                password: password
+                password: password,
+                wish1: wish1,
+                wish2: wish2,
+                wish3: wish3,
+                bdMonth: bdMonth,
+                bdDay: bdDay,
+                bdYear: bdYear,
+                gender: gender,
+                profilePic: profilePic
             },
             // on success, store a login token
             success: function(res) {
@@ -58,6 +67,7 @@ var auth = {
                 // on success, store a login token
                 localStorage.token = res.token;
                 localStorage.name = res.name;
+                console.log("name is %s", localStorage.name)
                 if (cb)
                     cb(true);
                 this.onChange(true);
@@ -91,7 +101,7 @@ var auth = {
         return !!localStorage.token;
     },
     // default onChange function
-    onChange: function() {},
+    onChange: function() {}
 };
 
 module.exports = auth

@@ -36,11 +36,11 @@ var mainAppWin = React.createClass({
         			</li>
       			</ul>
       			<ul className="nav navbar-nav navbar-right">
-        			<li><a href="/mainAppWin">Hello Yazan</a></li>
+        			<li><a href="/mainAppWin">Hello {auth.getName()}</a></li>
               <li><a
+                    href = "#"
                     onClick={this.handleClick} 
-                    id="LogOutBtn" 
-                    className="btn btn-primary btn-lg active" >
+                    id="LogOutBtn">
                     Log Out
                   </a></li>
       			</ul>

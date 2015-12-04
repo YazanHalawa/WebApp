@@ -19,6 +19,7 @@ router.post ('/register', function(req,res){
     if (created) {
 				console.log('create new user');
 					user.set_password(req.body.password);
+					user.firstname = req.body.firstname
 					user.save(function(err) {
 					
 					if (err) {
@@ -53,7 +54,7 @@ router.post ('/login', function(req,res){
 			if(user && user.checkPassword(req.body.password)){
 				console.log("found");
 				var token = Person.generateToken(user.username);
-				res.json({name: user.name, token:token});
+				res.json({name: user.firstName, token:token});
 				}
 			
 			else{
