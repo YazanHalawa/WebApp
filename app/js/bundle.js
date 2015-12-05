@@ -907,7 +907,7 @@
 						React.createElement("div", {className: "panel panel-info"}, 
 						React.createElement("div", {className: "panel-heading"}, 
 							React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
-							this.state.items.firstName + this.state.items.lastName
+							this.state.items.firstName + " " + this.state.items.lastName
 							)
 						), 
 						React.createElement("div", {className: "panel-body"}, 

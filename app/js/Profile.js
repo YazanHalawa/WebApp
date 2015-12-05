@@ -43,7 +43,7 @@ var Profile = React.createClass({
 					<div className="panel panel-info">
 					<div className="panel-heading">
 						<h3 className="panel-title" id="fullNameField">
-						{this.state.items.firstName + this.state.items.lastName} 
+						{this.state.items.firstName + " " + this.state.items.lastName} 
 						</h3>
 					</div>
 					<div className="panel-body">
