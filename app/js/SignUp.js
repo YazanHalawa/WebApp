@@ -58,7 +58,6 @@ var SignUp = React.createClass({
 									<div className="placeholder" aria-hidden="true">First name</div>
 									<input
 									required 
-									<input 
 									value={this.state.firstNameText}
 									onChange={this.handleInputChange}
 									type="text" 
@@ -83,7 +82,6 @@ var SignUp = React.createClass({
 									<div className="placeholder" aria-hidden="true">Last name</div>
 									<input
 									required 
-									<input 
 									value={this.state.lastNameText}
 									onChange={this.handleInputChange}
 									type="text" 
@@ -108,10 +106,6 @@ var SignUp = React.createClass({
 								value={this.state.emailText}
 								onChange={this.handleInputChange}
 								type="email" 
-								<input 
-								value={this.state.emailText}
-								onChange={this.handleInputChange}
-								type="text" 
 								className="inputtext _58mg _5dba _2ph-" 
 								data-type="text" 
 								name="reg_email__" 
@@ -168,7 +162,6 @@ var SignUp = React.createClass({
 								<div className="placeholder" aria-hidden="true">First Wish</div>
 								<input
 								required 
-								<input 
 								value={this.state.wish1}
 								onChange={this.handleInputChange}
 								type="text" 
@@ -188,7 +181,6 @@ var SignUp = React.createClass({
 								<div className="placeholder" aria-hidden="true">Second Wish</div>
 								<input
 								required 
-								<input 
 								value={this.state.wish2}
 								onChange={this.handleInputChange}
 								type="text" 
@@ -430,13 +422,11 @@ var SignUp = React.createClass({
 					name="sex" 
 					value="2" 
 					id="pickedMale"/><label className="_58mt" htmlFor="u_0_o">Male</label></span></span><i className="_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"></i></div>
-					<div className="clearfix">
 					<div className="clearfix"><Link to="/mainAppWin">
                   <button 
                   onClick={this.handleClick}
                   id="LogInBtn" 
                   className="btn btn-primary btn-lg active" >Sign Up</button>
-                </div>
                 </Link></div>
 				</div>
 				<input type="hidden" autoComplete="off" id="referrer" name="referrer" value=""/><input type="hidden" autoComplete="off" id="asked_to_login" name="asked_to_login"/><input type="hidden" autoComplete="off" id="terms" name="terms" value="on"/><input type="hidden" autoComplete="off" id="ab_test_data" name="ab_test_data" value=""/><input type="hidden" autoComplete="off" id="reg_instance" name="reg_instance" value="f5ZTVicvklCwNUJcUZfUDS8L"/><input type="hidden" autoComplete="off" id="contactpoint_label" name="contactpoint_label" value="email_or_phone"/><input type="hidden" autoComplete="off" id="locale" name="locale" value="en_US"/>
