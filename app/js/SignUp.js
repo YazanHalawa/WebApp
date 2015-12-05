@@ -25,24 +25,6 @@ var SignUp = React.createClass({
 	    }
 
   	},
-  	
-  	getInitialState: function(){
-	    return{
-	    	firstNameText: '',
-	    	lastNameText: '',
-	      	emailText: '',
-	      	passwordText: '',
-	      	genderText: '',
-	      	birthMonthText: '',
-	      	birthDayText: '',
-	      	birthYearText: '',
-	      	profilePic: '',
-	      	wish1: '',
-	      	wish2: '',
-	      	wish3: '',
-	      	error: false
-	    }
-  	},
 
 	render: function(){
 		return(
