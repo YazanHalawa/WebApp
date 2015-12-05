@@ -20,8 +20,7 @@ routerFriend.post('/add', function(req, res) {
 					return res.send(err);
 				}
 				console.log("friend added!");
-				return res.json(result.username);
-						
+				return res.json(result.username);	
 			})
 		}
 		else
