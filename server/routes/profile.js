@@ -22,7 +22,6 @@ routerProfile.get ('/get/:username', function(req,res){
         
         
         var notWishList = { 
-            _id: false,
             __v: false,
             friendUserName : false,
         
@@ -70,6 +69,9 @@ routerProfile.get ('/get/:username', function(req,res){
              bdYear : result[0].bdYear,
              gender : result[0].gender,
              profilePic : result[0].profilePic,
+             wish1ID: wishlist[0]._id,
+             wish2ID: wishlist[1]._id,
+             wish3ID: wishlist[2]._id,
              wish1 : wishlist[0].description,
              wish2 : wishlist[1].description,
              wish3  : wishlist[2].description

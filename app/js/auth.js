@@ -67,6 +67,7 @@ var auth = {
                 console.log("it worked");
                 // on success, store a login token
                 localStorage.token = res.token;
+                console.log("saving %s",username);
                 localStorage.username = username;
                 localStorage.name = res.name;
                 console.log("name is %s", localStorage.name)

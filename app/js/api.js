@@ -47,15 +47,16 @@ var api = {
 
     },
     // update an item, call the callback when complete
-    updateItem: function(item, cb) {
-        var url = "/api/items/" + item.id;
+    updateItem: function(username, itemID, itemDescr, cb) {
+        console.log("in function update username is %s", username);
+        var url = "/item/update/" + username;
         $.ajax({
             url: url,
             contentType: 'application/json',
             data: JSON.stringify({
                 item: {
-                    title: item.title,
-                    completed: item.completed
+                    _id: itemID,
+                    description: itemDescr
                 }
             }),
             type: 'PUT',
@@ -90,7 +91,31 @@ var api = {
                     cb(false, status);
             }
         });
-    }
+    },
+
+    getwish1ID: function(){
+        return localStorage.wish1ID;
+    },
+
+    setwish1ID: function(newID){
+        localStorage.wish1ID = newID;
+    },
+
+    getwish2ID: function(){
+        return localStorage.wish2ID;
+    },
+
+    setwish2ID: function(newID){
+        localStorage.wish2ID = newID;
+    },
+
+    getwish3ID: function(){
+        return localStorage.wish3ID;
+    },
+
+    setwish3ID: function(newID){
+        localStorage.wish3ID = newID;
+    },
 
 };
 

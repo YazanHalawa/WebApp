@@ -58,6 +58,7 @@
 	var Profile = __webpack_require__(5);
 	var Friends = __webpack_require__(7);
 	var mainAppWin = __webpack_require__(8);
+	var updateWishList = __webpack_require__(9);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -77,13 +78,15 @@
 	      		React.createElement(IndexRoute, {component: App}), 
 	      		React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
 	      			React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
-		          React.createElement(Route, {name: "Profile", path: "/profile", component: Profile})
+		          React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
+	            React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 		        ), 
 	      		React.createElement(Route, {name: "SignUp", path: "/SignUp", component: SignUp}, 
 	  			    React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
 	            		React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
-	            		React.createElement(Route, {name: "profile", path: "/profile", component: Profile})
-	            	)
+	            		React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
+	                React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
+	            )
 		        )
 	        )
 	    )
@@ -693,6 +696,7 @@
 	                console.log("it worked");
 	                // on success, store a login token
 	                localStorage.token = res.token;
+	                console.log("saving %s",username);
 	                localStorage.username = username;
 	                localStorage.name = res.name;
 	                console.log("name is %s", localStorage.name)
@@ -887,6 +891,10 @@
 	  			this.setState({
 	  				items: data
 	  			});
+	  			console.log(this.state.items);
+	  			api.setwish1ID(this.state.items.wish1ID);
+	  			api.setwish2ID(this.state.items.wish2ID);
+	  			api.setwish3ID(this.state.items.wish3ID);
 	  		} else {
 		        this.context.history.pushState(null, '/mainAppWin');
 	  		}
@@ -899,86 +907,87 @@
 	
 	
 	
-	  		render: function() {
-		    return (
-			React.createElement("div", {className: "container"}, 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"}, 
-						React.createElement("div", {className: "panel panel-info"}, 
-						React.createElement("div", {className: "panel-heading"}, 
-							React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
-							this.state.items.firstName + " " + this.state.items.lastName
-							)
-						), 
-						React.createElement("div", {className: "panel-body"}, 
-							React.createElement("div", {className: "row"}, 
-								React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, 
-								React.createElement("img", {alt: "User Pic", value: this.state.items.profilePic, id: "picLinkField", src: this.state.items.profilePic, className: "img-circle img-responsive"})
-								), 
-								React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
+		render: function() {
+	    return (
+		React.createElement("div", {className: "container"}, 
+			React.createElement("div", {className: "row"}, 
+				React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"}, 
+					React.createElement("div", {className: "panel panel-info"}, 
+					React.createElement("div", {className: "panel-heading"}, 
+						React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
+						this.state.items.firstName + " " + this.state.items.lastName
+						)
+					), 
+					React.createElement("div", {className: "panel-body"}, 
+						React.createElement("div", {className: "row"}, 
+							React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, 
+							React.createElement("img", {alt: "User Pic", value: this.state.items.profilePic, id: "picLinkField", src: this.state.items.profilePic, className: "img-circle img-responsive"})
+							), 
+							React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
 	
-									React.createElement("table", {className: "table table-user-information", id: "profileInfo"}, 
-									React.createElement("tbody", null, 
-									React.createElement("tr", null, 
-									React.createElement("td", null, "Email:"), 
-									React.createElement("td", {id: "emailField"}, 
-									this.state.items.username
-									)
-									), 
-									React.createElement("tr", null, 
-									React.createElement("td", null, "Date of Birth:"), 
-									React.createElement("td", {id: "dobField"}, 
-									this.state.items.bdMonth + "/" + this.state.items.bdDay + "/" + this.state.items.bdYear
-									
-									)
-									), 
-									React.createElement("tr", null, 
-									React.createElement("tr", null, 
-									React.createElement("td", null, "Gender:"), 
-									React.createElement("td", {id: "genderField"}, 
-									this.state.items.gender
-									)
-									), 
-									React.createElement("tr", null, 
-									React.createElement("td", null, "Wish 1:"), 
-									React.createElement("td", {id: "wish1Field"}, 
-									this.state.items.wish1
-									)
-									), 
-									React.createElement("tr", null, 
-									React.createElement("td", null, "Wish 2:"), 
-									React.createElement("td", {id: "wish2Field"}, 
-									this.state.items.wish2
-									)
-									), 
-									React.createElement("tr", null, 
-									React.createElement("td", null, "Wish 3:"), 
-									React.createElement("td", {id: "wish3Field"}, 
-									this.state.items.wish3
-									)
-									)
-									)
-									)
-									), 
-									React.createElement("a", {
-									onClick: this.handleClick, 
-									href: "#", 
-									className: "btn btn-primary", 
-									id: "button1"}, "Edit Wish List Items")
+								React.createElement("table", {className: "table table-user-information", id: "profileInfo"}, 
+								React.createElement("tbody", null, 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Email:"), 
+								React.createElement("td", {id: "emailField"}, 
+								this.state.items.username
 								)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Date of Birth:"), 
+								React.createElement("td", {id: "dobField"}, 
+								this.state.items.bdMonth + "/" + this.state.items.bdDay + "/" + this.state.items.bdYear
+								
+								)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Gender:"), 
+								React.createElement("td", {id: "genderField"}, 
+								this.state.items.gender
+								)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Wish 1:"), 
+								React.createElement("td", {id: "wish1Field"}, 
+								this.state.items.wish1
+								)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Wish 2:"), 
+								React.createElement("td", {id: "wish2Field"}, 
+								this.state.items.wish2
+								)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Wish 3:"), 
+								React.createElement("td", {id: "wish3Field"}, 
+								this.state.items.wish3
+								)
+								)
+								)
+								)
+								), 
+								React.createElement("a", {
+								onClick: this.handleClick, 
+								className: "btn btn-primary", 
+								id: "button1"}, "Edit Wish List Items")
 							)
 						)
+					)
 					)
 				)
 			)
 		)
-		    );
-		  },
+	    );
+	  },
+	
+	  handleClick: function(){
+	  	    this.context.history.pushState(null, '/updateWishList');  
+	
+	  }
 	
 	
-	  	handleClick: function(){
-	    	
-	  	}
 	
 	});
 	
@@ -1038,15 +1047,16 @@
 	
 	    },
 	    // update an item, call the callback when complete
-	    updateItem: function(item, cb) {
-	        var url = "/api/items/" + item.id;
+	    updateItem: function(username, itemID, itemDescr, cb) {
+	        console.log("in function update username is %s", username);
+	        var url = "/item/update/" + username;
 	        $.ajax({
 	            url: url,
 	            contentType: 'application/json',
 	            data: JSON.stringify({
 	                item: {
-	                    title: item.title,
-	                    completed: item.completed
+	                    _id: itemID,
+	                    description: itemDescr
 	                }
 	            }),
 	            type: 'PUT',
@@ -1081,7 +1091,31 @@
 	                    cb(false, status);
 	            }
 	        });
-	    }
+	    },
+	
+	    getwish1ID: function(){
+	        return localStorage.wish1ID;
+	    },
+	
+	    setwish1ID: function(newID){
+	        localStorage.wish1ID = newID;
+	    },
+	
+	    getwish2ID: function(){
+	        return localStorage.wish2ID;
+	    },
+	
+	    setwish2ID: function(newID){
+	        localStorage.wish2ID = newID;
+	    },
+	
+	    getwish3ID: function(){
+	        return localStorage.wish3ID;
+	    },
+	
+	    setwish3ID: function(newID){
+	        localStorage.wish3ID = newID;
+	    },
 	
 	};
 	
@@ -1191,6 +1225,173 @@
 	});
 	
 	module.exports = mainAppWin
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var api = __webpack_require__(6);
+	var auth = __webpack_require__(3);
+	
+	var updateWishList = React.createClass({displayName: "updateWishList",
+	
+		// context so the component can access the router
+	  	contextTypes: {
+	      history: React.PropTypes.object.isRequired
+	  	},
+	
+		getInitialState: function(){
+			return{
+					wish1: '',
+					wish2: '',
+					wish3: '',
+					error: false
+				}
+		},
+	
+		render: function(){
+			return (
+				React.createElement("div", null, 
+				React.createElement("div", {className: "uwl"}, 
+					React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+						React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+							React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "First Wish"), 
+							React.createElement("input", {
+							required: true, 
+							value: this.state.wish1, 
+							onChange: this.handleInputChange, 
+							type: "text", 
+							className: "inputtext _58mg _5dba _2ph-", 
+							"data-type": "text", 
+							name: "reg_first_wish__", 
+							"aria-required": "1", 
+							placeholder: "", 
+							id: "wish1Field", "aria-label": "First Wish"})
+						), 
+						React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+					)
+				), 
+				React.createElement("div", {className: "mbm"}, 
+					React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+						React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+							React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Second Wish"), 
+							React.createElement("input", {
+							required: true, 
+							value: this.state.wish2, 
+							onChange: this.handleInputChange, 
+							type: "text", 
+							className: "inputtext _58mg _5dba _2ph-", 
+							"data-type": "text", 
+							name: "reg_second_wish__", 
+							"aria-required": "1", 
+							placeholder: "", 
+							id: "wish2Field", 
+							"aria-label": "second wish"})
+						), 
+						React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+					)
+				), 
+				React.createElement("div", {className: "mbm"}, 
+					React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+						React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+							React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Third Wish"), 
+							React.createElement("input", {
+							required: true, 
+							value: this.state.wish3, 
+							onChange: this.handleInputChange, 
+							type: "text", 
+							className: "inputtext _58mg _5dba _2ph-", 
+							"data-type": "text", 
+							name: "reg_third_wish__", 
+							"aria-required": "1", 
+							placeholder: "", 
+							id: "wish3Field", 
+							"aria-label": "third wish"})
+						), 
+						React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+					)
+				), 
+				React.createElement("button", {
+	                  onClick: this.handleClick, 
+	                  id: "UpdateWishListBtn", 
+	                  className: "btn btn-primary btn-lg active"}, "Update Wish List")
+	        	)
+			);
+		},
+	
+		// event handlers
+	  	handleInputChange: function(event) {
+	    	if (event.target.id === "wish1Field"){
+	      		this.setState({wish1:event.target.value});
+	    	}
+	    	else if (event.target.id === "wish2Field"){
+	      		this.setState({wish2:event.target.value});
+	      	}
+	      	else if (event.target.id === "wish3Field"){
+	      		this.setState({wish3:event.target.value});
+	      	}
+	    },
+	
+	    handleClick: function(){
+	    	// prevent default browser submit
+		    event.preventDefault();
+		    // get data from form
+		    var wish1 = this.state.wish1;
+		    var wish2 = this.state.wish2;
+		    var wish3 = this.state.wish3;
+		    if (!wish1 || !wish2 || !wish3) {
+		        return;
+		    }
+		    console.log("username is %s", auth.getUsername());
+		    var username = auth.getUsername();
+			// update the wishes
+		    api.updateItem(username, api.getwish1ID(), this.state.wish1, function(updatedWish) {
+		        // login callback
+		        if (!updatedWish){
+		          console.log("failed on wish 1");
+		            return this.setState({
+		                error: true
+		            });
+		          }
+		        else 
+		        	console.log("finished first wish");
+		    }.bind(this));
+	
+		    api.updateItem(username, api.getwish2ID(), this.state.wish2, function(updatedWish) {
+		        // login callback
+		        if (!updatedWish){
+		          console.log("failed on wish 2");
+		            return this.setState({
+		                error: true
+		            });
+		          }
+		        else 
+		        	console.log("finished second wish");
+		    }.bind(this));
+	
+		    api.updateItem(username, api.getwish3ID(), this.state.wish3, function(updatedWish) {
+		        // login callback
+		        if (!updatedWish){
+		          console.log("failed on wish 3");
+		            return this.setState({
+		                error: true
+		            });
+		          }
+		        else {
+		        	console.log("finished third wish");
+		        	this.context.history.pushState(null, '/profile');
+		        }
+		    }.bind(this));
+	
+	    }
+	
+	
+	    
+	});
+	
+	module.exports = updateWishList;
+	
+
 
 /***/ }
 /******/ ]);

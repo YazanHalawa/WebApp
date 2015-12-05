@@ -3,8 +3,10 @@ var express = require('express'),
 	app = express();
 
 //set up routes
-var routeAuth = require('./routes/auth')	
-var routeProfile = require('./routes/profile')
+var routeAuth = require('./routes/auth');	
+var routeProfile = require('./routes/profile');
+var routeFriend = require('./routes/friend');
+var routeItem = require('./routes/item');
 
 //setup http parser structure and filesystem
 var bodyParser = require('body-parser'),
@@ -32,7 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', routeAuth);
 app.use('/profile', routeProfile);
-
+app.use('/friend', routeFriend);
+app.use('/item', routeItem);
 
 // start the server
 var server = app.listen(3000, function() {
