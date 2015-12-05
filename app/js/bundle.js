@@ -55,9 +55,9 @@
 	var Route = ReactRouter.Route;
 	var SignUp = __webpack_require__(2);
 	var App = __webpack_require__(3);
-	var Profile = __webpack_require__(4);
-	var Friends = __webpack_require__(5);
-	var mainAppWin = __webpack_require__(6);
+	var Profile = __webpack_require__(5);
+	var Friends = __webpack_require__(6);
+	var mainAppWin = __webpack_require__(7);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -97,20 +97,40 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
-	
+	var auth = __webpack_require__(4)
 	var SignUp = React.createClass({displayName: "SignUp",
 	
-		// context so the component can access the router
+	  	// context so the component can access the router
 	  	contextTypes: {
-	      router: React.PropTypes.func
+	      history: React.PropTypes.object.isRequired
+	  	},
+	  	
+	  	getInitialState: function(){
+		    return{
+		    	firstNameText: '',
+		    	lastNameText: '',
+		      	emailText: '',
+		      	passwordText: '',
+		      	genderText: '',
+		      	birthMonthText: '',
+		      	birthDayText: '',
+		      	birthYearText: '',
+		      	profilePic: '',
+		      	wish1: '',
+		      	wish2: '',
+		      	wish3: '',
+		      	error: false
+		    }
 	  	},
 	  	
 		render: function(){
 			return(
-				React.createElement("form", {method: "post", id: "reg", name: "reg", action: "https://m.facebook.com/r.php", onsubmit: "return function(event){return false;}.call(this,event)!==false && window.Event && Event.__inlineSubmit && Event.__inlineSubmit(this,event)"}, 
+				React.createElement("div", null, 
+				React.createElement("div", null, React.createElement("span", {id: "errorDiv", className: "errorDiv"})), 
+				React.createElement("form", {id: "reg", name: "reg"}, 
 					React.createElement("input", {type: "hidden", name: "lsd", value: "AVrbhDJG", autoComplete: "off"}), 
 					React.createElement("div", {id: "reg_form_box", className: "large_form"}, 
 						React.createElement("div", {className: "clearfix _58mh"}, 
@@ -118,7 +138,22 @@
 								React.createElement("div", {className: "_5dbb", id: "u_0_a"}, 
 									React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 										React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "First name"), 
-										React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "firstname", "aria-required": "1", placeholder: "", id: "u_0_b", "aria-label": "First name", "aria-owns": "js_0", "aria-haspopup": "true", "aria-describedby": "js_5", "aria-invalid": "true"})
+										React.createElement("input", {
+										required: true, 
+										value: this.state.firstNameText, 
+										onChange: this.handleInputChange, 
+										type: "text", 
+										className: "inputtext _58mg _5dba _2ph-", 
+										"data-type": "text", 
+										name: "firstname", 
+										"aria-required": "1", 
+										placeholder: "", 
+										id: "firstNameField", 
+										"aria-label": "First name", 
+										"aria-owns": "js_0", 
+										"aria-haspopup": "true", 
+										"aria-describedby": "js_5", 
+										"aria-invalid": "true"})
 									), 
 									React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 								)
@@ -127,7 +162,18 @@
 								React.createElement("div", {className: "_5dbb", id: "u_0_c"}, 
 									React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 										React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Last name"), 
-										React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "lastname", "aria-required": "1", placeholder: "", id: "u_0_d", "aria-label": "Last name"})
+										React.createElement("input", {
+										required: true, 
+										value: this.state.lastNameText, 
+										onChange: this.handleInputChange, 
+										type: "text", 
+										className: "inputtext _58mg _5dba _2ph-", 
+										"data-type": "text", 
+										name: "lastname", 
+										"aria-required": "1", 
+										placeholder: "", 
+										id: "lastNameField", 
+										"aria-label": "Last name"})
 									), 
 									React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 								)
@@ -137,16 +183,18 @@
 							React.createElement("div", {className: "_5dbb", id: "u_0_e"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Email"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_email__", "aria-required": "1", placeholder: "", id: "u_0_f", "aria-label": "Email"})
-								), 
-								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
-							)
-						), 
-						React.createElement("div", {className: "mbm", id: "u_0_g"}, 
-							React.createElement("div", {className: "_5dbb", id: "u_0_h"}, 
-								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
-									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Re-enter email"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_email_confirmation__", "aria-required": "1", placeholder: "", id: "u_0_i", "aria-label": "Re-enter email"})
+									React.createElement("input", {
+									required: true, 
+									value: this.state.emailText, 
+									onChange: this.handleInputChange, 
+									type: "email", 
+									className: "inputtext _58mg _5dba _2ph-", 
+									"data-type": "text", 
+									name: "reg_email__", 
+									"aria-required": "1", 
+									placeholder: "", 
+									id: "emailField", 
+									"aria-label": "Email"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -155,7 +203,37 @@
 							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "New password"), 
-									React.createElement("input", {type: "password", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_passwd__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "New password"})
+									React.createElement("input", {
+									required: true, 
+									value: this.state.passwordText, 
+									onChange: this.handleInputChange, 
+									type: "password", 
+									className: "inputtext _58mg _5dba _2ph-", 
+									"data-type": "text", 
+									name: "reg_passwd__", 
+									"aria-required": "1", 
+									placeholder: "", 
+									id: "passwordField", 
+									"aria-label": "New password"})
+								), 
+								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
+							)
+						), 
+						React.createElement("div", {className: "mbm"}, 
+							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
+								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
+									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Profile picture"), 
+									React.createElement("input", {
+									required: true, 
+									value: this.state.profilePic, 
+									onChange: this.handleInputChange, 
+									type: "text", 
+									className: "inputtext _58mg _5dba _2ph-", 
+									"data-type": "text", 
+									name: "reg_first_wish__", 
+									"aria-required": "1", 
+									placeholder: "", 
+									id: "profilePicField", "aria-label": "First Wish"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -164,7 +242,17 @@
 							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "First Wish"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_first_wish__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "First Wish"})
+									React.createElement("input", {
+									required: true, 
+									value: this.state.wish1, 
+									onChange: this.handleInputChange, 
+									type: "text", 
+									className: "inputtext _58mg _5dba _2ph-", 
+									"data-type": "text", 
+									name: "reg_first_wish__", 
+									"aria-required": "1", 
+									placeholder: "", 
+									id: "wish1Field", "aria-label": "First Wish"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -173,7 +261,18 @@
 							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Second Wish"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_second_wish__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "second wish"})
+									React.createElement("input", {
+									required: true, 
+									value: this.state.wish2, 
+									onChange: this.handleInputChange, 
+									type: "text", 
+									className: "inputtext _58mg _5dba _2ph-", 
+									"data-type": "text", 
+									name: "reg_second_wish__", 
+									"aria-required": "1", 
+									placeholder: "", 
+									id: "wish2Field", 
+									"aria-label": "second wish"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -182,7 +281,18 @@
 							React.createElement("div", {className: "_5dbb", id: "u_0_j"}, 
 								React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
 									React.createElement("div", {className: "placeholder", "aria-hidden": "true"}, "Third Wish"), 
-									React.createElement("input", {type: "text", className: "inputtext _58mg _5dba _2ph-", "data-type": "text", name: "reg_third_wish__", "aria-required": "1", placeholder: "", id: "u_0_k", "aria-label": "third wish"})
+									React.createElement("input", {
+									required: true, 
+									value: this.state.wish3, 
+									onChange: this.handleInputChange, 
+									type: "text", 
+									className: "inputtext _58mg _5dba _2ph-", 
+									"data-type": "text", 
+									name: "reg_third_wish__", 
+									"aria-required": "1", 
+									placeholder: "", 
+									id: "wish3Field", 
+									"aria-label": "third wish"})
 								), 
 								React.createElement("i", {className: "_5dbc img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd img sp_7XMX65Pq0E7 sx_067138"})
 							)
@@ -192,7 +302,15 @@
 							React.createElement("div", {className: "_5k_5"}, 
 								React.createElement("span", {className: "_5k_4", "data-type": "selectors", "data-name": "birthday_wrapper", id: "u_0_m"}, 
 									React.createElement("span", null, 
-										React.createElement("select", {"aria-label": "Month", name: "birthday_month", id: "month", title: "Month", className: "_5dba"}, 
+										React.createElement("select", {
+										required: true, 
+										value: this.state.birthMonthText, 
+										onChange: this.handleInputChange, 
+										"aria-label": "Month", 
+										name: "birthday_month", 
+										id: "month", 
+										title: "Month", 
+										className: "_5dba"}, 
 											React.createElement("option", {value: "0", selected: "1"}, "Month"), 
 											React.createElement("option", {value: "1"}, "Jan"), 
 											React.createElement("option", {value: "2"}, "Feb"), 
@@ -207,7 +325,14 @@
 											React.createElement("option", {value: "11"}, "Nov"), 
 											React.createElement("option", {value: "12"}, "Dec")
 										), 
-										React.createElement("select", {"aria-label": "Day", name: "birthday_day", id: "day", title: "Day", className: "_5dba"}, 
+										React.createElement("select", {
+										value: this.state.birthDayText, 
+										onChange: this.handleInputChange, 
+										"aria-label": "Day", 
+										name: "birthday_day", 
+										id: "day", 
+										title: "Day", 
+										className: "_5dba"}, 
 											React.createElement("option", {value: "0", selected: "1"}, "Day"), 
 											React.createElement("option", {value: "1"}, "1"), 
 											React.createElement("option", {value: "2"}, "2"), 
@@ -241,7 +366,14 @@
 											React.createElement("option", {value: "30"}, "30"), 
 											React.createElement("option", {value: "31"}, "31")
 										), 
-										React.createElement("select", {"aria-label": "Year", name: "birthday_year", id: "year", title: "Year", className: "_5dba"}, 
+										React.createElement("select", {
+										value: this.state.birthYearText, 
+										onChange: this.handleInputChange, 
+										"aria-label": "Year", 
+										name: "birthday_year", 
+										id: "year", 
+										title: "Year", 
+										className: "_5dba"}, 
 											React.createElement("option", {value: "0", selected: "1"}, "Year"), 
 											React.createElement("option", {value: "2015"}, "2015"), 
 											React.createElement("option", {value: "2014"}, "2014"), 
@@ -359,17 +491,133 @@
 								)
 							)
 						), 
-						React.createElement("div", {className: "mtm _5wa2 _5dbb", id: "u_0_p"}, React.createElement("span", {className: "_5k_3", "data-type": "radio", "data-name": "gender_wrapper", id: "u_0_q"}, React.createElement("span", {className: "_5k_2 _5dba"}, React.createElement("input", {type: "radio", name: "sex", value: "1", id: "u_0_n"}), React.createElement("label", {className: "_58mt", htmlFor: "u_0_n"}, "Female")), React.createElement("span", {className: "_5k_2 _5dba"}, React.createElement("input", {type: "radio", name: "sex", value: "2", id: "u_0_o"}), React.createElement("label", {className: "_58mt", htmlFor: "u_0_o"}, "Male"))), React.createElement("i", {className: "_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"})), 
-						React.createElement("div", {className: "clearfix"}, React.createElement(Link, {to: "/mainAppWin"}, 
-	                  React.createElement("button", {id: "LogInBtn", className: "btn btn-primary btn-lg active"}, "Sign Up")
-	                ))
+						React.createElement("div", {className: "mtm _5wa2 _5dbb", id: "u_0_p"}, React.createElement("span", {className: "_5k_3", "data-type": "radio", "data-name": "gender_wrapper", id: "u_0_q"}, React.createElement("span", {className: "_5k_2 _5dba"}, React.createElement("input", {
+						required: true, 
+						onClick: this.handleInputChange, 
+						type: "radio", 
+						name: "sex", 
+						value: "1", 
+						id: "pickedFemale"}), React.createElement("label", {className: "_58mt", htmlFor: "u_0_n"}, "Female")), React.createElement("span", {className: "_5k_2 _5dba"}, React.createElement("input", {
+						required: true, 
+						onClick: this.handleInputChange, 
+						type: "radio", 
+						name: "sex", 
+						value: "2", 
+						id: "pickedMale"}), React.createElement("label", {className: "_58mt", htmlFor: "u_0_o"}, "Male"))), React.createElement("i", {className: "_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"})), 
+						React.createElement("div", {className: "clearfix"}, 
+	                  React.createElement("button", {
+	                  onClick: this.handleClick, 
+	                  id: "LogInBtn", 
+	                  className: "btn btn-primary btn-lg active"}, "Sign Up")
+	                )
 					), 
 					React.createElement("input", {type: "hidden", autoComplete: "off", id: "referrer", name: "referrer", value: ""}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "asked_to_login", name: "asked_to_login"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "terms", name: "terms", value: "on"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "ab_test_data", name: "ab_test_data", value: ""}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "reg_instance", name: "reg_instance", value: "f5ZTVicvklCwNUJcUZfUDS8L"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "contactpoint_label", name: "contactpoint_label", value: "email_or_phone"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "locale", name: "locale", value: "en_US"}), 
 					React.createElement("div", {id: "reg_captcha", className: "_58mw hidden_elem"}
 					)
 				)
+				)
 				);
-		}
+		},
+	
+		// event handlers
+	  	handleInputChange: function(event) {
+	    	if (event.target.id === "firstNameField"){
+	      		this.setState({firstNameText:event.target.value});
+	    	}
+	    	else if (event.target.id === "lastNameField"){
+	      		this.setState({lastNameText:event.target.value});
+	    	}
+	    	else if (event.target.id === "emailField"){
+	    		this.setState({emailText:event.target.value});
+	    	}
+	    	else if (event.target.id === "passwordField"){
+	    		this.setState({passwordText:event.target.value});
+	    	}
+	    	else if (event.target.id === "wish1Field"){
+	    		this.setState({wish1:event.target.value});
+	    	}
+	    	else if (event.target.id === "wish2Field"){
+	    		this.setState({wish2:event.target.value});
+	    	}
+	    	else if (event.target.id === "wish3Field"){
+	    		this.setState({wish3:event.target.value});
+	    	}
+	    	else if (event.target.id === "month"){
+	    		this.setState({birthMonthText:event.target.value});
+	    	}
+	    	else if (event.target.id === "day"){
+	    		this.setState({birthDayText:event.target.value});
+	    	}
+	    	else if (event.target.id === "year"){
+	    		this.setState({birthYearText:event.target.value});
+	    	}
+	    	else if (event.target.id === "pickedFemale"){
+	    		this.setState({genderText:"Female"});
+	    	}
+	    	else if (event.target.id === "pickedMale"){
+	    		this.setState({genderText:"Male"});
+	    	}
+	    	else if (event.target.id === "profilePicField"){
+	    		this.setState({profilePic: event.target.value});
+	    	}
+	  	},
+	
+	  	handleClick: function(){
+	    	//----- Send value of text input to Mongo------//
+	
+	    	// prevent default browser submit
+	    	event.preventDefault();
+	    	// get data from form
+		    var username = this.state.emailText;
+		    var password = this.state.passwordText;
+		    var firstName = this.state.firstNameText;
+		    var lastName = this.state.lastNameText;
+		    var wish1 = this.state.wish1;
+		    var wish2 = this.state.wish2;
+		    var wish3 = this.state.wish3;
+		    var bdMonth = this.state.birthMonthText;
+		    var bdDay = this.state.birthDayText;
+		    var bdYear = this.state.birthYearText;
+		    var gender = this.state.genderText;
+		    var profilePic = this.state.profilePic;
+	
+		    console.log("username %s" , username);
+		    console.log("password %s" , password);
+		    console.log("FN %s" , firstName);
+		    console.log("LN %s" , lastName);
+		    console.log("wish1 %s" , wish1);
+		    console.log("wish2 %s" , wish2);
+		    console.log("wish3 %s" , wish3);
+		    console.log("BDM %s" , bdMonth);
+		    console.log("BDD %s", bdDay);
+		    console.log("BDDY %s", bdYear);
+		    console.log("gender %s", gender);
+		    console.log("profilePic %s" , profilePic);
+	
+		    if (!username || !password || !firstName || !lastName || !wish1 ||
+		     !wish2 || !wish3 || !bdMonth || !bdDay || !bdYear || !gender || !profilePic) {
+		        $("#errorDiv").html("<font size=15px color=red>Please Fill out all items!</font>");
+		        return;
+		    }
+		    
+		    // login via API
+		    auth.register(firstName, lastName, username, password,
+		    			 wish1, wish2, wish3, bdMonth, bdDay, bdYear,
+		    			  gender, profilePic, function(loggedIn) {
+		        // login callback
+		        if (!loggedIn){
+		          console.log("failed");
+		            $("#errorDiv").html("<font size=15px color=red>User already exists!</font>");
+		            return this.setState({
+		                error: true
+		            });
+		          }
+		        else {
+		        	console.log("worked");
+		          this.context.history.pushState(null, '/mainAppWin');
+		        }
+		    }.bind(this));
+	  	}
 	});
 	
 	module.exports = SignUp
@@ -380,7 +628,7 @@
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
 	var Router = ReactRouter;
-	var auth = __webpack_require__ (7);
+	var auth = __webpack_require__ (4);
 	
 	var App = React.createClass({displayName: "App",
 	
@@ -498,137 +746,28 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	/** @jsx React.DOM */var Profile = React.createClass({displayName: "Profile",
-	
-		// context so the component can access the router
-	  	contextTypes: {
-	      router: React.PropTypes.func
-	  	},
-	
-		render: function() {
-		    return (
-		      React.createElement("div", null, 
-		        React.createElement("h1", null, "Home"), 
-		        React.createElement("p", null, "Put your home page here")
-		      )
-		    );
-		  }
-	});
-	
-	module.exports = Profile
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
-	  // context so the component can access the router
-	  contextTypes: {
-	      router: React.PropTypes.func
-	  },
-	
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	        React.createElement("h1", null, "Friends"), 
-	        React.createElement("ul", null, "List Of Friends", 
-	        	React.createElement("li", null, "Friend 1"), 
-	        	React.createElement("li", null, "Friend 2"), 
-	        	React.createElement("li", null, "Friend 3")
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Friends
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx React.DOM */var Link = ReactRouter.Link;
-	var auth = __webpack_require__ (7);
-	
-	var mainAppWin = React.createClass({displayName: "mainAppWin",
-	
-	  // context so the component can access the router
-	  contextTypes: {
-	      history: React.PropTypes.object.isRequired
-	  },
-	
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-			React.createElement("nav", {className: "navbar navbar-default", role: "navigation", id: "mainPage"}, 
-	 		 React.createElement("div", {className: "container"}, 
-	    		React.createElement("div", {className: "navbar-header"}, 
-	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
-	        			React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
-	        			React.createElement("span", {className: "icon-bar"}), 
-	        			React.createElement("span", {className: "icon-bar"}), 
-	        			React.createElement("span", {className: "icon-bar"})
-	      			), 
-	      			React.createElement("a", {className: "navbar-brand", href: "/mainAppWin"}, "Genie Lamp")
-	    		), 
-	
-	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
-	      			React.createElement("ul", {className: "nav navbar-nav"}, 
-	        			React.createElement("li", null, React.createElement(Link, {to: "Profile"}, "Profile")), 
-	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
-	          				React.createElement("a", {className: "dropdown-toggle", href: "mainAppWin", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
-	          				React.createElement("ul", {className: "dropdown-menu"}, 
-	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
-	          				)
-	        			)
-	      			), 
-	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
-	        			React.createElement("li", null, React.createElement("a", {href: "/mainAppWin"}, "Hello Yazan")), 
-	              React.createElement("li", null, React.createElement("a", {
-	                    onClick: this.handleClick, 
-	                    id: "LogOutBtn", 
-	                    className: "btn btn-primary btn-lg active"}, 
-	                    "Log Out"
-	                  ))
-	      			)
-	    		)
-	  		)
-	
-	  	), 
-	          React.createElement("div", {className: "detail"}, 
-	          this.props.children
-	      )
-	      )
-	    );
-	  },
-	
-	  handleClick: function(){
-	    auth.logout();
-	    this.context.history.pushState(null, '/');  
-	  }
-	});
-	
-	module.exports = mainAppWin
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
 	/** @jsx React.DOM */// authentication object
 	var auth = {
-	    register: function(name, username, password, cb) {
+	    register: function(firstName, lastName, username, password, wish1, wish2, wish3, bdMonth, bdDay, bdYear, gender, profilePic, cb) {
 	        // submit request to server, call the callback when complete
-	        var url = "/api/users/register";
+	        var url = "/register";
 	        $.ajax({
 	            url: url,
 	            dataType: 'json',
 	            type: 'POST',
 	            data: {
-	                name: name,
+	                firstName: firstName,
+	                lastName: lastName,
 	                username: username,
-	                password: password
+	                password: password,
+	                wish1: wish1,
+	                wish2: wish2,
+	                wish3: wish3,
+	                bdMonth: bdMonth,
+	                bdDay: bdDay,
+	                bdYear: bdYear,
+	                gender: gender,
+	                profilePic: profilePic
 	            },
 	            // on success, store a login token
 	            success: function(res) {
@@ -639,7 +778,7 @@
 	                    cb(true);
 	                this.onChange(true);
 	            }.bind(this),
-	            error: function(xhr, status, err) {
+	            error: function(status, err) {
 	                console.log("not found");
 	                // if there is an error, remove any login token
 	                delete localStorage.token;
@@ -676,6 +815,7 @@
 	                // on success, store a login token
 	                localStorage.token = res.token;
 	                localStorage.name = res.name;
+	                console.log("name is %s", localStorage.name)
 	                if (cb)
 	                    cb(true);
 	                this.onChange(true);
@@ -709,10 +849,176 @@
 	        return !!localStorage.token;
 	    },
 	    // default onChange function
-	    onChange: function() {},
+	    onChange: function() {}
 	};
 	
 	module.exports = auth
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */var Profile = React.createClass({displayName: "Profile",
+	
+		// context so the component can access the router
+	  	contextTypes: {
+	      router: React.PropTypes.func
+	  	},
+	
+		render: function() {
+		    return (
+				React.createElement("div", {className: "container"}, 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"}, 
+						React.createElement("div", {className: "panel panel-info"}, 
+							React.createElement("div", {className: "panel-heading"}, 
+								React.createElement("h3", {className: "panel-title"}, "Yazan Halawa")
+							), 
+							React.createElement("div", {className: "panel-body"}, 
+								React.createElement("div", {className: "row"}, 
+									React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, " ", React.createElement("img", {alt: "User Pic", src: "https://scontent-lax3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11875221_10153657071968128_8094074270772212166_o.jpg", className: "img-circle img-responsive"})
+									), 
+								React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
+	
+									React.createElement("table", {className: "table table-user-information", id: "profileInfo"}, 
+									React.createElement("tbody", null, 
+									React.createElement("tr", null, 
+									React.createElement("td", null, "Email:"), 
+									React.createElement("td", null, "monica.keyclub@gmail.com")
+									), 
+									React.createElement("tr", null, 
+									React.createElement("td", null, "Date of Birth:"), 
+									React.createElement("td", null, "08/01/1992")
+									), 
+									React.createElement("tr", null, 
+									React.createElement("tr", null, 
+									React.createElement("td", null, "Gender:"), 
+									React.createElement("td", null, "Female")
+									), 
+									React.createElement("tr", null, 
+									React.createElement("td", null, "Wish 1:"), 
+									React.createElement("td", null, "MacBook Air")
+									), 
+									React.createElement("tr", null, 
+									React.createElement("td", null, "Wish 2:"), 
+									React.createElement("td", null, "Amazon Echo")
+									), 
+									React.createElement("tr", null, 
+									React.createElement("td", null, "Wish 3:"), 
+									React.createElement("td", null, "Karaoke set")
+									)
+									)
+									)
+									), 
+	
+									React.createElement("a", {href: "#", className: "btn btn-primary", id: "button1"}, "Edit Wish List Items")
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+		    );
+		  }
+	});
+	
+	module.exports = Profile
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
+	  // context so the component can access the router
+	  contextTypes: {
+	      router: React.PropTypes.func
+	  },
+	
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	        React.createElement("h1", null, "Friends"), 
+	        React.createElement("ul", null, "List Of Friends", 
+	        	React.createElement("li", null, "Friend 1"), 
+	        	React.createElement("li", null, "Friend 2"), 
+	        	React.createElement("li", null, "Friend 3")
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Friends
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var Link = ReactRouter.Link;
+	var auth = __webpack_require__ (4);
+	
+	var mainAppWin = React.createClass({displayName: "mainAppWin",
+	
+	  // context so the component can access the router
+	  contextTypes: {
+	      history: React.PropTypes.object.isRequired
+	  },
+	
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+			React.createElement("nav", {className: "navbar navbar-default", role: "navigation", id: "mainPage"}, 
+	 		 React.createElement("div", {className: "container"}, 
+	    		React.createElement("div", {className: "navbar-header"}, 
+	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
+	        			React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+	        			React.createElement("span", {className: "icon-bar"}), 
+	        			React.createElement("span", {className: "icon-bar"}), 
+	        			React.createElement("span", {className: "icon-bar"})
+	      			), 
+	      			React.createElement("a", {className: "navbar-brand", href: "/mainAppWin"}, "Genie Lamp")
+	    		), 
+	
+	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
+	      			React.createElement("ul", {className: "nav navbar-nav"}, 
+	        			React.createElement("li", null, React.createElement(Link, {to: "Profile"}, "Profile")), 
+	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
+	          				React.createElement("a", {className: "dropdown-toggle", href: "mainAppWin", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
+	          				React.createElement("ul", {className: "dropdown-menu"}, 
+	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
+	          				)
+	        			)
+	      			), 
+	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
+	        			React.createElement("li", null, React.createElement("a", {href: "/mainAppWin"}, "Hello ", auth.getName())), 
+	              React.createElement("li", null, React.createElement("a", {
+	                    href: "#", 
+	                    onClick: this.handleClick, 
+	                    id: "LogOutBtn"}, 
+	                    "Log Out"
+	                  ))
+	      			)
+	    		)
+	  		)
+	
+	  	), 
+	          React.createElement("div", {className: "detail"}, 
+	          this.props.children
+	      )
+	      )
+	    );
+	  },
+	
+	  handleClick: function(){
+	    auth.logout();
+	    this.context.history.pushState(null, '/');  
+	  }
+	});
+	
+	module.exports = mainAppWin
 
 /***/ }
 /******/ ]);

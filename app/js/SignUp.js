@@ -1,15 +1,35 @@
 var Link = ReactRouter.Link;
-
+var auth = require('./auth')
 var SignUp = React.createClass({
 
-	// context so the component can access the router
+  	// context so the component can access the router
   	contextTypes: {
-      router: React.PropTypes.func
+      history: React.PropTypes.object.isRequired
+  	},
+  	
+  	getInitialState: function(){
+	    return{
+	    	firstNameText: '',
+	    	lastNameText: '',
+	      	emailText: '',
+	      	passwordText: '',
+	      	genderText: '',
+	      	birthMonthText: '',
+	      	birthDayText: '',
+	      	birthYearText: '',
+	      	profilePic: '',
+	      	wish1: '',
+	      	wish2: '',
+	      	wish3: '',
+	      	error: false
+	    }
   	},
   	
 	render: function(){
 		return(
-			<form method="post" id="reg" name="reg" action="https://m.facebook.com/r.php" onsubmit="return function(event){return false;}.call(this,event)!==false &amp;&amp; window.Event &amp;&amp; Event.__inlineSubmit &amp;&amp; Event.__inlineSubmit(this,event)">
+			<div>
+			<div><span id="errorDiv" className="errorDiv"></span></div>
+			<form id="reg" name="reg">
 				<input type="hidden" name="lsd" value="AVrbhDJG" autoComplete="off"/>
 				<div id="reg_form_box" className="large_form">
 					<div className="clearfix _58mh">
@@ -17,7 +37,22 @@ var SignUp = React.createClass({
 							<div className="_5dbb" id="u_0_a">
 								<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 									<div className="placeholder" aria-hidden="true">First name</div>
-									<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="firstname" aria-required="1" placeholder="" id="u_0_b" aria-label="First name" aria-owns="js_0" aria-haspopup="true" aria-describedby="js_5" aria-invalid="true"/>
+									<input
+									required 
+									value={this.state.firstNameText}
+									onChange={this.handleInputChange}
+									type="text" 
+									className="inputtext _58mg _5dba _2ph-" 
+									data-type="text" 
+									name="firstname" 
+									aria-required="1" 
+									placeholder="" 
+									id="firstNameField" 
+									aria-label="First name" 
+									aria-owns="js_0" 
+									aria-haspopup="true" 
+									aria-describedby="js_5" 
+									aria-invalid="true"/>
 								</div>
 								<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 							</div>
@@ -26,7 +61,18 @@ var SignUp = React.createClass({
 							<div className="_5dbb" id="u_0_c">
 								<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 									<div className="placeholder" aria-hidden="true">Last name</div>
-									<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="lastname" aria-required="1" placeholder="" id="u_0_d" aria-label="Last name"/>
+									<input
+									required 
+									value={this.state.lastNameText}
+									onChange={this.handleInputChange}
+									type="text" 
+									className="inputtext _58mg _5dba _2ph-" 
+									data-type="text" 
+									name="lastname" 
+									aria-required="1" 
+									placeholder="" 
+									id="lastNameField" 
+									aria-label="Last name"/>
 								</div>
 								<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 							</div>
@@ -36,16 +82,18 @@ var SignUp = React.createClass({
 						<div className="_5dbb" id="u_0_e">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 								<div className="placeholder" aria-hidden="true">Email</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_email__" aria-required="1" placeholder="" id="u_0_f" aria-label="Email"/>
-							</div>
-							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
-						</div>
-					</div>
-					<div className="mbm" id="u_0_g">
-						<div className="_5dbb" id="u_0_h">
-							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
-								<div className="placeholder" aria-hidden="true">Re-enter email</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_email_confirmation__" aria-required="1" placeholder="" id="u_0_i" aria-label="Re-enter email"/>
+								<input
+								required 
+								value={this.state.emailText}
+								onChange={this.handleInputChange}
+								type="email" 
+								className="inputtext _58mg _5dba _2ph-" 
+								data-type="text" 
+								name="reg_email__" 
+								aria-required="1" 
+								placeholder="" 
+								id="emailField" 
+								aria-label="Email"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -54,7 +102,37 @@ var SignUp = React.createClass({
 						<div className="_5dbb" id="u_0_j">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 								<div className="placeholder" aria-hidden="true">New password</div>
-								<input type="password" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_passwd__" aria-required="1" placeholder="" id="u_0_k" aria-label="New password"/>
+								<input 
+								required
+								value={this.state.passwordText}
+								onChange={this.handleInputChange}
+								type="password" 
+								className="inputtext _58mg _5dba _2ph-" 
+								data-type="text" 
+								name="reg_passwd__" 
+								aria-required="1" 
+								placeholder="" 
+								id="passwordField" 
+								aria-label="New password"/>
+							</div>
+							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
+						</div>
+					</div>
+					<div className="mbm">
+						<div className="_5dbb" id="u_0_j">
+							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
+								<div className="placeholder" aria-hidden="true">Profile picture</div>
+								<input 
+								required
+								value={this.state.profilePic}
+								onChange={this.handleInputChange}
+								type="text" 
+								className="inputtext _58mg _5dba _2ph-" 
+								data-type="text" 
+								name="reg_first_wish__" 
+								aria-required="1" 
+								placeholder="" 
+								id="profilePicField" aria-label="First Wish"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -63,7 +141,17 @@ var SignUp = React.createClass({
 						<div className="_5dbb" id="u_0_j">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 								<div className="placeholder" aria-hidden="true">First Wish</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_first_wish__" aria-required="1" placeholder="" id="u_0_k" aria-label="First Wish"/>
+								<input
+								required 
+								value={this.state.wish1}
+								onChange={this.handleInputChange}
+								type="text" 
+								className="inputtext _58mg _5dba _2ph-" 
+								data-type="text" 
+								name="reg_first_wish__" 
+								aria-required="1" 
+								placeholder="" 
+								id="wish1Field" aria-label="First Wish"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -72,7 +160,18 @@ var SignUp = React.createClass({
 						<div className="_5dbb" id="u_0_j">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 								<div className="placeholder" aria-hidden="true">Second Wish</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_second_wish__" aria-required="1" placeholder="" id="u_0_k" aria-label="second wish"/>
+								<input
+								required 
+								value={this.state.wish2}
+								onChange={this.handleInputChange}
+								type="text" 
+								className="inputtext _58mg _5dba _2ph-" 
+								data-type="text" 
+								name="reg_second_wish__" 
+								aria-required="1" 
+								placeholder="" 
+								id="wish2Field" 
+								aria-label="second wish"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -81,7 +180,18 @@ var SignUp = React.createClass({
 						<div className="_5dbb" id="u_0_j">
 							<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
 								<div className="placeholder" aria-hidden="true">Third Wish</div>
-								<input type="text" className="inputtext _58mg _5dba _2ph-" data-type="text" name="reg_third_wish__" aria-required="1" placeholder="" id="u_0_k" aria-label="third wish"/>
+								<input 
+								required
+								value={this.state.wish3}
+								onChange={this.handleInputChange}
+								type="text" 
+								className="inputtext _58mg _5dba _2ph-" 
+								data-type="text" 
+								name="reg_third_wish__" 
+								aria-required="1" 
+								placeholder="" 
+								id="wish3Field" 
+								aria-label="third wish"/>
 							</div>
 							<i className="_5dbc img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd img sp_7XMX65Pq0E7 sx_067138"></i>
 						</div>
@@ -91,7 +201,15 @@ var SignUp = React.createClass({
 						<div className="_5k_5">
 							<span className="_5k_4" data-type="selectors" data-name="birthday_wrapper" id="u_0_m">
 								<span>
-									<select aria-label="Month" name="birthday_month" id="month" title="Month" className="_5dba">
+									<select 
+									required
+									value={this.state.birthMonthText}
+									onChange={this.handleInputChange}
+									aria-label="Month" 
+									name="birthday_month" 
+									id="month" 
+									title="Month" 
+									className="_5dba">
 										<option value="0" selected="1">Month</option>
 										<option value="1">Jan</option>
 										<option value="2">Feb</option>
@@ -106,7 +224,14 @@ var SignUp = React.createClass({
 										<option value="11">Nov</option>
 										<option value="12">Dec</option>
 									</select>
-									<select aria-label="Day" name="birthday_day" id="day" title="Day" className="_5dba">
+									<select 
+									value={this.state.birthDayText}
+									onChange={this.handleInputChange}
+									aria-label="Day" 
+									name="birthday_day" 
+									id="day" 
+									title="Day" 
+									className="_5dba">
 										<option value="0" selected="1">Day</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -140,7 +265,14 @@ var SignUp = React.createClass({
 										<option value="30">30</option>
 										<option value="31">31</option>
 									</select>
-									<select aria-label="Year" name="birthday_year" id="year" title="Year" className="_5dba">
+									<select 
+									value={this.state.birthYearText}
+									onChange={this.handleInputChange}
+									aria-label="Year" 
+									name="birthday_year" 
+									id="year" 
+									title="Year" 
+									className="_5dba">
 										<option value="0" selected="1">Year</option>
 										<option value="2015">2015</option>
 										<option value="2014">2014</option>
@@ -258,17 +390,133 @@ var SignUp = React.createClass({
 							</span>
 						</div>
 					</div>
-					<div className="mtm _5wa2 _5dbb" id="u_0_p"><span className="_5k_3" data-type="radio" data-name="gender_wrapper" id="u_0_q"><span className="_5k_2 _5dba"><input type="radio" name="sex" value="1" id="u_0_n"/><label className="_58mt" htmlFor="u_0_n">Female</label></span><span className="_5k_2 _5dba"><input type="radio" name="sex" value="2" id="u_0_o"/><label className="_58mt" htmlFor="u_0_o">Male</label></span></span><i className="_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"></i></div>
-					<div className="clearfix"><Link to="/mainAppWin">
-                  <button id="LogInBtn" className="btn btn-primary btn-lg active" >Sign Up</button>
-                </Link></div>
+					<div className="mtm _5wa2 _5dbb" id="u_0_p"><span className="_5k_3" data-type="radio" data-name="gender_wrapper" id="u_0_q"><span className="_5k_2 _5dba"><input 
+					required
+					onClick={this.handleInputChange}
+					type="radio" 
+					name="sex" 
+					value="1" 
+					id="pickedFemale"/><label className="_58mt" htmlFor="u_0_n">Female</label></span><span className="_5k_2 _5dba"><input 
+					required
+					onClick={this.handleInputChange}
+					type="radio" 
+					name="sex" 
+					value="2" 
+					id="pickedMale"/><label className="_58mt" htmlFor="u_0_o">Male</label></span></span><i className="_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"></i></div>
+					<div className="clearfix">
+                  <button 
+                  onClick={this.handleClick}
+                  id="LogInBtn" 
+                  className="btn btn-primary btn-lg active" >Sign Up</button>
+                </div>
 				</div>
 				<input type="hidden" autoComplete="off" id="referrer" name="referrer" value=""/><input type="hidden" autoComplete="off" id="asked_to_login" name="asked_to_login"/><input type="hidden" autoComplete="off" id="terms" name="terms" value="on"/><input type="hidden" autoComplete="off" id="ab_test_data" name="ab_test_data" value=""/><input type="hidden" autoComplete="off" id="reg_instance" name="reg_instance" value="f5ZTVicvklCwNUJcUZfUDS8L"/><input type="hidden" autoComplete="off" id="contactpoint_label" name="contactpoint_label" value="email_or_phone"/><input type="hidden" autoComplete="off" id="locale" name="locale" value="en_US"/>
 				<div id="reg_captcha" className="_58mw hidden_elem">
 				</div>
 			</form>
+			</div>
 			);
-	}
+	},
+
+	// event handlers
+  	handleInputChange: function(event) {
+    	if (event.target.id === "firstNameField"){
+      		this.setState({firstNameText:event.target.value});
+    	}
+    	else if (event.target.id === "lastNameField"){
+      		this.setState({lastNameText:event.target.value});
+    	}
+    	else if (event.target.id === "emailField"){
+    		this.setState({emailText:event.target.value});
+    	}
+    	else if (event.target.id === "passwordField"){
+    		this.setState({passwordText:event.target.value});
+    	}
+    	else if (event.target.id === "wish1Field"){
+    		this.setState({wish1:event.target.value});
+    	}
+    	else if (event.target.id === "wish2Field"){
+    		this.setState({wish2:event.target.value});
+    	}
+    	else if (event.target.id === "wish3Field"){
+    		this.setState({wish3:event.target.value});
+    	}
+    	else if (event.target.id === "month"){
+    		this.setState({birthMonthText:event.target.value});
+    	}
+    	else if (event.target.id === "day"){
+    		this.setState({birthDayText:event.target.value});
+    	}
+    	else if (event.target.id === "year"){
+    		this.setState({birthYearText:event.target.value});
+    	}
+    	else if (event.target.id === "pickedFemale"){
+    		this.setState({genderText:"Female"});
+    	}
+    	else if (event.target.id === "pickedMale"){
+    		this.setState({genderText:"Male"});
+    	}
+    	else if (event.target.id === "profilePicField"){
+    		this.setState({profilePic: event.target.value});
+    	}
+  	},
+
+  	handleClick: function(){
+    	//----- Send value of text input to Mongo------//
+
+    	// prevent default browser submit
+    	event.preventDefault();
+    	// get data from form
+	    var username = this.state.emailText;
+	    var password = this.state.passwordText;
+	    var firstName = this.state.firstNameText;
+	    var lastName = this.state.lastNameText;
+	    var wish1 = this.state.wish1;
+	    var wish2 = this.state.wish2;
+	    var wish3 = this.state.wish3;
+	    var bdMonth = this.state.birthMonthText;
+	    var bdDay = this.state.birthDayText;
+	    var bdYear = this.state.birthYearText;
+	    var gender = this.state.genderText;
+	    var profilePic = this.state.profilePic;
+
+	    console.log("username %s" , username);
+	    console.log("password %s" , password);
+	    console.log("FN %s" , firstName);
+	    console.log("LN %s" , lastName);
+	    console.log("wish1 %s" , wish1);
+	    console.log("wish2 %s" , wish2);
+	    console.log("wish3 %s" , wish3);
+	    console.log("BDM %s" , bdMonth);
+	    console.log("BDD %s", bdDay);
+	    console.log("BDDY %s", bdYear);
+	    console.log("gender %s", gender);
+	    console.log("profilePic %s" , profilePic);
+
+	    if (!username || !password || !firstName || !lastName || !wish1 ||
+	     !wish2 || !wish3 || !bdMonth || !bdDay || !bdYear || !gender || !profilePic) {
+	        $("#errorDiv").html("<font size=15px color=red>Please Fill out all items!</font>");
+	        return;
+	    }
+	    
+	    // login via API
+	    auth.register(firstName, lastName, username, password,
+	    			 wish1, wish2, wish3, bdMonth, bdDay, bdYear,
+	    			  gender, profilePic, function(loggedIn) {
+	        // login callback
+	        if (!loggedIn){
+	          console.log("failed");
+	            $("#errorDiv").html("<font size=15px color=red>User already exists!</font>");
+	            return this.setState({
+	                error: true
+	            });
+	          }
+	        else {
+	        	console.log("worked");
+	          this.context.history.pushState(null, '/mainAppWin');
+	        }
+	    }.bind(this));
+  	}
 });
 
 module.exports = SignUp

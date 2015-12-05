@@ -15,6 +15,11 @@ var personSchema = new Schema({
 	passwordHash: String,
 	lastName : String,
 	firstName : String,
+	bdMonth: String,
+	bdDay: String,
+	bdYear: String,
+	gender: String,
+	profilePic: String,
 	friendList : [{
 		friendEmail : String  	
 	}] 
