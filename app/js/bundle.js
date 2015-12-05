@@ -56,8 +56,8 @@
 	var SignUp = __webpack_require__(2);
 	var App = __webpack_require__(4);
 	var Profile = __webpack_require__(5);
-	var Friends = __webpack_require__(6);
-	var mainAppWin = __webpack_require__(7);
+	var Friends = __webpack_require__(7);
+	var mainAppWin = __webpack_require__(8);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -863,7 +863,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
-	var api = __webpack_require__(8);
+	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
 	
 	var Profile = React.createClass({displayName: "Profile",
@@ -907,7 +907,7 @@
 						React.createElement("div", {className: "panel panel-info"}, 
 						React.createElement("div", {className: "panel-heading"}, 
 							React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
-							this.state.items.firstName + this.state.items.lastName
+							this.state.items.firstName + " " + this.state.items.lastName
 							)
 						), 
 						React.createElement("div", {className: "panel-body"}, 
@@ -987,110 +987,6 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
-
-	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
-	  // context so the component can access the router
-	  contextTypes: {
-	      router: React.PropTypes.func
-	  },
-	
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	        React.createElement("h1", null, "Friends"), 
-	        React.createElement("ul", null, "List Of Friends", 
-	        	React.createElement("li", null, "Friend 1"), 
-	        	React.createElement("li", null, "Friend 2"), 
-	        	React.createElement("li", null, "Friend 3")
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Friends
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/** @jsx React.DOM */var Link = ReactRouter.Link;
-	var auth = __webpack_require__ (3);
-	
-	var mainAppWin = React.createClass({displayName: "mainAppWin",
-	
-	  // context so the component can access the router
-	  contextTypes: {
-	      history: React.PropTypes.object.isRequired
-	  },
-	
-	getInitialState: function(){
-	    return{
-	      emailText: '',
-	      passwordText: '',
-	      error: false
-	    }
-	  },
-	
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-			React.createElement("nav", {className: "navbar navbar-default", role: "navigation", id: "mainPage"}, 
-	 		 React.createElement("div", {className: "container"}, 
-	    		React.createElement("div", {className: "navbar-header"}, 
-	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
-	        			React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
-	        			React.createElement("span", {className: "icon-bar"}), 
-	        			React.createElement("span", {className: "icon-bar"}), 
-	        			React.createElement("span", {className: "icon-bar"})
-	      			), 
-	      			React.createElement("a", {className: "navbar-brand", href: "/mainAppWin"}, "Genie Lamp")
-	    		), 
-	
-	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
-	      			React.createElement("ul", {className: "nav navbar-nav"}, 
-	        			React.createElement("li", null, React.createElement(Link, {to: "Profile"}, "Profile")), 
-	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
-	          				React.createElement("a", {className: "dropdown-toggle", href: "mainAppWin", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
-	          				React.createElement("ul", {className: "dropdown-menu"}, 
-	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
-	          				)
-	        			)
-	      			), 
-	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
-	        			React.createElement("li", null, React.createElement("a", {href: "/mainAppWin"}, "Hello ", auth.getName())), 
-	              React.createElement("li", null, React.createElement("a", {
-	                    href: "#", 
-	                    onClick: this.handleClick, 
-	                    id: "LogOutBtn"}, 
-	                    "Log Out"
-	                  ))
-	      			)
-	    		)
-	  		)
-	
-	  	), 
-	          React.createElement("div", {className: "detail"}, 
-	          this.props.children
-	      )
-	      )
-	    );
-	  },
-	
-	  handleClick: function(){
-	    auth.logout();
-	    this.context.history.pushState(null, '/');  
-	  },
-	
-	});
-	
-	module.exports = mainAppWin
-
-/***/ },
-/* 8 */
 /***/ function(module, exports) {
 
 	/** @jsx React.DOM */// API object
@@ -1191,6 +1087,110 @@
 	
 	module.exports = api;
 
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
+	  // context so the component can access the router
+	  contextTypes: {
+	      router: React.PropTypes.func
+	  },
+	
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	        React.createElement("h1", null, "Friends"), 
+	        React.createElement("ul", null, "List Of Friends", 
+	        	React.createElement("li", null, "Friend 1"), 
+	        	React.createElement("li", null, "Friend 2"), 
+	        	React.createElement("li", null, "Friend 3")
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Friends
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var Link = ReactRouter.Link;
+	var auth = __webpack_require__ (3);
+	
+	var mainAppWin = React.createClass({displayName: "mainAppWin",
+	
+	  // context so the component can access the router
+	  contextTypes: {
+	      history: React.PropTypes.object.isRequired
+	  },
+	
+	getInitialState: function(){
+	    return{
+	      emailText: '',
+	      passwordText: '',
+	      error: false
+	    }
+	  },
+	
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+			React.createElement("nav", {className: "navbar navbar-default", role: "navigation", id: "mainPage"}, 
+	 		 React.createElement("div", {className: "container"}, 
+	    		React.createElement("div", {className: "navbar-header"}, 
+	      			React.createElement("button", {type: "button", className: "navbar-toggle", "data-toggle": "collapse"}, 
+	        			React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+	        			React.createElement("span", {className: "icon-bar"}), 
+	        			React.createElement("span", {className: "icon-bar"}), 
+	        			React.createElement("span", {className: "icon-bar"})
+	      			), 
+	      			React.createElement("a", {className: "navbar-brand", href: "/mainAppWin"}, "Genie Lamp")
+	    		), 
+	
+	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
+	      			React.createElement("ul", {className: "nav navbar-nav"}, 
+	        			React.createElement("li", null, React.createElement(Link, {to: "Profile"}, "Profile")), 
+	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
+	          				React.createElement("a", {className: "dropdown-toggle", href: "mainAppWin", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
+	          				React.createElement("ul", {className: "dropdown-menu"}, 
+	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
+	          				)
+	        			)
+	      			), 
+	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
+	        			React.createElement("li", null, React.createElement("a", {href: "/mainAppWin"}, "Hello ", auth.getName())), 
+	              React.createElement("li", null, React.createElement("a", {
+	                    href: "#", 
+	                    onClick: this.handleClick, 
+	                    id: "LogOutBtn"}, 
+	                    "Log Out"
+	                  ))
+	      			)
+	    		)
+	  		)
+	
+	  	), 
+	          React.createElement("div", {className: "detail"}, 
+	          this.props.children
+	      )
+	      )
+	    );
+	  },
+	
+	  handleClick: function(){
+	    auth.logout();
+	    this.context.history.pushState(null, '/');  
+	  },
+	
+	});
+	
+	module.exports = mainAppWin
 
 /***/ }
 /******/ ]);
