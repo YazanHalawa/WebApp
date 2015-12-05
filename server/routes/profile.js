@@ -1,6 +1,5 @@
 var express = require('express');
 var routerProfile = express.Router();
-var concat = require('Underscore');
 var Person = require('../models/personSchema');
 var wishListItem = require('../models/wishListSchema');
 
@@ -80,7 +79,6 @@ routerProfile.get ('/get/:username', function(req,res){
              console.log(Profile[0]);
             res.json(Profile[0]);
         
-            //  concat.extend(target,profile,wishlist); 
              
              });     
          });  
