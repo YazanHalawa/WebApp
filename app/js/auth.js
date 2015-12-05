@@ -25,6 +25,7 @@ var auth = {
             success: function(res) {
                 console.log("found");
                 localStorage.token = res.token;
+                localStorage.username = username;
                 localStorage.name = res.name;
                 if (cb)
                     cb(true);
@@ -66,6 +67,7 @@ var auth = {
                 console.log("it worked");
                 // on success, store a login token
                 localStorage.token = res.token;
+                localStorage.username = username;
                 localStorage.name = res.name;
                 console.log("name is %s", localStorage.name)
                 if (cb)
@@ -89,6 +91,10 @@ var auth = {
     // get the name from local storage
     getName: function() {
         return localStorage.name;
+    },
+    // get the username from local storage
+    getUsername: function(){
+        return localStorage.username;
     },
     // logout the user, call the callback when complete
     logout: function(cb) {

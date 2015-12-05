@@ -4,7 +4,7 @@ var express = require('express'),
 
 //set up routes
 var routeAuth = require('./routes/auth')	
-
+var routeProfile = require('./routes/profile')
 
 //setup http parser structure and filesystem
 var bodyParser = require('body-parser'),
@@ -25,17 +25,13 @@ console.log('MongoDB connected.');
 });
 
 
-// passport config
-var passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy,
-	cookieParser = require('cookie-parser'),
-	Person = require('./models/personSchema');
-	
+
 
 app.use(express.static('../app')); // setup static directory
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', routeAuth);
+app.use('/profile', routeProfile);
 
 
 // start the server
