@@ -13,7 +13,7 @@ routerFriend.post('/add', function(req, res) {
 			console.log(req.body.yourUsername);
 			Person.update(
 				{'username' : req.body.yourUsername },
-				{'$push':{'friendList' : req.body.username}},
+				{$push:{'friendList' : req.body.username}},
 				 function(err,result) {
 				if(err){
 					console.log(err);
