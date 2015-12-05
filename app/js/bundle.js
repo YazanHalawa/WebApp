@@ -54,7 +54,7 @@
 	/** @jsx React.DOM */var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
 	var SignUp = __webpack_require__(2);
-	var App = __webpack_require__(3);
+	var App = __webpack_require__(4);
 	var Profile = __webpack_require__(5);
 	var Friends = __webpack_require__(6);
 	var mainAppWin = __webpack_require__(7);
@@ -100,7 +100,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
-	var auth = __webpack_require__(4)
+	var auth = __webpack_require__(3)
 	var SignUp = React.createClass({displayName: "SignUp",
 	
 	  	// context so the component can access the router
@@ -622,11 +622,129 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */// authentication object
+	var auth = {
+	    register: function(firstName, lastName, username, password, wish1, wish2, wish3, bdMonth, bdDay, bdYear, gender, profilePic, cb) {
+	        // submit request to server, call the callback when complete
+	        var url = "/register";
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            type: 'POST',
+	            data: {
+	                firstName: firstName,
+	                lastName: lastName,
+	                username: username,
+	                password: password,
+	                wish1: wish1,
+	                wish2: wish2,
+	                wish3: wish3,
+	                bdMonth: bdMonth,
+	                bdDay: bdDay,
+	                bdYear: bdYear,
+	                gender: gender,
+	                profilePic: profilePic
+	            },
+	            // on success, store a login token
+	            success: function(res) {
+	                console.log("found");
+	                localStorage.token = res.token;
+	                localStorage.username = username;
+	                localStorage.name = res.name;
+	                if (cb)
+	                    cb(true);
+	                this.onChange(true);
+	            }.bind(this),
+	            error: function(status, err) {
+	                console.log("not found");
+	                // if there is an error, remove any login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false);
+	                this.onChange(false);
+	            }.bind(this)
+	        });
+	    },
+	    // login the user
+	    login: function(username, password, cb) {
+	        // submit login request to server, call callback when complete
+	        cb = arguments[arguments.length - 1];
+	        // check if token in local storage
+	        if (localStorage.token) {
+	            if (cb)
+	                cb(true);
+	            this.onChange(true);
+	            return;
+	        }
+	
+	        // submit request to server
+	        var url = "/login";
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            type: 'POST',
+	            data: {
+	                username: username,
+	                password: password
+	            },
+	            success: function(res) {
+	                console.log("it worked");
+	                // on success, store a login token
+	                localStorage.token = res.token;
+	                localStorage.username = username;
+	                localStorage.name = res.name;
+	                console.log("name is %s", localStorage.name)
+	                if (cb)
+	                    cb(true);
+	                this.onChange(true);
+	            }.bind(this),
+	            error: function(xhr, status, err) {
+	                console.log("did not work");
+	                // if there is an error, remove any login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false);
+	                this.onChange(false);
+	            }.bind(this)
+	        });
+	    },
+	    // get the token from local storage
+	    getToken: function() {
+	        return localStorage.token;
+	    },
+	    // get the name from local storage
+	    getName: function() {
+	        return localStorage.name;
+	    },
+	    // get the username from local storage
+	    getUsername: function(){
+	        return localStorage.username;
+	    },
+	    // logout the user, call the callback when complete
+	    logout: function(cb) {
+	        delete localStorage.token;
+	        if (cb) cb();
+	        this.onChange(false);
+	    },
+	    // check if user is logged in
+	    loggedIn: function() {
+	        return !!localStorage.token;
+	    },
+	    // default onChange function
+	    onChange: function() {}
+	};
+	
+	module.exports = auth
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
 	var Router = ReactRouter;
-	var auth = __webpack_require__ (4);
+	var auth = __webpack_require__ (3);
 	
 	var App = React.createClass({displayName: "App",
 	
@@ -741,140 +859,61 @@
 
 
 /***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	/** @jsx React.DOM */// authentication object
-	var auth = {
-	    register: function(firstName, lastName, username, password, wish1, wish2, wish3, bdMonth, bdDay, bdYear, gender, profilePic, cb) {
-	        // submit request to server, call the callback when complete
-	        var url = "/register";
-	        $.ajax({
-	            url: url,
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                firstName: firstName,
-	                lastName: lastName,
-	                username: username,
-	                password: password,
-	                wish1: wish1,
-	                wish2: wish2,
-	                wish3: wish3,
-	                bdMonth: bdMonth,
-	                bdDay: bdDay,
-	                bdYear: bdYear,
-	                gender: gender,
-	                profilePic: profilePic
-	            },
-	            // on success, store a login token
-	            success: function(res) {
-	                console.log("found");
-	                localStorage.token = res.token;
-	                localStorage.name = res.name;
-	                if (cb)
-	                    cb(true);
-	                this.onChange(true);
-	            }.bind(this),
-	            error: function(status, err) {
-	                console.log("not found");
-	                // if there is an error, remove any login token
-	                delete localStorage.token;
-	                if (cb)
-	                    cb(false);
-	                this.onChange(false);
-	            }.bind(this)
-	        });
-	    },
-	    // login the user
-	    login: function(username, password, cb) {
-	        // submit login request to server, call callback when complete
-	        cb = arguments[arguments.length - 1];
-	        // check if token in local storage
-	        if (localStorage.token) {
-	            if (cb)
-	                cb(true);
-	            this.onChange(true);
-	            return;
-	        }
-	
-	        // submit request to server
-	        var url = "/login";
-	        $.ajax({
-	            url: url,
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                username: username,
-	                password: password
-	            },
-	            success: function(res) {
-	                console.log("it worked");
-	                // on success, store a login token
-	                localStorage.token = res.token;
-	                localStorage.name = res.name;
-	                console.log("name is %s", localStorage.name)
-	                if (cb)
-	                    cb(true);
-	                this.onChange(true);
-	            }.bind(this),
-	            error: function(xhr, status, err) {
-	                console.log("did not work");
-	                // if there is an error, remove any login token
-	                delete localStorage.token;
-	                if (cb)
-	                    cb(false);
-	                this.onChange(false);
-	            }.bind(this)
-	        });
-	    },
-	    // get the token from local storage
-	    getToken: function() {
-	        return localStorage.token;
-	    },
-	    // get the name from local storage
-	    getName: function() {
-	        return localStorage.name;
-	    },
-	    // logout the user, call the callback when complete
-	    logout: function(cb) {
-	        delete localStorage.token;
-	        if (cb) cb();
-	        this.onChange(false);
-	    },
-	    // check if user is logged in
-	    loggedIn: function() {
-	        return !!localStorage.token;
-	    },
-	    // default onChange function
-	    onChange: function() {}
-	};
-	
-	module.exports = auth
-
-/***/ },
 /* 5 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx React.DOM */var Profile = React.createClass({displayName: "Profile",
+	/** @jsx React.DOM */var Link = ReactRouter.Link;
+	var api = __webpack_require__(8);
+	var auth = __webpack_require__(3);
+	
+	var Profile = React.createClass({displayName: "Profile",
 	
 		// context so the component can access the router
 	  	contextTypes: {
-	      router: React.PropTypes.func
+	      history: React.PropTypes.object.isRequired
 	  	},
 	
-		render: function() {
+		getInitialState: function(){
+			    return{
+			    	items : '',
+			      	error: false
+			    }
+		},
+	  	
+	  	listSet: function(status, data){
+	  		if (status){
+	  			// set the state for the list of items
+	  			console.log("data %s" , data);
+	  			this.setState({
+	  				items: data
+	  			});
+	  		} else {
+		        this.context.history.pushState(null, '/mainAppWin');
+	  		}
+	  	},
+	
+	  	componentWillMount: function(){
+	  		var username = auth.getUsername();
+	  		api.getItems(username, this.listSet);
+	  	},
+	
+	
+	
+	  		render: function() {
 		    return (
 			React.createElement("div", {className: "container"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"}, 
 						React.createElement("div", {className: "panel panel-info"}, 
 						React.createElement("div", {className: "panel-heading"}, 
-							React.createElement("h3", {className: "panel-title"}, "Yazan Halawa")
+							React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
+							this.state.items.firstName + this.state.items.lastName
+							)
 						), 
 						React.createElement("div", {className: "panel-body"}, 
 							React.createElement("div", {className: "row"}, 
-								React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, " ", React.createElement("img", {alt: "User Pic", src: "https://scontent-lax3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11875221_10153657071968128_8094074270772212166_o.jpg", className: "img-circle img-responsive"})
+								React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, 
+								React.createElement("img", {alt: "User Pic", value: this.state.items.profilePic, id: "picLinkField", src: this.state.items.profilePic, className: "img-circle img-responsive"})
 								), 
 								React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
 	
@@ -882,33 +921,50 @@
 									React.createElement("tbody", null, 
 									React.createElement("tr", null, 
 									React.createElement("td", null, "Email:"), 
-									React.createElement("td", null, "monica.keyclub@gmail.com")
+									React.createElement("td", {id: "emailField"}, 
+									this.state.items.username
+									)
 									), 
 									React.createElement("tr", null, 
 									React.createElement("td", null, "Date of Birth:"), 
-									React.createElement("td", null, "08/01/1992")
+									React.createElement("td", {id: "dobField"}, 
+									this.state.items.bdMonth + "/" + this.state.items.bdDay + "/" + this.state.items.bdYear
+									
+									)
 									), 
 									React.createElement("tr", null, 
 									React.createElement("tr", null, 
 									React.createElement("td", null, "Gender:"), 
-									React.createElement("td", null, "Female")
+									React.createElement("td", {id: "genderField"}, 
+									this.state.items.gender
+									)
 									), 
 									React.createElement("tr", null, 
 									React.createElement("td", null, "Wish 1:"), 
-									React.createElement("td", null, "MacBook Air")
+									React.createElement("td", {id: "wish1Field"}, 
+									this.state.items.wish1
+									)
 									), 
 									React.createElement("tr", null, 
 									React.createElement("td", null, "Wish 2:"), 
-									React.createElement("td", null, "Amazon Echo")
+									React.createElement("td", {id: "wish2Field"}, 
+									this.state.items.wish2
+									)
 									), 
 									React.createElement("tr", null, 
 									React.createElement("td", null, "Wish 3:"), 
-									React.createElement("td", null, "Karaoke set")
+									React.createElement("td", {id: "wish3Field"}, 
+									this.state.items.wish3
+									)
 									)
 									)
 									)
 									), 
-									React.createElement("a", {href: "#", className: "btn btn-primary", id: "button1"}, "Edit Wish List Items")
+									React.createElement("a", {
+									onClick: this.handleClick, 
+									href: "#", 
+									className: "btn btn-primary", 
+									id: "button1"}, "Edit Wish List Items")
 								)
 							)
 						)
@@ -917,8 +973,15 @@
 			)
 		)
 		    );
-		  }
+		  },
+	
+	
+	  	handleClick: function(){
+	    	
+	  	}
+	
 	});
+	
 	
 	module.exports = Profile
 
@@ -953,13 +1016,21 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
-	var auth = __webpack_require__ (4);
+	var auth = __webpack_require__ (3);
 	
 	var mainAppWin = React.createClass({displayName: "mainAppWin",
 	
 	  // context so the component can access the router
 	  contextTypes: {
 	      history: React.PropTypes.object.isRequired
+	  },
+	
+	getInitialState: function(){
+	    return{
+	      emailText: '',
+	      passwordText: '',
+	      error: false
+	    }
 	  },
 	
 	  render: function() {
@@ -1012,10 +1083,114 @@
 	  handleClick: function(){
 	    auth.logout();
 	    this.context.history.pushState(null, '/');  
-	  }
+	  },
+	
 	});
 	
 	module.exports = mainAppWin
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	/** @jsx React.DOM */// API object
+	var api = {
+	    // get the list of items, call the callback when complete
+	    getItems: function(username, cb) {
+	        var url = "/profile/get/" + username;
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            type: 'GET',
+	            headers: {'Authorization': localStorage.token},
+	            success: function(res) {
+	                if (cb)
+	                    cb(true, res);
+	            },
+	            error: function(xhr, status, err) {
+	                // if there is an error, remove the login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false, status);
+	            }
+	        });
+	    },
+	    // add an item, call the callback when complete
+	    addItem: function(title, cb) {
+	        var url = "/api/items";
+	        $.ajax({
+	            url: url,
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+	                item: {
+	                    'title': title
+	                }
+	            }),
+	            type: 'POST',
+	            headers: {'Authorization': localStorage.token},
+	            success: function(res) {
+	                if (cb)
+	                    cb(true, res);
+	            },
+	            error: function(xhr, status, err) {
+	                // if there is an error, remove the login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false, status);
+	            }
+	        });
+	
+	    },
+	    // update an item, call the callback when complete
+	    updateItem: function(item, cb) {
+	        var url = "/api/items/" + item.id;
+	        $.ajax({
+	            url: url,
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+	                item: {
+	                    title: item.title,
+	                    completed: item.completed
+	                }
+	            }),
+	            type: 'PUT',
+	            headers: {'Authorization': localStorage.token},
+	            success: function(res) {
+	                if (cb)
+	                    cb(true, res);
+	            },
+	            error: function(xhr, status, err) {
+	                // if there is any error, remove any login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false, status);
+	            }
+	        });
+	    },
+	    // delete an item, call the callback when complete
+	    deleteItem: function(item, cb) {
+	        var url = "/api/items/" + item.id;
+	        $.ajax({
+	            url: url,
+	            type: 'DELETE',
+	            headers: {'Authorization': localStorage.token},
+	            success: function(res) {
+	                if (cb)
+	                    cb(true, res);
+	            },
+	            error: function(xhr, status, err) {
+	                // if there is an error, remove any login token
+	                delete localStorage.token;
+	                if (cb)
+	                    cb(false, status);
+	            }
+	        });
+	    }
+	
+	};
+	
+	module.exports = api;
+
 
 /***/ }
 /******/ ]);

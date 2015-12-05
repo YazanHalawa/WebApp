@@ -1,8 +1,8 @@
 var express = require('express');
-var passport = require('passport');
 var router = express.Router();
 var Person = require('../models/personSchema');
 var wishListItem = require('../models/wishListSchema');
+
 
 //route
 router.get ('/', function(req,res){

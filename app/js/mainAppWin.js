@@ -8,6 +8,14 @@ var mainAppWin = React.createClass({
       history: React.PropTypes.object.isRequired
   },
 
+getInitialState: function(){
+    return{
+      emailText: '',
+      passwordText: '',
+      error: false
+    }
+  },
+
   render: function() {
     return (
       <div>
@@ -58,7 +66,8 @@ var mainAppWin = React.createClass({
   handleClick: function(){
     auth.logout();
     this.context.history.pushState(null, '/');  
-  }
+  },
+
 });
 
 module.exports = mainAppWin

@@ -1,8 +1,8 @@
 // API object
 var api = {
     // get the list of items, call the callback when complete
-    getItems: function(cb) {
-        var url = "/api/items";
+    getItems: function(username, cb) {
+        var url = "/profile/get/" + username;
         $.ajax({
             url: url,
             dataType: 'json',
@@ -93,3 +93,5 @@ var api = {
     }
 
 };
+
+module.exports = api;

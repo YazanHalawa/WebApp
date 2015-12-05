@@ -1,22 +1,55 @@
+var Link = ReactRouter.Link;
+var api = require('./api');
+var auth = require('./auth');
+
 var Profile = React.createClass({
 
 	// context so the component can access the router
   	contextTypes: {
-      router: React.PropTypes.func
+      history: React.PropTypes.object.isRequired
   	},
 
-	render: function() {
+	getInitialState: function(){
+		    return{
+		    	items : '',
+		      	error: false
+		    }
+	},
+  	
+  	listSet: function(status, data){
+  		if (status){
+  			// set the state for the list of items
+  			console.log("data %s" , data);
+  			this.setState({
+  				items: data
+  			});
+  		} else {
+	        this.context.history.pushState(null, '/mainAppWin');
+  		}
+  	},
+
+  	componentWillMount: function(){
+  		var username = auth.getUsername();
+  		api.getItems(username, this.listSet);
+  	},
+
+
+
+  		render: function() {
 	    return (
 		<div className="container">
 			<div className="row">
 				<div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 					<div className="panel panel-info">
 					<div className="panel-heading">
-						<h3 className="panel-title">Yazan Halawa</h3>
+						<h3 className="panel-title" id="fullNameField">
+						{this.state.items.firstName + this.state.items.lastName} 
+						</h3>
 					</div>
 					<div className="panel-body">
 						<div className="row">
-							<div className="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://scontent-lax3-1.xx.fbcdn.net/hphotos-xpf1/t31.0-8/11875221_10153657071968128_8094074270772212166_o.jpg" className="img-circle img-responsive"/> 
+							<div className="col-md-3 col-lg-3 " align="center"> 
+							<img alt="User Pic" value={this.state.items.profilePic} id="picLinkField" src={this.state.items.profilePic} className="img-circle img-responsive"/> 
 							</div>
 							<div className=" col-md-9 col-lg-9 "> 
 
@@ -24,33 +57,50 @@ var Profile = React.createClass({
 								<tbody>
 								<tr>
 								<td>Email:</td>
-								<td>monica.keyclub@gmail.com</td>
+								<td id="emailField"> 
+								{this.state.items.username}
+								</td>
 								</tr>
 								<tr>
 								<td>Date of Birth:</td>
-								<td>08/01/1992</td>
+								<td id="dobField"> 
+								{this.state.items.bdMonth + "/" + this.state.items.bdDay + "/" + this.state.items.bdYear}
+								
+								</td>
 								</tr>
 								<tr>
 								<tr>
 								<td>Gender:</td>
-								<td>Female</td>
+								<td id="genderField"> 
+								{this.state.items.gender}
+								</td>
 								</tr>
 								<tr>
 								<td>Wish 1:</td>
-								<td>MacBook Air</td>
+								<td id="wish1Field"> 
+								{this.state.items.wish1}
+								</td>
 								</tr>
 								<tr>
 								<td>Wish 2:</td>
-								<td>Amazon Echo</td>
+								<td id="wish2Field"> 
+								{this.state.items.wish2}
+								</td>
 								</tr>
 								<tr>
 								<td>Wish 3:</td>
-								<td>Karaoke set</td>
+								<td id="wish3Field"> 
+								{this.state.items.wish3}
+								</td>
 								</tr>
 								</tr>
 								</tbody>
 								</table>
-								<a href="#" className="btn btn-primary" id="button1">Edit Wish List Items</a>
+								<a 
+								onClick={this.handleClick}
+								href="#" 
+								className="btn btn-primary" 
+								id="button1">Edit Wish List Items</a>
 							</div>
 						</div>
 					</div>
@@ -59,7 +109,14 @@ var Profile = React.createClass({
 		</div>
 	</div>
 	    );
-	  }
+	  },
+
+
+  	handleClick: function(){
+    	
+  	}
+
 });
+
 
 module.exports = Profile
