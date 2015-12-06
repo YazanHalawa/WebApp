@@ -2,6 +2,7 @@ var express = require('express');
 var routerFriend = express.Router();
 var Person = require('../models/personSchema');
 
+
 routerFriend.post('/add/:username', function(req, res) {
 
 	var notPerList = { 
