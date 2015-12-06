@@ -42,6 +42,8 @@ var viewFriends = React.createClass({
 	}
 });
 
+
+
 var ListItems = React.createClass({
 	render: function(){
 		// using the list of items, generate an Item element for each one

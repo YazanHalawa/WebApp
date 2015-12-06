@@ -130,6 +130,7 @@ routerFriend.delete('/remove/:username', function(req,res) {
 	});
 });
 
+
 routerFriend.get('/viewFriends/:username', function(req, res) {
 	console.log("view Friends route");
     console.log("username was %s" ,req.params.username);
@@ -175,6 +176,8 @@ routerFriend.get('/viewFriends/:username', function(req, res) {
                 res.sendStatus(403);
                 return;
             }
+			
+			
             console.log("length should be %d", result.friendList.length)
         	for (var i = 0; i < result.friendList.length; i++){
         		
@@ -205,7 +208,6 @@ routerFriend.get('/viewFriends/:username', function(req, res) {
   
    });
 });
-
 
 
 module.exports = routerFriend;
