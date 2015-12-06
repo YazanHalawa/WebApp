@@ -39,7 +39,7 @@ getInitialState: function(){
           				<ul className="dropdown-menu">
             				<li><Link to="addFriend">Add Friend</Link></li>
             				<li><Link to="removeFriend">Remove Friend</Link></li>
-            				<li><a href="#">View Friend</a></li>
+            				<li><Link to="viewFriends">View Friends</Link></li>
           				</ul>
         			</li>
       			</ul>

@@ -130,8 +130,80 @@ routerFriend.delete('/remove/:username', function(req,res) {
 	});
 });
 
-routerFriend.get('/viewFriends', function(req, res) {
-	console.log('in view friends');
+routerFriend.get('/viewFriends/:username', function(req, res) {
+	console.log("view Friends route");
+    console.log("username was %s" ,req.params.username);
+    
+    var notPerList = { 
+        _id: false,
+        __v: false,
+        passwordHash :false,
+        bdDay: false,
+        bdMonth: false,
+        bdYear: false,
+        firstName: false,
+        gender: false,
+        lastName: false,
+        profilePic: false
+    };
+
+    var notFriendList = {
+        _id: false,
+        __v: false,
+        passwordHash :false,
+        bdDay: false,
+        bdMonth: false,
+        bdYear: false,
+        gender: false,
+        friendList :false
+    };
+        
+    var profile = [];  
+    var getLength = 0;
+    user = Person.verifyToken(req.headers.authorization, function(user) {
+        if (user) {
+            
+            Person.findOne({username:req.params.username}, notPerList ,function(err, result) {
+            if (err) {
+                console.log("Err get person");
+                res.sendStatus(403);
+                return;
+            }
+            
+            if (result.username != user.username) {
+                console.log("Err comparing username");
+                res.sendStatus(403);
+                return;
+            }
+            console.log("length should be %d", result.friendList.length)
+        	for (var i = 0; i < result.friendList.length; i++){
+        		
+        		console.log("before function %s",result.friendList[i]);
+        		var friendUsername = result.friendList[i];
+	    		Person.findOne({username:friendUsername}, notFriendList ,function(err, friendResult){
+	    			
+	    			//console.log("result is %s", friendResult);
+	    			//console.log("query in query %d", friendResult.length);
+		    		profile.push(friendResult);
+		    		
+		    		//console.log(profile);
+		    		if (profile.length === result.friendList.length){
+		    			res.json(profile);
+		    		}
+
+	    		});
+			}
+	
+			 
+         });  
+          
+       }
+        else {
+            console.log("token not found");
+            res.sendStatus(403);
+       }
+  
+   });
 });
 
 

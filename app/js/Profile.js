@@ -34,7 +34,7 @@ var Profile = React.createClass({
 
   	componentWillMount: function(){
   		var username = auth.getUsername();
-  		api.getItems(username, this.listSet);
+  		api.getItems(username,"/profile/get/", this.listSet);
   	},
 
 

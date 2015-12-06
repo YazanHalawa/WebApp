@@ -60,6 +60,7 @@
 	var removeFriend = __webpack_require__(8);
 	var mainAppWin = __webpack_require__(9);
 	var updateWishList = __webpack_require__(10);
+	var viewFriends = __webpack_require__(11);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -80,6 +81,7 @@
 	      		React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
 	      			React.createElement(Route, {name: "addFriend", path: "/addFriend", component: addFriend}), 
 	            React.createElement(Route, {name: "removeFriend", path: "/removeFriend", component: removeFriend}), 
+	            React.createElement(Route, {name: "viewFriends", path: "/viewFriends", component: viewFriends}), 
 		          React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
 	            React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 		        ), 
@@ -87,6 +89,7 @@
 	  			    React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
 	            		React.createElement(Route, {name: "addFriend", path: "/addFriend", component: addFriend}), 
 	                React.createElement(Route, {name: "removeFriend", path: "/removeFriend", component: removeFriend}), 
+	                React.createElement(Route, {name: "viewFriends", path: "/viewFriends", component: viewFriends}), 
 	            		React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
 	                React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 	            )
@@ -905,7 +908,7 @@
 	
 	  	componentWillMount: function(){
 	  		var username = auth.getUsername();
-	  		api.getItems(username, this.listSet);
+	  		api.getItems(username,"/profile/get/", this.listSet);
 	  	},
 	
 	
@@ -1004,8 +1007,8 @@
 	/** @jsx React.DOM */// API object
 	var api = {
 	    // get the list of items, call the callback when complete
-	    getItems: function(username, cb) {
-	        var url = "/profile/get/" + username;
+	    getItems: function(username, path, cb) {
+	        var url = path + username;
 	        $.ajax({
 	            url: url,
 	            dataType: 'json',
@@ -1329,7 +1332,7 @@
 	          				React.createElement("ul", {className: "dropdown-menu"}, 
 	            				React.createElement("li", null, React.createElement(Link, {to: "addFriend"}, "Add Friend")), 
 	            				React.createElement("li", null, React.createElement(Link, {to: "removeFriend"}, "Remove Friend")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "View Friend"))
+	            				React.createElement("li", null, React.createElement(Link, {to: "viewFriends"}, "View Friends"))
 	          				)
 	        			)
 	      			), 
@@ -1527,6 +1530,124 @@
 	
 	module.exports = updateWishList;
 	
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var api = __webpack_require__(6);
+	var auth = __webpack_require__(3);
+	
+	var viewFriends = React.createClass({displayName: "viewFriends",
+	
+		getInitialState: function(){
+		    return{
+		    	items : [],
+		      	error: false
+		    }
+		},
+	  	
+	  	listSet: function(status, data){
+	  		console.log("getting to listSet");
+	  		if (status){
+	  			// set the state for the list of items
+	  			console.log("data %s" , data);
+	  			this.setState({
+	  				items: data
+	  			});
+	  			console.log("items are %s", this.state.items[0]);
+	  		} else {
+		        this.context.history.pushState(null, '/mainAppWin');
+	  		}
+	  	},
+	
+	  	reload: function(){
+	  		console.log("getting to reload");
+	  		var username = auth.getUsername();
+	  		console.log("username is %s", username)
+	  		api.getItems(username, "/friend/viewFriends/", this.listSet);
+	  	},
+	
+	  	componentWillMount: function(){
+	  		this.reload();
+	  	},
+	
+		render: function(){
+			return(
+				React.createElement(ListItems, {items: this.state.items, reload: this.reload})
+			);
+		}
+	});
+	
+	var ListItems = React.createClass({displayName: "ListItems",
+		render: function(){
+			// using the list of items, generate an Item element for each one
+	
+		    var list = this.props.items.map(function(item) {
+		        return (
+		            React.createElement(Item, {key: item.username, item: item, reload: this.props.reload})
+		            );
+		    }.bind(this));
+	
+			return(
+				React.createElement("div", null, 
+				React.createElement("div", {className: "container"}, 
+				React.createElement("div", {className: "row"}, 
+				React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"}, 
+			        React.createElement("div", {className: "panel panel-info"}, 
+			        	React.createElement("div", {className: "panel-heading"}, 
+				        	React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
+							"Your Friends List"
+							)
+			        	), 
+			        		React.createElement("div", {className: "panel-body"}, 
+			        			React.createElement("div", {className: "row"}, 
+			        			React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
+				        			React.createElement("table", {className: "table table-user-information", id: "friendsList"}, 
+				        				React.createElement("tbody", null, 
+				        					list
+				        				)
+				        			)
+			        			)
+			        			)
+			        		)
+			        	)
+		        	)
+		        )
+		        )
+		        )
+	        );
+		}
+	});
+	
+	var Item = React.createClass({displayName: "Item",
+		// context so the component can access the router
+	  	contextTypes: {
+	      history: React.PropTypes.object.isRequired
+	  	},
+	
+		render: function(){
+			console.log("username is %s", this.props.item.username);
+			return(
+					React.createElement("tr", {onClick: this.handleClick}, 
+						React.createElement("td", {width: "120px"}, 
+							React.createElement("img", {height: "90", alt: "User Pic", id: "picLinkField", src: this.props.item.profilePic, className: "img-circle img-responsive"})
+						), 
+						React.createElement("td", {id: "friendName", width: "120"}, 
+							this.props.item.firstName, "  ", this.props.item.lastName
+						)
+					)
+	        );
+		},
+	
+		handleClick: function(){
+			this.context.history.pushState(null, '/profile');
+		}
+	});
+	
+	
+	module.exports = viewFriends
 
 
 /***/ }

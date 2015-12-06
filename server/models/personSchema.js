@@ -42,7 +42,6 @@ personSchema.statics.generateToken = function(username) {
 
 
 personSchema.statics.verifyToken = function(token,cb) {
-	console.log(token);
   if (!token) {
     cb(null);
     return;
