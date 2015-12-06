@@ -183,3 +183,17 @@ input, select, textarea {
 #button1{
   font-size: 20px;
 }
+
+.input-group{
+  width: 90%;
+  margin: 0 auto;
+}
+
+#addFriendBtn{
+  width: 40%;
+}
+
+
+#removeFriendBtn{
+  width: 40%;
+}

@@ -14,21 +14,22 @@ var api = {
             },
             error: function(xhr, status, err) {
                 // if there is an error, remove the login token
-                delete localStorage.token;
+                //delete localStorage.token;
                 if (cb)
                     cb(false, status);
             }
         });
     },
     // add an item, call the callback when complete
-    addItem: function(title, cb) {
-        var url = "/api/items";
+    addItem: function(username, friendUsername, cb) {
+        var url = "/friend/add/" + username;
+        console.log(localStorage.token);
         $.ajax({
             url: url,
             contentType: 'application/json',
             data: JSON.stringify({
                 item: {
-                    'title': title
+                    friendUsername: friendUsername
                 }
             }),
             type: 'POST',
@@ -39,7 +40,7 @@ var api = {
             },
             error: function(xhr, status, err) {
                 // if there is an error, remove the login token
-                delete localStorage.token;
+                //delete localStorage.token;
                 if (cb)
                     cb(false, status);
             }
@@ -67,18 +68,22 @@ var api = {
             },
             error: function(xhr, status, err) {
                 // if there is any error, remove any login token
-                delete localStorage.token;
+                // delete localStorage.token;
                 if (cb)
                     cb(false, status);
             }
         });
     },
     // delete an item, call the callback when complete
-    deleteItem: function(item, cb) {
-        var url = "/api/items/" + item.id;
+    deleteItem: function(username, friendUsername, cb) {
+        var url = "/api/items/" + username;
         $.ajax({
             url: url,
+            dataType: 'json',
             type: 'DELETE',
+            data: {
+                friendUsername: friendUsername
+            },
             headers: {'Authorization': localStorage.token},
             success: function(res) {
                 if (cb)
@@ -86,7 +91,7 @@ var api = {
             },
             error: function(xhr, status, err) {
                 // if there is an error, remove any login token
-                delete localStorage.token;
+                //delete localStorage.token;
                 if (cb)
                     cb(false, status);
             }

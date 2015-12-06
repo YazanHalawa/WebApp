@@ -20,12 +20,10 @@ var personSchema = new Schema({
 	bdYear: String,
 	gender: String,
 	profilePic: String,
-	friendList : [{
-		friendEmail : String  	
-	}] 
+	friendList : [String] 
 });	
 
-
+//{type:String, unique: true, sparse: true}
 personSchema.methods.set_password = function(password){
 	
 	this.passwordHash = bcrypt.hashSync(password,salt);
@@ -44,6 +42,7 @@ personSchema.statics.generateToken = function(username) {
 
 
 personSchema.statics.verifyToken = function(token,cb) {
+	console.log(token);
   if (!token) {
     cb(null);
     return;

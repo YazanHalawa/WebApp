@@ -3,7 +3,8 @@ var Route = ReactRouter.Route;
 var SignUp = require('./SignUp');
 var App = require('./App');
 var Profile = require('./Profile');
-var Friends = require('./Friends');
+var addFriend = require('./addFriend');
+var removeFriend = require('./removeFriend');
 var mainAppWin = require('./mainAppWin');
 var updateWishList = require('./updateWishList');
 var IndexRoute = ReactRouter.IndexRoute;
@@ -24,13 +25,15 @@ var routes = (
       	<Route name="parent" path="/" component={indexLogger}>
       		<IndexRoute component={App}/>
       		<Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
-      			<Route name="Friends" path="/friends" component={Friends}/>
+      			<Route name="addFriend" path="/addFriend" component={addFriend}/>
+            <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
 	          <Route name="profile" path="/profile" component={Profile}/>
             <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
 	        </Route>
       		<Route name="SignUp" path="/SignUp" component={SignUp}>
   			    <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
-            		<Route name="Friends" path="/friends" component={Friends}/>
+            		<Route name="addFriend" path="/addFriend" component={addFriend}/>
+                <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
             		<Route name="profile" path="/profile" component={Profile}/>
                 <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
             </Route>

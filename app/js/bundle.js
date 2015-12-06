@@ -56,9 +56,10 @@
 	var SignUp = __webpack_require__(2);
 	var App = __webpack_require__(4);
 	var Profile = __webpack_require__(5);
-	var Friends = __webpack_require__(7);
-	var mainAppWin = __webpack_require__(8);
-	var updateWishList = __webpack_require__(9);
+	var addFriend = __webpack_require__(7);
+	var removeFriend = __webpack_require__(8);
+	var mainAppWin = __webpack_require__(9);
+	var updateWishList = __webpack_require__(10);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -77,13 +78,15 @@
 	      	React.createElement(Route, {name: "parent", path: "/", component: indexLogger}, 
 	      		React.createElement(IndexRoute, {component: App}), 
 	      		React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
-	      			React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
+	      			React.createElement(Route, {name: "addFriend", path: "/addFriend", component: addFriend}), 
+	            React.createElement(Route, {name: "removeFriend", path: "/removeFriend", component: removeFriend}), 
 		          React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
 	            React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 		        ), 
 	      		React.createElement(Route, {name: "SignUp", path: "/SignUp", component: SignUp}, 
 	  			    React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
-	            		React.createElement(Route, {name: "Friends", path: "/friends", component: Friends}), 
+	            		React.createElement(Route, {name: "addFriend", path: "/addFriend", component: addFriend}), 
+	                React.createElement(Route, {name: "removeFriend", path: "/removeFriend", component: removeFriend}), 
 	            		React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
 	                React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 	            )
@@ -1014,21 +1017,22 @@
 	            },
 	            error: function(xhr, status, err) {
 	                // if there is an error, remove the login token
-	                delete localStorage.token;
+	                //delete localStorage.token;
 	                if (cb)
 	                    cb(false, status);
 	            }
 	        });
 	    },
 	    // add an item, call the callback when complete
-	    addItem: function(title, cb) {
-	        var url = "/api/items";
+	    addItem: function(username, friendUsername, cb) {
+	        var url = "/friend/add/" + username;
+	        console.log(localStorage.token);
 	        $.ajax({
 	            url: url,
 	            contentType: 'application/json',
 	            data: JSON.stringify({
 	                item: {
-	                    'title': title
+	                    friendUsername: friendUsername
 	                }
 	            }),
 	            type: 'POST',
@@ -1039,7 +1043,7 @@
 	            },
 	            error: function(xhr, status, err) {
 	                // if there is an error, remove the login token
-	                delete localStorage.token;
+	                //delete localStorage.token;
 	                if (cb)
 	                    cb(false, status);
 	            }
@@ -1067,18 +1071,22 @@
 	            },
 	            error: function(xhr, status, err) {
 	                // if there is any error, remove any login token
-	                delete localStorage.token;
+	                // delete localStorage.token;
 	                if (cb)
 	                    cb(false, status);
 	            }
 	        });
 	    },
 	    // delete an item, call the callback when complete
-	    deleteItem: function(item, cb) {
-	        var url = "/api/items/" + item.id;
+	    deleteItem: function(username, friendUsername, cb) {
+	        var url = "/api/items/" + username;
 	        $.ajax({
 	            url: url,
+	            dataType: 'json',
 	            type: 'DELETE',
+	            data: {
+	                friendUsername: friendUsername
+	            },
 	            headers: {'Authorization': localStorage.token},
 	            success: function(res) {
 	                if (cb)
@@ -1086,7 +1094,7 @@
 	            },
 	            error: function(xhr, status, err) {
 	                // if there is an error, remove any login token
-	                delete localStorage.token;
+	                //delete localStorage.token;
 	                if (cb)
 	                    cb(false, status);
 	            }
@@ -1124,32 +1132,159 @@
 
 /***/ },
 /* 7 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	/** @jsx React.DOM */var Friends = React.createClass({displayName: "Friends",
+	/** @jsx React.DOM */var auth = __webpack_require__(3);
+	var api = __webpack_require__(6);
+	
+	var addFriend = React.createClass({displayName: "addFriend",
 	  // context so the component can access the router
 	  contextTypes: {
 	      router: React.PropTypes.func
 	  },
 	
+	  getInitialState: function(){
+	    return {
+	      friendUsername: '',
+	      error: false
+	    }
+	  },
+	
 	  render: function() {
 	    return (
-	      React.createElement("div", null, 
-	        React.createElement("h1", null, "Friends"), 
-	        React.createElement("ul", null, "List Of Friends", 
-	        	React.createElement("li", null, "Friend 1"), 
-	        	React.createElement("li", null, "Friend 2"), 
-	        	React.createElement("li", null, "Friend 3")
-	        )
+	      React.createElement("div", {className: "form-group"}, 
+	            React.createElement("label", {id: "friendUsrName", htmlFor: "inputEmail3", className: "col-sm-2 control-label"}, "Friend Username"), 
+	            React.createElement("div", {className: "col-sm-10"}, 
+	              React.createElement("input", {
+	                value: this.state.friendUsername, 
+	                onChange: this.handleInputChange, 
+	                type: "email", 
+	                className: "form-control", 
+	                id: "inputEmail3", 
+	                placeholder: "Email"}), 
+	                React.createElement("button", {
+	                id: "AddBtn", 
+	                onClick: this.handleClick, 
+	                className: "btn btn-primary btn-lg active"}, "Add Friend")
+	            ), 
+	            React.createElement("div", {id: "message"}
+	            )
 	      )
 	    );
+	  },
+	
+	  handleInputChange: function(event){
+	    if (event.target.id === "inputEmail3"){
+	      this.setState({friendUsername: event.target.value});
+	    }
+	  },
+	  
+	  handleClick: function(){
+	    // prevent default browser submit
+	    event.preventDefault();
+	    // get data from form
+	    var username = auth.getUsername();
+	    var friendUsername = this.state.friendUsername;
+	
+	    if (!username || !friendUsername) {
+	        return;
+	    }
+	    console.log("username is %s", username);
+	    console.log("friend username is %s", friendUsername);
+	    // login via API
+	    api.addItem(username, friendUsername, function(addedFriend, friendUserName) {
+	        // login callback
+	        if (!addedFriend){
+	          $("#message").html("<font size=25px color=WHITE>Friend Not Found or already exists in your friend list!</font>");
+	            return this.setState({
+	                error: true
+	            });
+	          }
+	        else 
+	          $("#message").html("<font size=25px color=WHITE>Friend Added!</font>");
+	    }.bind(this));
 	  }
 	});
 	
-	module.exports = Friends
+	module.exports = addFriend
 
 /***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var auth = __webpack_require__(3);
+	var api = __webpack_require__(6);
+	
+	var removeFriend = React.createClass({displayName: "removeFriend",
+	  // context so the component can access the router
+	  contextTypes: {
+	      router: React.PropTypes.func
+	  },
+	
+	  getInitialState: function(){
+	    return {
+	      friendUsername: '',
+	      error: false
+	    }
+	  },
+	
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "input-group"}, 
+	        React.createElement("input", {
+	        value: this.state.friendUsername, 
+	        onChange: this.handleInputChange, 
+	        type: "text", 
+	        className: "form-control"}), 
+	        React.createElement("span", {className: "input-groupt-btn"}, 
+	          React.createElement("button", {
+	          onClick: this.handleClick, 
+	          id: "removeFriendBtn", 
+	          className: "btn btn-default", 
+	          type: "button"}, 
+	          "Remove Friend"
+	          )
+	        ), 
+	        React.createElement("div", {id: "message"}
+	        )
+	      )
+	    );
+	  },
+	
+	  handleInputChange: function(){
+	    this.setState({friendUsername: event.target.value});
+	  },
+	
+	  handleClick: function(){
+	    // prevent default browser submit
+	    event.preventDefault();
+	    // get data from form
+	    var username = auth.getUsername();
+	    var friendUsername = this.state.friendUsername;
+	
+	    if (!username || !friendUsername) {
+	        return;
+	    }
+	    
+	    // login via API
+	    api.deleteItem(username, friendUsername, function(removeFriend) {
+	        // login callback
+	        if (!removeFriend){
+	          console.log("failed on remove friend");
+	            return this.setState({
+	                error: true
+	            });
+	          }
+	        else 
+	          $("#message").html("<font size=25px color=WHITE>Friend Removed</font>");
+	    }.bind(this));
+	  }
+	});
+	
+	module.exports = removeFriend
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var Link = ReactRouter.Link;
@@ -1191,9 +1326,9 @@
 	        			React.createElement("li", {role: "presentation", className: "dropdown"}, 
 	          				React.createElement("a", {className: "dropdown-toggle", href: "mainAppWin", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}, "Friends", React.createElement("span", {className: "caret"})), 
 	          				React.createElement("ul", {className: "dropdown-menu"}, 
-	            				React.createElement("li", null, React.createElement(Link, {to: "Friends"}, "View Friends")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Add Friend")), 
-	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "Remove Friend"))
+	            				React.createElement("li", null, React.createElement(Link, {to: "addFriend"}, "Add Friend")), 
+	            				React.createElement("li", null, React.createElement(Link, {to: "removeFriend"}, "Remove Friend")), 
+	            				React.createElement("li", null, React.createElement("a", {href: "#"}, "View Friend"))
 	          				)
 	        			)
 	      			), 
@@ -1227,7 +1362,7 @@
 	module.exports = mainAppWin
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */var api = __webpack_require__(6);

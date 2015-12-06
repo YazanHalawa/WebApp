@@ -37,9 +37,9 @@ getInitialState: function(){
         			<li role="presentation" className="dropdown">
           				<a className="dropdown-toggle" href ="mainAppWin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Friends<span className="caret"></span></a>
           				<ul className="dropdown-menu">
-            				<li><Link to="Friends">View Friends</Link></li>
-            				<li><a href="#">Add Friend</a></li>
-            				<li><a href="#">Remove Friend</a></li>
+            				<li><Link to="addFriend">Add Friend</Link></li>
+            				<li><Link to="removeFriend">Remove Friend</Link></li>
+            				<li><a href="#">View Friend</a></li>
           				</ul>
         			</li>
       			</ul>
