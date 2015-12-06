@@ -61,6 +61,7 @@
 	var mainAppWin = __webpack_require__(9);
 	var updateWishList = __webpack_require__(10);
 	var viewFriends = __webpack_require__(11);
+	var friendProfile = __webpack_require__(12);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -82,6 +83,7 @@
 	      			React.createElement(Route, {name: "addFriend", path: "/addFriend", component: addFriend}), 
 	            React.createElement(Route, {name: "removeFriend", path: "/removeFriend", component: removeFriend}), 
 	            React.createElement(Route, {name: "viewFriends", path: "/viewFriends", component: viewFriends}), 
+	            React.createElement(Route, {name: "friendProfile", path: "/friendProfile", component: friendProfile}), 
 		          React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
 	            React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 		        ), 
@@ -90,6 +92,7 @@
 	            		React.createElement(Route, {name: "addFriend", path: "/addFriend", component: addFriend}), 
 	                React.createElement(Route, {name: "removeFriend", path: "/removeFriend", component: removeFriend}), 
 	                React.createElement(Route, {name: "viewFriends", path: "/viewFriends", component: viewFriends}), 
+	                React.createElement(Route, {name: "friendProfile", path: "/friendProfile", component: friendProfile}), 
 	            		React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
 	                React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
 	            )
@@ -1026,6 +1029,30 @@
 	            }
 	        });
 	    },
+	    // get the list of items, call the callback when complete
+	    getFriendItems: function(username, friendUsername, path, cb) {
+	        console.log("i am %s and she is %s", username, friendUsername);
+	        var url = path + username;
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            type: 'POST',
+	            data:{
+	                friendUsername: friendUsername
+	            },
+	            headers: {'Authorization': localStorage.token},
+	            success: function(res) {
+	                if (cb)
+	                    cb(true, res);
+	            },
+	            error: function(xhr, status, err) {
+	                // if there is an error, remove the login token
+	                //delete localStorage.token;
+	                if (cb)
+	                    cb(false, status);
+	            }
+	        });
+	    },
 	    // add an item, call the callback when complete
 	    addItem: function(username, friendUsername, cb) {
 	        var url = "/friend/add/" + username;
@@ -1080,6 +1107,32 @@
 	            }
 	        });
 	    },
+	    // reserve an item by a user, call the callback when complete
+	    reserveItem: function(itemID, username, cb){
+	        console.log("in reserve item id is %s and username is %s", itemID, username);
+	        console.log(localStorage.token);
+	        var url = "/item/reserve/" + username;
+	        $.ajax({
+	            url: url,
+	            dataType: 'json',
+	            data: {
+	                itemID: itemID
+	            },
+	            type: 'PUT',
+	            headers: {'Authorization': localStorage.token},
+	            success: function(res) {
+	                if (cb)
+	                    cb(true, res);
+	            },
+	            error: function(xhr, status, err) {
+	                // if there is any error, remove any login token
+	                // delete localStorage.token;
+	                if (cb)
+	                    cb(false, status);
+	            }
+	        });
+	    },
+	
 	    // delete an item, call the callback when complete
 	    deleteItem: function(username, friendUsername, cb) {
 	        var url = "/friend/remove/" + username;
@@ -1126,6 +1179,14 @@
 	    setwish3ID: function(newID){
 	        localStorage.wish3ID = newID;
 	    },
+	
+	    setFriendUsername: function(newUserName){
+	        localStorage.friendUsername = newUserName;
+	    },
+	
+	    getFriendUsername: function(){
+	        return localStorage.friendUsername
+	    }
 	
 	};
 	
@@ -1580,6 +1641,8 @@
 		}
 	});
 	
+	
+	
 	var ListItems = React.createClass({displayName: "ListItems",
 		render: function(){
 			// using the list of items, generate an Item element for each one
@@ -1642,13 +1705,167 @@
 		},
 	
 		handleClick: function(){
-			this.context.history.pushState(null, '/profile');
+			api.setFriendUsername(this.props.item.username);
+			this.context.history.pushState(null, '/friendProfile');
 		}
 	});
 	
 	
 	module.exports = viewFriends
 
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var Link = ReactRouter.Link;
+	var api = __webpack_require__(6);
+	var auth = __webpack_require__(3);
+	
+	var friendProfile = React.createClass({displayName: "friendProfile",
+	
+		getInitialState: function(){
+			    return{
+			    	items : '',
+			    	wishes: [],
+			      	error: false
+			    }
+		},
+	  	
+	  	listSet: function(status, data){
+	  		if (status){
+	  			// set the state for the list of items
+	  			console.log("data %s" , data);
+	  			this.setState({
+	  				items: data[0],
+	  				wishes: data[1].wishes
+	  			});
+	  			console.log(this.state.items);
+	  		} else {
+		        this.context.history.pushState(null, '/mainAppWin');
+	  		}
+	  	},
+	
+	  	reload: function(){
+	  		var username = auth.getUsername();
+	  		var friendUsername = api.getFriendUsername();
+	  		api.getFriendItems(username, friendUsername, "/friend/viewFriendsProfile/", this.listSet);
+	  	},
+	
+	  	componentWillMount: function(){
+	  		this.reload();
+	  	},
+	
+	
+	
+		render: function() {
+	
+		var list = this.state.wishes.map(function(item) {
+		        return (
+		            React.createElement(Wish, {key: item._id, item: item, reload: this.props.reload})
+		            );
+		    }.bind(this));
+	
+	    return (
+		React.createElement("div", {className: "container"}, 
+			React.createElement("div", {className: "row"}, 
+				React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"}, 
+					React.createElement("div", {className: "panel panel-info"}, 
+					React.createElement("div", {className: "panel-heading"}, 
+						React.createElement("h3", {className: "panel-title", id: "fullNameField"}, 
+						this.state.items.firstName + " " + this.state.items.lastName
+						)
+					), 
+					React.createElement("div", {className: "panel-body"}, 
+						React.createElement("div", {className: "row"}, 
+							React.createElement("div", {className: "col-md-3 col-lg-3 ", align: "center"}, 
+							React.createElement("img", {alt: "User Pic", value: this.state.items.profilePic, id: "picLinkField", src: this.state.items.profilePic, className: "img-circle img-responsive"})
+							), 
+							React.createElement("div", {className: " col-md-9 col-lg-9 "}, 
+	
+								React.createElement("table", {className: "table table-user-information", id: "profileInfo"}, 
+								React.createElement("tbody", null, 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Email:"), 
+								React.createElement("td", {id: "emailField"}, 
+								this.state.items.username
+								), 
+								React.createElement("td", null)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Date of Birth:"), 
+								React.createElement("td", {id: "dobField"}, 
+								this.state.items.bdMonth + "/" + this.state.items.bdDay + "/" + this.state.items.bdYear
+								
+								), 
+								React.createElement("td", null)
+								), 
+								React.createElement("tr", null, 
+								React.createElement("td", null, "Gender:"), 
+								React.createElement("td", {id: "genderField"}, 
+								this.state.items.gender
+								), 
+								React.createElement("td", null)
+								), 
+								list
+								)
+								)
+							), 
+							React.createElement("div", {id: "message"})
+	
+						)
+					)
+					)
+				)
+			)
+		)
+	    );
+	  },
+	});
+	
+	var Wish = React.createClass({displayName: "Wish",
+		// context so the component can access the router
+	  	contextTypes: {
+	      history: React.PropTypes.object.isRequired
+	  	},
+	
+		render: function(){
+			return(
+				React.createElement("tr", null, 
+					React.createElement("td", null, "Wish"), 
+					React.createElement("td", {id: "wishField"}, 
+					this.props.item.description
+					), 
+					React.createElement("td", null, 
+						React.createElement("button", {onClick: this.handleClick, className: "btn btn-default"}, "Reserve Wish")
+					)
+				)
+				);
+		},
+	
+		handleClick: function(){
+			$('#message').html("<font size=15px color=red>Wish Item Reserved</font>");
+			// prevent default browser submit
+	    	event.preventDefault();
+	
+	    	var wish = this.props.item;
+	    	if (!wish){
+	    		return;
+	    	}
+	    	api.reserveItem(this.props.item._id, auth.getUsername(), function(reservedWish){
+	    		if (!reservedWish){
+	    			console.log("failed to reserve Wish");
+	    		} else {
+	    			this.context.history.pushState(null, '/mainAppWin');
+	    			$('#reserveWishBtn').prop('disabled', true);
+	 
+	    		}
+	    	});
+		}
+	});
+	
+	
+	module.exports = friendProfile
 
 /***/ }
 /******/ ]);

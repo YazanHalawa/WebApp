@@ -8,6 +8,7 @@ var removeFriend = require('./removeFriend');
 var mainAppWin = require('./mainAppWin');
 var updateWishList = require('./updateWishList');
 var viewFriends = require('./viewFriends');
+var friendProfile = require('./friendProfile');
 var IndexRoute = ReactRouter.IndexRoute;
 
 var indexLogger = React.createClass({
@@ -29,6 +30,7 @@ var routes = (
       			<Route name="addFriend" path="/addFriend" component={addFriend}/>
             <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
             <Route name="viewFriends" path="/viewFriends" component={viewFriends}/>
+            <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
 	          <Route name="profile" path="/profile" component={Profile}/>
             <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
 	        </Route>
@@ -37,6 +39,7 @@ var routes = (
             		<Route name="addFriend" path="/addFriend" component={addFriend}/>
                 <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
                 <Route name="viewFriends" path="/viewFriends" component={viewFriends}/>
+                <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
             		<Route name="profile" path="/profile" component={Profile}/>
                 <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
             </Route>

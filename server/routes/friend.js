@@ -1,6 +1,7 @@
 var express = require('express');
 var routerFriend = express.Router();
 var Person = require('../models/personSchema');
+var wishListItem = require('../models/wishListSchema');
 
 
 routerFriend.post('/add/:username', function(req, res) {
@@ -160,7 +161,7 @@ routerFriend.get('/viewFriends/:username', function(req, res) {
     };
         
     var profile = [];  
-    var getLength = 0;
+   
     user = Person.verifyToken(req.headers.authorization, function(user) {
         if (user) {
             
@@ -178,7 +179,7 @@ routerFriend.get('/viewFriends/:username', function(req, res) {
             }
 			
 			
-            console.log("length should be %d", result.friendList.length)
+           // console.log("length should be %d", result.friendList.length)
         	for (var i = 0; i < result.friendList.length; i++){
         		
         		console.log("before function %s",result.friendList[i]);
@@ -208,6 +209,109 @@ routerFriend.get('/viewFriends/:username', function(req, res) {
   
    });
 });
+
+
+//route
+routerFriend.post ('/viewFriendsProfile/:username', function(req,res){
+	console.log("Friend Profile route");
+    
+        
+          var notPerList = { 
+            _id: false,
+            __v: false,
+            passwordHash :false,
+            bdDay: false,
+            bdMonth: false,
+            bdYear: false,
+            firstName: false,
+            gender: false,
+            lastName: false,
+            profilePic: false
+        };
+        
+        var notFriendList = { 
+            _id: false,
+            __v: false,
+            passwordHash :false,
+            friendList :false
+        };
+        
+        
+        var notWishList = { 
+            __v: false,      
+        };
+        
+      
+	user = Person.verifyToken(req.headers.authorization, function(user) {
+        
+        if (user) {
+		  var profile = [];
+            Person.findOne({username:req.params.username},notPerList, function(err, result) {
+            if (err) {
+            	console.log("Can't find user");
+                res.sendStatus(403);
+                return;
+            }
+            
+            
+       	 	if (result.username != user.username) {
+       	 		//console.log(result.username);
+       	 		console.log("User not same in session");
+                res.sendStatus(403);
+	    		return;
+            }
+            console.log("friend is %s", JSON.stringify(req.body));
+             Person.findOne({username:req.body.friendUsername},notFriendList, function(err, result) {
+			  	if (err) {
+	            	console.log("Can't find friend");
+	                res.sendStatus(403);
+	                return;
+			    }
+                wishListItem.find({ownerUserName:result.username, friendUserName:null},notWishList, function(err, wishlist) {
+                    if (err) {
+                        console.log("Error in obtain wishlist");
+                        res.sendStatus(403);
+                        return;
+                    }
+            
+                //console.log(wishlist);
+                profile. push ({
+                username :result.username,
+                firstName : result.firstName,
+                lastName : result.lastName,
+                bdMonth : result.bdMonth,
+                bdDay : result.bdDay,
+                bdYear : result.bdYear,
+                gender : result.gender,
+                profilePic : result.profilePic,
+                });
+            
+                
+                
+                profile. push ({wishes:wishlist});
+                console.log(profile);
+                
+            
+                
+                // console.log(Profile[0]);
+                res.json(profile);
+        
+              });
+            });   
+         });  
+          
+       }
+        else {
+        	console.log("Fourth if");
+            res.sendStatus(403);
+        }
+  
+  
+    });
+});
+
+
+
 
 
 module.exports = routerFriend;

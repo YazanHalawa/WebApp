@@ -106,7 +106,8 @@ var Item = React.createClass({
 	},
 
 	handleClick: function(){
-		this.context.history.pushState(null, '/profile');
+		api.setFriendUsername(this.props.item.username);
+		this.context.history.pushState(null, '/friendProfile');
 	}
 });
 

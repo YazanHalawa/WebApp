@@ -20,6 +20,30 @@ var api = {
             }
         });
     },
+    // get the list of items, call the callback when complete
+    getFriendItems: function(username, friendUsername, path, cb) {
+        console.log("i am %s and she is %s", username, friendUsername);
+        var url = path + username;
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'POST',
+            data:{
+                friendUsername: friendUsername
+            },
+            headers: {'Authorization': localStorage.token},
+            success: function(res) {
+                if (cb)
+                    cb(true, res);
+            },
+            error: function(xhr, status, err) {
+                // if there is an error, remove the login token
+                //delete localStorage.token;
+                if (cb)
+                    cb(false, status);
+            }
+        });
+    },
     // add an item, call the callback when complete
     addItem: function(username, friendUsername, cb) {
         var url = "/friend/add/" + username;
@@ -74,6 +98,32 @@ var api = {
             }
         });
     },
+    // reserve an item by a user, call the callback when complete
+    reserveItem: function(itemID, username, cb){
+        console.log("in reserve item id is %s and username is %s", itemID, username);
+        console.log(localStorage.token);
+        var url = "/item/reserve/" + username;
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            data: {
+                itemID: itemID
+            },
+            type: 'PUT',
+            headers: {'Authorization': localStorage.token},
+            success: function(res) {
+                if (cb)
+                    cb(true, res);
+            },
+            error: function(xhr, status, err) {
+                // if there is any error, remove any login token
+                // delete localStorage.token;
+                if (cb)
+                    cb(false, status);
+            }
+        });
+    },
+
     // delete an item, call the callback when complete
     deleteItem: function(username, friendUsername, cb) {
         var url = "/friend/remove/" + username;
@@ -120,6 +170,14 @@ var api = {
     setwish3ID: function(newID){
         localStorage.wish3ID = newID;
     },
+
+    setFriendUsername: function(newUserName){
+        localStorage.friendUsername = newUserName;
+    },
+
+    getFriendUsername: function(){
+        return localStorage.friendUsername
+    }
 
 };
 
