@@ -76,10 +76,9 @@ var api = {
     },
     // delete an item, call the callback when complete
     deleteItem: function(username, friendUsername, cb) {
-        var url = "/api/items/" + username;
+        var url = "/friend/remove/" + username;
         $.ajax({
             url: url,
-            dataType: 'json',
             type: 'DELETE',
             data: {
                 friendUsername: friendUsername

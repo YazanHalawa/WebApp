@@ -1079,10 +1079,9 @@
 	    },
 	    // delete an item, call the callback when complete
 	    deleteItem: function(username, friendUsername, cb) {
-	        var url = "/api/items/" + username;
+	        var url = "/friend/remove/" + username;
 	        $.ajax({
 	            url: url,
-	            dataType: 'json',
 	            type: 'DELETE',
 	            data: {
 	                friendUsername: friendUsername
@@ -1251,7 +1250,7 @@
 	    );
 	  },
 	
-	  handleInputChange: function(){
+	  handleInputChange: function(event){
 	    this.setState({friendUsername: event.target.value});
 	  },
 	
@@ -1265,11 +1264,13 @@
 	    if (!username || !friendUsername) {
 	        return;
 	    }
-	    
+	    console.log("username is %s", username);
+	    console.log("friend is %s", friendUsername);
 	    // login via API
 	    api.deleteItem(username, friendUsername, function(removeFriend) {
 	        // login callback
 	        if (!removeFriend){
+	          $("#message").html("<font size=25px color=WHITE>Friend Does not exist or is not your friend</font>");
 	          console.log("failed on remove friend");
 	            return this.setState({
 	                error: true
