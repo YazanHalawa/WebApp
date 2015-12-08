@@ -112,21 +112,47 @@ routerFriend.delete('/remove/:username', function(req,res) {
 	                res.sendStatus(403);
 		    		return;
 	           	}
+                // finding friend in my list
 				var i;
-				var position = -1;
+				var friendPosition = -1;
 				console.log(person.friendList);
 				for (i = 0; i < person.friendList.length; i++) {
 					if (req.body.friendUsername === person.friendList[i]){
-						position = i;
+						friendPosition = i;
 					}
 				}
-				console.log(position);
-				if (position != -1) {
+                // finding me in friend's friendlist
+				console.log(friendPosition);
+				if (friendPosition != -1) {
+                    var mePosition = -1;
+                    Person.findOne({'username': person.friendList[friendPosition]}, function(err, friend){
+                        var i;
+                        var mePosition = -1;
+                        console.log(friend.friendList);
+                        for (i = 0; i < friend.friendList.length; i++){
+                            if (req.params.username === friend.friendList[i]){
+                                mePosition = i;
+                            }
+                        }
+                        if (mePosition === -1){
+                            res.sendStatus(403);
+                            return;
+                        }
+
+                        friend.friendList.splice(mePosition, 1);
+                        Person.update({username: friend.username},
+                            {$set: {friendList: friend.friendList}}, function(err, result){
+                                if (err){
+                                    console.log("could not remove me from his friendList");
+                                    return res.send(403);
+                                }
+                        });
+                    });
 					console.log(person.friendList);
 					console.log("about to splice");
 					//var myFriendList = person.myFriendList;
 					//myFriendList.splice(position,1);
-					person.friendList.splice(position,1);
+					person.friendList.splice(friendPosition,1);
 					console.log("after splicing");
 					console.log(person.friendList);
 					

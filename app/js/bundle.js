@@ -86,14 +86,17 @@
 	        { name: 'parent', path: '/', component: indexLogger },
 	        React.createElement(IndexRoute, { component: App }),
 	        React.createElement(Route, { name: 'SignUp', path: '/SignUp', component: SignUp }),
-	        React.createElement(Route, { name: 'mainAppWin', path: '/mainAppWin', component: mainAppWin }),
-	        React.createElement(Route, { name: 'addFriend', path: '/addFriend', component: addFriend }),
-	        React.createElement(Route, { name: 'removeFriend', path: '/removeFriend', component: removeFriend }),
-	        React.createElement(Route, { name: 'viewFriends', path: '/viewFriends', component: viewFriends }),
-	        React.createElement(Route, { name: 'friendProfile', path: '/friendProfile', component: friendProfile }),
-	        React.createElement(Route, { name: 'profile', path: '/profile', component: Profile }),
-	        React.createElement(Route, { name: 'updateWishList', path: '/updateWishList', component: updateWishList }),
-	        React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount })
+	        React.createElement(
+	            Route,
+	            { name: 'mainAppWin', path: '/mainAppWin', component: mainAppWin },
+	            React.createElement(Route, { name: 'addFriend', path: '/addFriend', component: addFriend }),
+	            React.createElement(Route, { name: 'removeFriend', path: '/removeFriend', component: removeFriend }),
+	            React.createElement(Route, { name: 'viewFriends', path: '/viewFriends', component: viewFriends }),
+	            React.createElement(Route, { name: 'friendProfile', path: '/friendProfile', component: friendProfile }),
+	            React.createElement(Route, { name: 'profile', path: '/profile', component: Profile }),
+	            React.createElement(Route, { name: 'updateWishList', path: '/updateWishList', component: updateWishList }),
+	            React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount })
+	        )
 	    )
 	);
 	
