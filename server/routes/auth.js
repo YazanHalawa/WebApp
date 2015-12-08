@@ -31,7 +31,7 @@ router.post ('/register', function(req,res){
 	  				res.sendStatus(403);
 	  				return;
 					}
-    wishListItem.create({ownerUserName:req.body.username ,description:req.body.wish1}, function (err,item){
+    wishListItem.create({ownerUserName:req.body.username ,friendUserName:null, description:req.body.wish1}, function (err,item){
 			
 			if (err) {
 					console.log('wish list 1 save error');
@@ -40,7 +40,7 @@ router.post ('/register', function(req,res){
 			}	
 	});
 	
-	 wishListItem.create({ownerUserName:req.body.username ,description:req.body.wish2}, function (err,item){
+	 wishListItem.create({ownerUserName:req.body.username ,friendUserName:null,description:req.body.wish2}, function (err,item){
 			
 			if (err) {
 					console.log('wish list 2 save error');
@@ -50,7 +50,7 @@ router.post ('/register', function(req,res){
 	});
 	
 	
-	 wishListItem.create({ownerUserName:req.body.username ,description:req.body.wish3}, function (err,item){
+	 wishListItem.create({ownerUserName:req.body.username ,friendUserName:null,description:req.body.wish3}, function (err,item){
 			
 			if (err) {
 					console.log('wish list 3 save error');

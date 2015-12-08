@@ -9,6 +9,7 @@ var mainAppWin = require('./mainAppWin');
 var updateWishList = require('./updateWishList');
 var viewFriends = require('./viewFriends');
 var friendProfile = require('./friendProfile');
+var deleteAccount = require('./deleteAccount');
 var IndexRoute = ReactRouter.IndexRoute;
 
 var indexLogger = React.createClass({
@@ -33,6 +34,7 @@ var routes = (
             <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
 	          <Route name="profile" path="/profile" component={Profile}/>
             <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
+            <Route name="deleteAccount" path="/deleteAccount" component={deleteAccount}/>
 	        </Route>
       		<Route name="SignUp" path="/SignUp" component={SignUp}>
   			    <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
@@ -42,6 +44,7 @@ var routes = (
                 <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
             		<Route name="profile" path="/profile" component={Profile}/>
                 <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
+                <Route name="deleteAccount" path="/deleteAccount" component={deleteAccount}/>
             </Route>
 	        </Route>
         </Route>

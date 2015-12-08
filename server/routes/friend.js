@@ -22,7 +22,7 @@ routerFriend.post('/add/:username', function(req, res) {
 
 	user = Person.verifyToken(req.headers.authorization, function(user) {
 		if (user){
-			Person.findOne({'username':req.body.item.friendUsername}, notPerList, function(err, person) {
+			Person.findOne({'username':req.body.item.friendUsername}, notPerList, function(err, friend) {
 				var found = 0;
 				Person.findOne({'username':req.params.username}, notPerList, function(err, person) {
 					if (err) {
@@ -35,6 +35,13 @@ routerFriend.post('/add/:username', function(req, res) {
 		       	 		console.log("Err comparing username");
 		                res.sendStatus(403);
 			    		return;
+		           	}
+		           	console.log("me %s", person.username);
+		           	console.log("him %s", friend.username);
+		           	if (person.username === friend.username){
+		           		console.log("adding yourself? You fool!");
+		           		res.sendStatus(403);
+		           		return;
 		           	}
 					var i;
 					console.log(person.friendList);

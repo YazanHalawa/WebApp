@@ -27,8 +27,6 @@ var SignUp = React.createClass({
   	},
 
 	render: function(){
-		if (this.state.error)
-			alert("user already exists");
 		return(
 			<div>
 			<div><span id="errorDiv" className="errorDiv"></span></div>

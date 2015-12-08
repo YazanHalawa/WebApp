@@ -62,6 +62,7 @@
 	var updateWishList = __webpack_require__(10);
 	var viewFriends = __webpack_require__(11);
 	var friendProfile = __webpack_require__(12);
+	var deleteAccount = __webpack_require__(13);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({displayName: "indexLogger",
@@ -85,7 +86,8 @@
 	            React.createElement(Route, {name: "viewFriends", path: "/viewFriends", component: viewFriends}), 
 	            React.createElement(Route, {name: "friendProfile", path: "/friendProfile", component: friendProfile}), 
 		          React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
-	            React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
+	            React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList}), 
+	            React.createElement(Route, {name: "deleteAccount", path: "/deleteAccount", component: deleteAccount})
 		        ), 
 	      		React.createElement(Route, {name: "SignUp", path: "/SignUp", component: SignUp}, 
 	  			    React.createElement(Route, {name: "mainAppWin", path: "/mainAppWin", component: mainAppWin}, 
@@ -94,7 +96,8 @@
 	                React.createElement(Route, {name: "viewFriends", path: "/viewFriends", component: viewFriends}), 
 	                React.createElement(Route, {name: "friendProfile", path: "/friendProfile", component: friendProfile}), 
 	            		React.createElement(Route, {name: "profile", path: "/profile", component: Profile}), 
-	                React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList})
+	                React.createElement(Route, {name: "updateWishList", path: "/updateWishList", component: updateWishList}), 
+	                React.createElement(Route, {name: "deleteAccount", path: "/deleteAccount", component: deleteAccount})
 	            )
 		        )
 	        )
@@ -140,8 +143,6 @@
 	  	},
 	
 		render: function(){
-			if (this.state.error)
-				alert("user already exists");
 			return(
 				React.createElement("div", null, 
 				React.createElement("div", null, React.createElement("span", {id: "errorDiv", className: "errorDiv"})), 
@@ -1132,8 +1133,8 @@
 	    },
 	
 	    // delete an item, call the callback when complete
-	    deleteItem: function(username, friendUsername, cb) {
-	        var url = "/friend/remove/" + username;
+	    deleteItem: function(route, username, friendUsername, cb) {
+	        var url = route + username;
 	        $.ajax({
 	            url: url,
 	            type: 'DELETE',
@@ -1329,7 +1330,7 @@
 	    console.log("username is %s", username);
 	    console.log("friend is %s", friendUsername);
 	    // login via API
-	    api.deleteItem(username, friendUsername, function(removeFriend) {
+	    api.deleteItem("/friend/remove/", username, friendUsername, function(removeFriend) {
 	        // login callback
 	        if (!removeFriend){
 	          $("#message").html("<font size=25px color=WHITE>Friend Does not exist or is not your friend</font>");
@@ -1402,7 +1403,8 @@
 	                    onClick: this.handleClick, 
 	                    id: "LogOutBtn"}, 
 	                    "Log Out"
-	                  ))
+	                  )), 
+	              React.createElement("li", null, React.createElement(Link, {to: "deleteAccount"}, "Delete Account"))
 	      			)
 	    		)
 	  		)
@@ -1766,7 +1768,7 @@
 	
 		var list = this.state.wishes.map(function(item) {
 		        return (
-		            React.createElement(Wish, {key: item._id, item: item, reload: this.props.reload})
+		            React.createElement(Wish, {key: item._id, item: item, reload: this.reload})
 		            );
 		    }.bind(this));
 	
@@ -1848,7 +1850,6 @@
 		},
 	
 		handleClick: function(){
-			$('#message').html("<font size=15px color=red>Wish Item Reserved</font>");
 			// prevent default browser submit
 	    	event.preventDefault();
 	
@@ -1860,6 +1861,7 @@
 	    		if (!reservedWish){
 	    			console.log("failed to reserve Wish");
 	    		} else {
+	    			$('#message').html("<font size=15px color=red>Wish Item Reserved</font>");
 	    			this.context.history.pushState(null, '/mainAppWin');
 	    			$('#reserveWishBtn').prop('disabled', true);
 	 
@@ -1870,6 +1872,56 @@
 	
 	
 	module.exports = friendProfile
+	module.exports
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/** @jsx React.DOM */var api = __webpack_require__(6);
+	var auth = __webpack_require__(3);
+	
+	var deleteAccount = React.createClass({displayName: "deleteAccount",
+		
+		// context so the component can access the router
+	  	contextTypes: {
+	      history: React.PropTypes.object.isRequired
+	  	},
+	
+		render: function(){
+			return(
+				React.createElement("div", null, 
+					React.createElement("font", {size: "15px", color: "red"}, "Are you sure you want to leave Genie Lamp?!!"), 
+					React.createElement("button", {onClick: this.handleConfirm, className: "btn btn-default active"}, "Confirm"), 
+					React.createElement("button", {onClick: this.handleCancel, className: "btn btn-default active"}, "Cancel")
+				)	
+			);
+		},
+	
+		handleConfirm: function() {
+			// prevent default browser submit
+	    	event.preventDefault();
+	
+	    	var username = auth.getUsername();
+	    	api.deleteItem('/profile/delete/', username, function(deletedUser){
+	
+	    		if (!deletedUser){
+	    			console.log("User Deletion failed");
+	    		} else {
+	    			auth.logout();
+	    			this.context.history.pushState(null, '/');
+	    		}
+	    	});
+		},
+	
+		handleCancel: function(){
+			// prevent default browser submit
+	    	event.preventDefault();
+	    	this.context.history.pushState(null, '/mainAppWin');
+		}
+	});
+	
+	module.exports = deleteAccount
 
 /***/ }
 /******/ ]);

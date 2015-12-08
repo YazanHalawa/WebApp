@@ -54,7 +54,7 @@ var removeFriend = React.createClass({
     console.log("username is %s", username);
     console.log("friend is %s", friendUsername);
     // login via API
-    api.deleteItem(username, friendUsername, function(removeFriend) {
+    api.deleteItem("/friend/remove/", username, friendUsername, function(removeFriend) {
         // login callback
         if (!removeFriend){
           $("#message").html("<font size=25px color=WHITE>Friend Does not exist or is not your friend</font>");

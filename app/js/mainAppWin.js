@@ -51,6 +51,7 @@ getInitialState: function(){
                     id="LogOutBtn">
                     Log Out
                   </a></li>
+              <li><Link to="deleteAccount">Delete Account</Link></li>
       			</ul>
     		</div>
   		</div>

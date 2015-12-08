@@ -90,9 +90,94 @@ routerProfile.get ('/get/:username', function(req,res){
         	console.log("Fourth if");
             res.sendStatus(403);
         }
-  
-  
     });
 });
 
-module.exports = routerProfile;
+
+//route
+routerProfile.delete ('/delete/:username', function(req,res){
+	console.log("delete profile route");
+    
+       var notPerList = { 
+            _id: false,
+            __v: false,
+            passwordHash :false,
+            friendList :false,
+            bdDay: false,
+            bdMonth: false,
+            bdYear: false,
+            firstName: false,
+            gender: false,
+            lastName: false,
+            profilePic: false
+        };
+        
+	user = Person.verifyToken(req.headers.authorization, function(user) {
+        
+        if (user) {
+			
+        Person.findOne({username:req.params.username},notPerList, function(err, result) {
+            if (err) {
+            	console.log("First if");
+                res.sendStatus(403);
+                return;
+            }
+            
+            
+       	 	if (result.username != user.username) {
+       	 		//console.log(result.username);
+       	 		console.log("Second if");
+                res.sendStatus(403);
+	    		return;
+            }
+            
+            
+            
+        Person.remove({username:req.params.username}, function(err, result) {
+            if (err) {
+            	console.log("Remove user error");
+                res.sendStatus(403);
+                return;
+            }
+            
+            
+          
+            wishListItem.remove({ownerUserName:req.params.username }, function(err, wishlist) {
+                if (err) {
+                	console.log("Remove owneruernamename wishlist error");
+                    res.sendStatus(403);
+                    return;
+                }
+                
+                wishListItem.find({friendUserName :req.params.username},function(err, wishlist) {
+                if (err) {
+                    console.log("Err remove friend username from wish");
+                    res.sendStatus(403);
+                    return;
+                }
+                if (wishlist === undefined || wishlist.length === 0)
+                    res.sendStatus(200); 
+                   // console.log("wish list is %s", wishlist);
+                    wishlist[0].friendUserName = null;  
+                    wishlist[0].save(function(err) {
+                        if (err) {
+                        res.sendStatus(403);
+                        return;
+                        }  
+             
+                    });
+                });
+            });     
+        }); 
+        }); 
+          
+       }
+        else {
+        	console.log("Verify token failure");
+            res.sendStatus(403);
+        }
+   
+    });
+});
+
+module.exports = routerProfile
