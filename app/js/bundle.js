@@ -85,32 +85,15 @@
 	        Route,
 	        { name: 'parent', path: '/', component: indexLogger },
 	        React.createElement(IndexRoute, { component: App }),
-	        React.createElement(
-	            Route,
-	            { name: 'mainAppWin', path: '/mainAppWin', component: mainAppWin },
-	            React.createElement(Route, { name: 'addFriend', path: '/addFriend', component: addFriend }),
-	            React.createElement(Route, { name: 'removeFriend', path: '/removeFriend', component: removeFriend }),
-	            React.createElement(Route, { name: 'viewFriends', path: '/viewFriends', component: viewFriends }),
-	            React.createElement(Route, { name: 'friendProfile', path: '/friendProfile', component: friendProfile }),
-	            React.createElement(Route, { name: 'profile', path: '/profile', component: Profile }),
-	            React.createElement(Route, { name: 'updateWishList', path: '/updateWishList', component: updateWishList }),
-	            React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount })
-	        ),
-	        React.createElement(
-	            Route,
-	            { name: 'SignUp', path: '/SignUp', component: SignUp },
-	            React.createElement(
-	                Route,
-	                { name: 'mainAppWin', path: '/mainAppWin', component: mainAppWin },
-	                React.createElement(Route, { name: 'addFriend', path: '/addFriend', component: addFriend }),
-	                React.createElement(Route, { name: 'removeFriend', path: '/removeFriend', component: removeFriend }),
-	                React.createElement(Route, { name: 'viewFriends', path: '/viewFriends', component: viewFriends }),
-	                React.createElement(Route, { name: 'friendProfile', path: '/friendProfile', component: friendProfile }),
-	                React.createElement(Route, { name: 'profile', path: '/profile', component: Profile }),
-	                React.createElement(Route, { name: 'updateWishList', path: '/updateWishList', component: updateWishList }),
-	                React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount })
-	            )
-	        )
+	        React.createElement(Route, { name: 'SignUp', path: '/SignUp', component: SignUp }),
+	        React.createElement(Route, { name: 'mainAppWin', path: '/mainAppWin', component: mainAppWin }),
+	        React.createElement(Route, { name: 'addFriend', path: '/addFriend', component: addFriend }),
+	        React.createElement(Route, { name: 'removeFriend', path: '/removeFriend', component: removeFriend }),
+	        React.createElement(Route, { name: 'viewFriends', path: '/viewFriends', component: viewFriends }),
+	        React.createElement(Route, { name: 'friendProfile', path: '/friendProfile', component: friendProfile }),
+	        React.createElement(Route, { name: 'profile', path: '/profile', component: Profile }),
+	        React.createElement(Route, { name: 'updateWishList', path: '/updateWishList', component: updateWishList }),
+	        React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount })
 	    )
 	);
 	
@@ -1300,7 +1283,7 @@
 					),
 					React.createElement(
 						'div',
-						{ className: 'clearfix' },
+						null,
 						React.createElement(
 							'button',
 							{
@@ -1451,11 +1434,16 @@
 	        cb = arguments[arguments.length - 1];
 	        // check if token in local storage
 	        if (localStorage.token) {
-	            if (cb) cb(true);
+	            console.log("in token");
+	            if (cb) {
+	                console.log("in cb");
+	                cb(true);
+	            }
+	            console.log("before on change");
 	            this.onChange(true);
 	            return;
 	        }
-	
+	        console.log("Sending request to server");
 	        // submit request to server
 	        var url = "/login";
 	        $.ajax({
@@ -1520,15 +1508,17 @@
 
 	var Link = ReactRouter.Link;
 	var Router = ReactRouter;
+	var History = ReactRouter.History;
 	var auth = __webpack_require__(3);
 	
 	var App = React.createClass({
 	  displayName: 'App',
 	
+	  mixins: [History],
 	  // context so the component can access the router
-	  contextTypes: {
-	    history: React.PropTypes.object.isRequired
-	  },
+	  //contextTypes: {
+	  //    history: React.PropTypes.object.isRequired
+	  //},
 	
 	  getInitialState: function () {
 	    return {
@@ -1668,7 +1658,11 @@
 	        return this.setState({
 	          error: true
 	        });
-	      } else this.context.history.pushState(null, '/mainAppWin');
+	      } else {
+	        console.log("succeeded");
+	        this.history.pushState(null, '/mainAppWin');
+	        //this.context.history.pushState(null, '/mainAppWin');
+	      }
 	    }).bind(this));
 	  }
 	});
@@ -2224,15 +2218,17 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Link = ReactRouter.Link;
+	var History = ReactRouter.History;
 	var auth = __webpack_require__(3);
 	
 	var mainAppWin = React.createClass({
 	  displayName: 'mainAppWin',
 	
+	  mixins: [History],
 	  // context so the component can access the router
-	  contextTypes: {
-	    history: React.PropTypes.object.isRequired
-	  },
+	  //contextTypes: {
+	  //    history: React.PropTypes.object.isRequired
+	  //},
 	
 	  getInitialState: function () {
 	    return {
@@ -2378,7 +2374,7 @@
 	
 	  handleClick: function () {
 	    auth.logout();
-	    this.context.history.pushState(null, '/');
+	    this.history.pushState(null, '/');
 	  }
 	
 	});
@@ -2958,19 +2954,35 @@
 				'div',
 				null,
 				React.createElement(
-					'font',
-					{ size: '15px', color: 'red' },
-					'Are you sure you want to leave Genie Lamp?!!'
+					'div',
+					null,
+					React.createElement(
+						'span',
+						null,
+						React.createElement(
+							'label',
+							null,
+							React.createElement(
+								'font',
+								{ size: '25px', color: 'WHITE' },
+								'Are you sure you want to leave Genie Lamp?!!'
+							)
+						)
+					)
 				),
 				React.createElement(
-					'button',
-					{ onClick: this.handleConfirm, className: 'btn btn-default active' },
-					'Confirm'
-				),
-				React.createElement(
-					'button',
-					{ onClick: this.handleCancel, className: 'btn btn-default active' },
-					'Cancel'
+					'div',
+					null,
+					React.createElement(
+						'button',
+						{ onClick: this.handleConfirm, className: 'btn btn-default active' },
+						'Confirm'
+					),
+					React.createElement(
+						'button',
+						{ onClick: this.handleCancel, className: 'btn btn-default active' },
+						'Cancel'
+					)
 				)
 			);
 		},
