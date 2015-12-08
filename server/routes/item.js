@@ -55,6 +55,7 @@ routerItem.put ('/update/:username', function(req,res){
                    // console.log("descr is %s" , req.body.item.description);
                    // console.log("wish list is %s", wishlist);
                     wishlist.description = req.body.item.description;  
+                    wishlist.friendUserName = null; 
                     wishlist.save(function(err) {
                     if (err) {
                     res.sendStatus(403);
