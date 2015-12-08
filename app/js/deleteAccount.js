@@ -11,9 +11,17 @@ var deleteAccount = React.createClass({
 	render: function(){
 		return(
 			<div>
-				<font size="15px" color="red">Are you sure you want to leave Genie Lamp?!!</font>
+			<div>
+			<span>
+			<label>
+				<font size="25px" color="WHITE">Are you sure you want to leave Genie Lamp?!!</font>
+			</label>
+			</span>
+			</div>
+			<div>
 				<button onClick={this.handleConfirm} className="btn btn-default active">Confirm</button>
 				<button onClick={this.handleCancel} className="btn btn-default active">Cancel</button>
+			</div>
 			</div>	
 		);
 	},

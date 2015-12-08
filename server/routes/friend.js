@@ -121,8 +121,45 @@ routerFriend.delete('/remove/:username', function(req,res) {
 							console.log(err);
 							return res.send(err);
 						}
-						res.json({username:result.username});
-					});
+                        
+                        
+                         wishListItem.find({ownerUserName:person.username, friendUserName :req.body.friendUsername},function(err, wishlist) {
+                            if (err) {
+                                console.log("Err find friend username from wish");
+                                res.sendStatus(403);
+                                return;
+                            }
+                        	if (wishlist === undefined){
+                        		console.log("no wishes found when removing friend");
+                        		res.sendStatus(403);
+                        		return;
+                        	}
+                        
+                                    for (var i = 0; i < wishlist.length; i++){
+     
+                                     wishListItem.findById(wishlist[i]._id,function(err, wl) {
+              
+                                        if (err) {
+                                            console.log("Err retrieve wishliet id");
+                                            res.sendStatus(403);
+                                            return;
+                                        }
+                                             console.log(wl);
+                                            
+                                            wl.friendUserName = null; 
+                                            wl.save(function(err) {
+                                            if (err) {
+                                            res.sendStatus(403);
+                                            return;
+                                            }  
+                                    
+                                    });                                                      
+                                  });
+                                } 
+                            });
+                                                    
+						      res.sendStatus(200);
+				    })
 				}
 				else {
 					console.log("That friend is not in your list");
@@ -137,7 +174,6 @@ routerFriend.delete('/remove/:username', function(req,res) {
 
 	});
 });
-
 
 routerFriend.get('/viewFriends/:username', function(req, res) {
 	console.log("view Friends route");

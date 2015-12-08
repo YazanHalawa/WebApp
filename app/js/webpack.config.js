@@ -15,10 +15,12 @@ module.exports = {
         loaders: [
             {
                 test:/\.js.?/,
-                loaders: [
+                //loaders: [
                 // Converts jsx, and handles ES6 features
-                    'jsx-loader?insertPragma=React.DOM&harmony'
-                ]
+                //    'jsx-loader?insertPragma=React.DOM&harmony'
+                //]
+                loader: "babel",
+                query: { presets: ['react']}
             }
         ]
     },

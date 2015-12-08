@@ -27,26 +27,15 @@ var routes = (
     <Router>
       	<Route name="parent" path="/" component={indexLogger}>
       		<IndexRoute component={App}/>
-      		<Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
-      			<Route name="addFriend" path="/addFriend" component={addFriend}/>
-            <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
-            <Route name="viewFriends" path="/viewFriends" component={viewFriends}/>
-            <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
-	          <Route name="profile" path="/profile" component={Profile}/>
-            <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
-            <Route name="deleteAccount" path="/deleteAccount" component={deleteAccount}/>
-	        </Route>
-      		<Route name="SignUp" path="/SignUp" component={SignUp}>
-  			    <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}>
-            		<Route name="addFriend" path="/addFriend" component={addFriend}/>
-                <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
-                <Route name="viewFriends" path="/viewFriends" component={viewFriends}/>
-                <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
-            		<Route name="profile" path="/profile" component={Profile}/>
-                <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
-                <Route name="deleteAccount" path="/deleteAccount" component={deleteAccount}/>
-            </Route>
-	        </Route>
+      		<Route name="SignUp" path="/SignUp" component={SignUp}/>
+  			  <Route name="mainAppWin" path="/mainAppWin" component={mainAppWin}/>
+      		<Route name="addFriend" path="/addFriend" component={addFriend}/>
+          <Route name="removeFriend" path="/removeFriend" component={removeFriend}/>
+          <Route name="viewFriends" path="/viewFriends" component={viewFriends}/>
+          <Route name="friendProfile" path="/friendProfile" component={friendProfile}/>
+      		<Route name="profile" path="/profile" component={Profile}/>
+          <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
+          <Route name="deleteAccount" path="/deleteAccount" component={deleteAccount}/>
         </Route>
     </Router>
 );
