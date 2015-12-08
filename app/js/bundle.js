@@ -140,13 +140,13 @@
 	  	},
 	
 		render: function(){
+			if (this.state.error)
+				alert("user already exists");
 			return(
 				React.createElement("div", null, 
 				React.createElement("div", null, React.createElement("span", {id: "errorDiv", className: "errorDiv"})), 
 				React.createElement("form", {id: "reg", name: "reg"}, 
-					React.createElement("input", {type: "hidden", name: "lsd", value: "AVrbhDJG", autoComplete: "off"}), 
 					React.createElement("div", {id: "reg_form_box", className: "large_form"}, 
-						React.createElement("div", {className: "clearfix _58mh"}, 
 							React.createElement("div", {className: "mbm _3-90 lfloat _ohe"}, 
 								React.createElement("div", {className: "_5dbb", id: "u_0_a"}, 
 									React.createElement("div", {className: "uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput"}, 
@@ -517,16 +517,12 @@
 						name: "sex", 
 						value: "2", 
 						id: "pickedMale"}), React.createElement("label", {className: "_58mt", htmlFor: "u_0_o"}, "Male"))), React.createElement("i", {className: "_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"}), React.createElement("i", {className: "_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"})), 
-						React.createElement("div", {className: "clearfix"}, React.createElement(Link, {to: "/mainAppWin"}, 
+						React.createElement("div", {className: "clearfix"}, 
 	                  React.createElement("button", {
 	                  onClick: this.handleClick, 
 	                  id: "LogInBtn", 
 	                  className: "btn btn-primary btn-lg active"}, "Sign Up")
-	                ))
-					), 
-					React.createElement("input", {type: "hidden", autoComplete: "off", id: "referrer", name: "referrer", value: ""}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "asked_to_login", name: "asked_to_login"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "terms", name: "terms", value: "on"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "ab_test_data", name: "ab_test_data", value: ""}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "reg_instance", name: "reg_instance", value: "f5ZTVicvklCwNUJcUZfUDS8L"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "contactpoint_label", name: "contactpoint_label", value: "email_or_phone"}), React.createElement("input", {type: "hidden", autoComplete: "off", id: "locale", name: "locale", value: "en_US"}), 
-					React.createElement("div", {id: "reg_captcha", className: "_58mw hidden_elem"}
-					)
+	                )
 				)
 				)
 				);
@@ -609,7 +605,8 @@
 	
 		    if (!username || !password || !firstName || !lastName || !wish1 ||
 		     !wish2 || !wish3 || !bdMonth || !bdDay || !bdYear || !gender || !profilePic) {
-		        $("#errorDiv").html("<font size=15px color=red>Please Fill out all items!</font>");
+		        // $("#errorDiv").html("<font size=15px color=red>Please Fill out all items!</font>");
+		    	alert("Please Fill out all items!");
 		        return;
 		    }
 		    
@@ -619,6 +616,7 @@
 		    			  gender, profilePic, function(loggedIn) {
 		        // login callback
 		        if (!loggedIn){
+		        	this.setState({error: true});
 		          	console.log("failed");
 		            $("#errorDiv").html("<font size=15px color=red>User already exists!</font>");
 		          }
@@ -1382,7 +1380,7 @@
 	        			React.createElement("span", {className: "icon-bar"}), 
 	        			React.createElement("span", {className: "icon-bar"})
 	      			), 
-	      			React.createElement("a", {className: "navbar-brand", href: "/mainAppWin"}, "Genie Lamp")
+	      			React.createElement("a", {className: "navbar-brand", href: "/#/mainAppWin"}, "Genie Lamp")
 	    		), 
 	
 	    		React.createElement("div", {className: "collapse navbar-collapse"}, 
@@ -1398,7 +1396,7 @@
 	        			)
 	      			), 
 	      			React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
-	        			React.createElement("li", null, React.createElement("a", {href: "/mainAppWin"}, "Hello ", auth.getName())), 
+	        			React.createElement("li", null, React.createElement("a", {href: "/#/mainAppWin"}, "Hello ", auth.getName())), 
 	              React.createElement("li", null, React.createElement("a", {
 	                    href: "#", 
 	                    onClick: this.handleClick, 
@@ -1635,9 +1633,15 @@
 	  	},
 	
 		render: function(){
-			return(
-				React.createElement(ListItems, {items: this.state.items, reload: this.reload})
-			);
+			if (this.state.items.length != 0){
+				return(
+					React.createElement(ListItems, {items: this.state.items, reload: this.reload})
+				);
+			} else {
+				return(
+					React.createElement("font", null, " You have no friends. Invite some! ")
+				);
+			}
 		}
 	});
 	

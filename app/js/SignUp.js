@@ -27,13 +27,13 @@ var SignUp = React.createClass({
   	},
 
 	render: function(){
+		if (this.state.error)
+			alert("user already exists");
 		return(
 			<div>
 			<div><span id="errorDiv" className="errorDiv"></span></div>
 			<form id="reg" name="reg">
-				<input type="hidden" name="lsd" value="AVrbhDJG" autoComplete="off"/>
 				<div id="reg_form_box" className="large_form">
-					<div className="clearfix _58mh">
 						<div className="mbm _3-90 lfloat _ohe">
 							<div className="_5dbb" id="u_0_a">
 								<div className="uiStickyPlaceholderInput uiStickyPlaceholderEmptyInput">
@@ -404,16 +404,12 @@ var SignUp = React.createClass({
 					name="sex" 
 					value="2" 
 					id="pickedMale"/><label className="_58mt" htmlFor="u_0_o">Male</label></span></span><i className="_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"></i></div>
-					<div className="clearfix"><Link to="/mainAppWin">
+					<div className="clearfix">
                   <button 
                   onClick={this.handleClick}
                   id="LogInBtn" 
                   className="btn btn-primary btn-lg active" >Sign Up</button>
-                </Link></div>
-				</div>
-				<input type="hidden" autoComplete="off" id="referrer" name="referrer" value=""/><input type="hidden" autoComplete="off" id="asked_to_login" name="asked_to_login"/><input type="hidden" autoComplete="off" id="terms" name="terms" value="on"/><input type="hidden" autoComplete="off" id="ab_test_data" name="ab_test_data" value=""/><input type="hidden" autoComplete="off" id="reg_instance" name="reg_instance" value="f5ZTVicvklCwNUJcUZfUDS8L"/><input type="hidden" autoComplete="off" id="contactpoint_label" name="contactpoint_label" value="email_or_phone"/><input type="hidden" autoComplete="off" id="locale" name="locale" value="en_US"/>
-				<div id="reg_captcha" className="_58mw hidden_elem">
-				</div>
+                </div>
 			</form>
 			</div>
 			);
@@ -496,7 +492,8 @@ var SignUp = React.createClass({
 
 	    if (!username || !password || !firstName || !lastName || !wish1 ||
 	     !wish2 || !wish3 || !bdMonth || !bdDay || !bdYear || !gender || !profilePic) {
-	        $("#errorDiv").html("<font size=15px color=red>Please Fill out all items!</font>");
+	        // $("#errorDiv").html("<font size=15px color=red>Please Fill out all items!</font>");
+	    	alert("Please Fill out all items!");
 	        return;
 	    }
 	    
@@ -506,6 +503,7 @@ var SignUp = React.createClass({
 	    			  gender, profilePic, function(loggedIn) {
 	        // login callback
 	        if (!loggedIn){
+	        	this.setState({error: true});
 	          	console.log("failed");
 	            $("#errorDiv").html("<font size=15px color=red>User already exists!</font>");
 	          }

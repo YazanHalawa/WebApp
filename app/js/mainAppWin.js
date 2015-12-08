@@ -28,7 +28,7 @@ getInitialState: function(){
         			<span className="icon-bar"></span>
         			<span className="icon-bar"></span>
       			</button>
-      			<a className="navbar-brand" href="/mainAppWin">Genie Lamp</a>
+      			<a className="navbar-brand" href="/#/mainAppWin">Genie Lamp</a>
     		</div>
 
     		<div className="collapse navbar-collapse">
@@ -44,7 +44,7 @@ getInitialState: function(){
         			</li>
       			</ul>
       			<ul className="nav navbar-nav navbar-right">
-        			<li><a href="/mainAppWin">Hello {auth.getName()}</a></li>
+        			<li><a href="/#/mainAppWin">Hello {auth.getName()}</a></li>
               <li><a
                     href = "#"
                     onClick={this.handleClick} 

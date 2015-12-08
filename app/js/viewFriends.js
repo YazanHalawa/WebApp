@@ -36,9 +36,15 @@ var viewFriends = React.createClass({
   	},
 
 	render: function(){
-		return(
-			<ListItems items={this.state.items} reload={this.reload}/>
-		);
+		if (this.state.items.length != 0){
+			return(
+				<ListItems items={this.state.items} reload={this.reload}/>
+			);
+		} else {
+			return(
+				<font> You have no friends. Invite some! </font>
+			);
+		}
 	}
 });
 
