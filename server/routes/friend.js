@@ -51,6 +51,7 @@ routerFriend.post('/add/:username', function(req, res) {
 						}
 					}
 					if (!found) {
+                        
 						Person.update(
 						{'username' : req.params.username },
 						{$push:{'friendList': req.body.item.friendUsername}},
@@ -60,8 +61,23 @@ routerFriend.post('/add/:username', function(req, res) {
 								return res.send(err);
 							}
 						console.log("friend added!");
-						return res.json({username:result.username});				
-						});
+                        
+                        
+                        Person.update(
+						{'username' : friend.username },
+						{$push:{'friendList':  person.username}},
+					 	function(err,result) {
+							if(err){
+								console.log(err);
+								return res.send(err);
+							}
+                        console.log(friend.username);
+                        console.log( person.username);
+						console.log("User addeded on friend's friendlist!");
+
+                        return res.json({username:result.username});				
+                        });
+                      });
 					}
 					else{
 						console.log("your friend is your list dummy	");
