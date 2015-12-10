@@ -2,7 +2,7 @@ var express = require('express');
 var routerProfile = express.Router();
 var Person = require('../models/personSchema');
 var wishListItem = require('../models/wishListSchema');
-
+var Email = require('./emailAlert');
 
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
@@ -105,9 +105,7 @@ routerProfile.delete ('/delete/:username', function(req,res){
             bdDay: false,
             bdMonth: false,
             bdYear: false,
-            firstName: false,
             gender: false,
-            lastName: false,
             profilePic: false
         };
 
@@ -166,7 +164,7 @@ routerProfile.delete ('/delete/:username', function(req,res){
 
                 // Remove wishes i have reserved
                 wishListItem.find({friendUserName :req.params.username},function(err, wishlist) {
-                    console.log(wishlist);
+                   // console.log(wishlist);
                     if (err) {
                         console.log("Err find friend username from wish");
                         res.sendStatus(403);
@@ -185,8 +183,8 @@ routerProfile.delete ('/delete/:username', function(req,res){
                                     res.sendStatus(403);
                                     return;
                                 }
-                                console.log(wl);
-                                
+                              //  console.log(wl);
+                                                                
                                 wl.friendUserName = null; 
                                 wl.save(function(err) {
                                     if (err) {
@@ -199,8 +197,52 @@ routerProfile.delete ('/delete/:username', function(req,res){
                             });
                         }
                     }
-                    // Delete wishes that belong to me
-                    wishListItem.remove({ownerUserName:req.params.username}, function(err, wishlist) {
+                    
+           // Remove wishes i have reserved
+                wishListItem.find({ownerUserName:req.params.username},function(err, wishlistOwn) {
+                    console.log("Inside get " + wishlistOwn);
+                    if (err) {
+                        console.log("Err find friend username from wish");
+                        res.sendStatus(403);
+                        return;
+                    }
+                    if (wishlistOwn === undefined){
+                        console.log("no wishes found when removing friend");
+                        return;
+                    } else {
+                        for (var i = 0; i < wishlistOwn.length; i++){
+                            console.log("wishlist of i " + wishlistOwn[i]._id);
+                            
+                            wishListItem.findById(wishlistOwn[i]._id,function(err, wlOwn) {
+                                console.log("inside wlOwn "+wlOwn);
+                               
+                                if (err) {
+                                    console.log("Err retrieve wishliet id");
+                                    res.sendStatus(403);
+                                    return;
+                                }
+
+                                if(wlOwn.friendUserName != null){
+                                    var sendEmail = new  Email(wlOwn.friendUserName, wlOwn.description,result.firstName,result.lastName); 
+                                        sendEmail.transporter;   
+                              }                              
+                             
+                              wlOwn.remove({_id:wlOwn._id},function(err, removed){
+                                  if (err) {
+                                        console.log("Remove owneruernamename wishlist error");
+                                        res.sendStatus(403);
+                                        return;
+                                    }
+                                    console.log("removed my wishlist");
+                                 });
+                                 
+                               }); 
+                           }
+                        }
+                   
+                   
+                     // Delete wishes that belong to me
+                 /*   wishListItem.remove({ownerUserName:req.params.username}, function(err, wishlist) {
                         if (err) {
                             console.log("Remove owneruernamename wishlist error");
                             res.sendStatus(403);
@@ -208,7 +250,9 @@ routerProfile.delete ('/delete/:username', function(req,res){
                         }
                         console.log("removed my wishlist");
                     });
-
+                   
+                 }*/
+ 
                     //Finally Delete me as a user
                     Person.remove({username:req.params.username}, function(err, result) {
                         if (err) {
@@ -219,7 +263,8 @@ routerProfile.delete ('/delete/:username', function(req,res){
                     });
                     console.log("removed me");
                     res.sendStatus(200);
-
+                    
+                   });  
                 }); 
             }); 
           
