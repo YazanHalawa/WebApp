@@ -6,7 +6,7 @@ var auth = require ('./auth');
 var App = React.createClass({
 
   mixins: [History],
-  
+
   getInitialState: function(){
     return{
       emailText: '',
@@ -21,7 +21,7 @@ var App = React.createClass({
         <div id="mainText">
           <div id="key_phrase">Make your wishes come true</div>
           <div id="firstSuppPhrase">Genie Lamp allows you to make wishes</div>
-          <div id="firstSuppPhrase">And have you friends GRANT them</div>
+          <div id="firstSuppPhrase">And have your friends GRANT them</div>
           <div id="secondSuppPhrase">Join NOW!</div>
         </div>
         <form id="mainForm" className="form-horizontal">

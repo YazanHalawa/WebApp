@@ -1559,7 +1559,7 @@
 	        React.createElement(
 	          'div',
 	          { id: 'firstSuppPhrase' },
-	          'And have you friends GRANT them'
+	          'And have your friends GRANT them'
 	        ),
 	        React.createElement(
 	          'div',
