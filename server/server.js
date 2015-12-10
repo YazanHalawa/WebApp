@@ -30,7 +30,7 @@ console.log('MongoDB connected.');
 
 
 
-app.use(express.static('../app')); // setup static directory
+app.use(express.static('root/webApp/app')); // setup static directory
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', routeAuth);
