@@ -53,7 +53,7 @@ module.exports = function ContactUs (senderEmail, subject, message) {
 			from: senderEmail,
 			to: 'genielampbyu@gmail.com',
 			subject: subject,
-			text: senderEmail + 'sent you the following message: \n' + message
+			text: senderEmail + ' sent you the following message: \n' + message
 		}
 		
 		transporter.sendMail(mailOptions, function(err) {
