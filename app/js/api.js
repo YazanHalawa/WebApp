@@ -135,16 +135,12 @@ var api = {
             },
             headers: {'Authorization': localStorage.token},
             success: function(res) {
-                if (route === "/profile/delete/"){
-                    delete localStorage.token;
-                }
-                console.log("delete worked");
                 if (cb)
                     cb(true, res);
             },
             error: function(xhr, status, err) {
                 // if there is an error, remove any login token
-
+                //delete localStorage.token;
                 if (cb)
                     cb(false, status);
             }
