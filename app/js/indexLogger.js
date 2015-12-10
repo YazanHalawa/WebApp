@@ -10,6 +10,7 @@ var updateWishList = require('./updateWishList');
 var viewFriends = require('./viewFriends');
 var friendProfile = require('./friendProfile');
 var deleteAccount = require('./deleteAccount');
+var navBarSettings = require('./navBarSettings');
 var IndexRoute = ReactRouter.IndexRoute;
 
 var indexLogger = React.createClass({
@@ -36,6 +37,7 @@ var routes = (
       		  <Route name="profile" path="/profile" component={Profile}/>
             <Route name="updateWishList" path="/updateWishList" component={updateWishList}/>
             <Route name="deleteAccount" path="/deleteAccount" component={deleteAccount}/>
+            <Route name="navBarSettings" path="/navBarSettings" component={navBarSettings}/>
           </Route>
         </Route>
     </Router>

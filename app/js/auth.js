@@ -27,6 +27,7 @@ var auth = {
                 localStorage.token = res.token;
                 localStorage.username = username;
                 localStorage.name = res.name;
+                localStorage.colorScheme = "WHITE";
                 if (cb)
                     cb(true);
                 this.onChange(true);
@@ -74,6 +75,8 @@ var auth = {
                 console.log("saving %s",username);
                 localStorage.username = username;
                 localStorage.name = res.name;
+                console.log("saving color scheme %s", res.colorScheme);
+                localStorage.colorScheme = res.colorScheme;
                 console.log("name is %s", localStorage.name)
                 if (cb)
                     cb(true);
@@ -110,6 +113,12 @@ var auth = {
     // check if user is logged in
     loggedIn: function() {
         return !!localStorage.token;
+    },
+    getColorScheme: function(){
+        return localStorage.colorScheme;
+    },
+    setColorScheme: function(newVal){
+        localStorage.colorScheme = newVal;
     },
     // default onChange function
     onChange: function() {}

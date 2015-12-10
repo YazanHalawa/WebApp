@@ -264,4 +264,70 @@ routerProfile.delete ('/delete/:username', function(req,res){
     }); 
 });
 
+
+
+//routItem update
+routerProfile.put ('/updateColor/:username', function(req,res){
+	console.log(" update color");
+    
+        var notPerList = { 
+            __v: false,
+            passwordHash :false,
+            friendList :false,
+            bdDay: false,
+            bdMonth: false,
+            bdYear: false,
+            firstName: false,
+            gender: false,
+            lastName: false,
+            profilePic: false
+        };
+        
+       
+    console.log("username was %s" ,req.params.username);
+    console.log("colorScheme was %s" ,req.body.colorScheme);
+    
+	user = Person.verifyToken(req.headers.authorization, function(user) {
+        console.log(req.body);
+        if (user) {
+			
+            Person.findOne({username:req.params.username}, notPerList, function(err, result) {
+            if (err) {
+            	console.log("Err get person");
+                res.sendStatus(403);
+                return;
+            }
+            
+       	 	if (result.username != user.username) {
+       	 		console.log("Err comparing username");
+                res.sendStatus(403);
+	    		return;
+            }
+
+   
+                    result.colorScheme = req.body.colorScheme;  
+                  
+                    result.save(function(err) {
+                        if (err) {
+                        console.log(err);
+                        res.sendStatus(403);
+                        return;
+                        }               
+                    });
+                res.sendStatus(200);
+     
+            });  
+          
+       }
+        else {
+        	console.log("Person verify user error");
+            res.sendStatus(403);
+        }
+  
+    });
+});
+
+
 module.exports = routerProfile
+
+

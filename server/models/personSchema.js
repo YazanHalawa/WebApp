@@ -20,6 +20,7 @@ var personSchema = new Schema({
 	bdYear: String,
 	gender: String,
 	profilePic: String,
+	colorScheme: String,
 	friendList : [String] 
 });	
 

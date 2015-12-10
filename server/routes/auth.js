@@ -26,6 +26,7 @@ router.post ('/register', function(req,res){
 					user.bdYear = req.body.bdYear;
 					user.gender = req.body.gender;
 					user.profilePic = req.body.profilePic;
+					user.colorScheme = "WHITE";
 					user.save(function(err) {
 					if (err) {
 					console.log('DB Save error');
@@ -81,11 +82,11 @@ router.post ('/login', function(req,res){
 				res.sendStatus(403);
 	    		return; 
 			};
-			
+			console.log("color is %s", user.colorScheme);
 			if(user && user.checkPassword(req.body.password)){
 				console.log("found");
 				var token = Person.generateToken(user.username);
-				res.json({name: user.firstName, token:token});
+				res.json({name: user.firstName, colorScheme: user.colorScheme, token:token});
 				}
 			
 			else{
