@@ -1,0 +1,202 @@
+/*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+html {
+  font-size: 62.5%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+  font-family: "Calibri";
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #e2e1c8;
+  background-color: #303552;
+  background-size: 100% 100%s;
+  background-position: center center;
+  vertical-align: center;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+  display: compact;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url(http://netdna.webdesignerdepot.com/uploads/2012/12/featured20@wdd2x.jpg);
+}
+
+#mainPage{
+  font-family: "Calibri";
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #e2e1c8;
+  background-color: #303552;
+  background-size: 100% 100%s;
+  background-position: center center;
+  vertical-align: center;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+  display: compact;
+}
+
+#key_phrase{
+  margin-top: 4cm;
+  float: center;
+  color: ORANGE;
+  display: compact;
+  text-align: center;
+  vertical-align: center;
+  background-size: 100% 100%s;
+  font-family: "Calibri";
+  font-size: 50px;
+  line-height: 1.428571429;
+}
+
+#firstSuppPhrase{
+  float: center;
+  color: WHITE;
+  display: compact;
+  text-align: center;
+  vertical-align: center;
+  background-size: 100% 100%s;
+  font-family: "Calibri";
+  font-size: 40px;
+  line-height: 1.428571429;
+}
+
+#secondSuppPhrase{
+  float: center;
+  font-style: italic;
+  color: Gold;
+  display: compact;
+  text-align: center;
+  vertical-align: center;
+  background-size: 100% 100%s;
+  font-family: "Calibri";
+  font-size: 40px;
+  line-height: 1.428571429;
+}
+
+form {
+  float: center;
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 1.5cm;
+}
+
+input, select, textarea {
+  color: #000;
+}
+
+#passwordLabel{
+  float: center;
+  margin-left: 2.25cm;
+}
+
+#emailLabel{
+  float: center;
+  margin-left: 2.5cm;
+}
+
+#LogInBtn {
+  margin-right: .25cm;
+  margin-top: .5cm;
+  float: center;
+  color: WHITE;
+}
+
+#SignUpBtn {
+  margin-left: .25cm;
+  margin-top: .5cm;
+  float: center;
+  color: WHITE;
+}
+
+#mainText {
+  margin-right: 1.5cm;
+}
+
+#mainForm {
+  margin: 0 auto;
+  position: center;
+}
+
+#mainPage {
+   float: center;
+}
+
+.user-row {
+    margin-bottom: 14px;
+}
+
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+
+.toppad{
+  margin-top:20px;
+}
+
+#profileInfo{
+  margin: 0 auto;
+  font-size: 20px;
+  color: BLACK;
+}
+
+#errorText{
+  font-size: 10px;
+  color: BLACK;
+}
+
+#button1{
+  font-size: 20px;
+}
+
+.input-group{
+  width: 90%;
+  margin: 0 auto;
+}
+
+#addFriendBtn{
+  width: 40%;
+}
+
+
+#removeFriendBtn{
+  width: 40%;
+}
+
+#friendName{
+  color: BLACK;
+}
