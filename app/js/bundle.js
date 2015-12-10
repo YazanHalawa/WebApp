@@ -3069,6 +3069,7 @@
 				if (!status) {
 					console.log("User Deletion failed");
 				} else {
+					console.log("account deleted");
 					auth.logout();
 					this.history.pushState(null, '/');
 				}

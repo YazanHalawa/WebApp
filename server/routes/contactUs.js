@@ -2,7 +2,7 @@ var express = require('express');
 var routerContactUs = express.Router();
 var Person = require('../models/personSchema');
 var wishListItem = require('../models/wishListSchema');
-var ContactUs = require('./emailAlert');
+var ContactUs = require('./contactEmailAlert');
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
