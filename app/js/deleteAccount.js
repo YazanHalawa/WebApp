@@ -40,7 +40,7 @@ var deleteAccount = React.createClass({
     			$("#deletedAccount").html("<font size=15px color=red>Account Deleted</font>");
     			console.log("account deleted");
     			auth.logout();
-    			this.history.pushState(null, '/');
+    			window.location.replace("/");
     		}
     	});
 	},
