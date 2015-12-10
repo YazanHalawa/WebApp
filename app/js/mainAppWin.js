@@ -1,6 +1,6 @@
 var Link = ReactRouter.Link;
 var History = ReactRouter.History;
-var auth = require ('./auth');
+var auth = require('./auth');
 
 var mainAppWin = React.createClass({
   mixins: [History],
@@ -16,11 +16,11 @@ getInitialState: function(){
       error: false
     }
   },
-
+  
   render: function() {
     return (
       <div>
-		<nav className="navbar navbar-default" role ="navigation" id="mainPage">
+		<nav className="navbar navbar-default" role ="navigation" id="mainPage" style={{"background-color":auth.getColorScheme()}}>
  		 <div className="container">
     		<div className="navbar-header">
       			<button type="button" className="navbar-toggle" data-toggle="collapse">
@@ -52,7 +52,9 @@ getInitialState: function(){
                     id="LogOutBtn">
                     Log Out
                   </a></li>
+              <li><Link to="contactUs">Contact Us</Link></li>
               <li><Link to="deleteAccount">Delete Account</Link></li>
+              <li><Link to="navBarSettings">Settings</Link></li>
       			</ul>
     		</div>
   		</div>

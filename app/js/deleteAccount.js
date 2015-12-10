@@ -31,13 +31,13 @@ var deleteAccount = React.createClass({
     	event.preventDefault();
 
     	var username = auth.getUsername();
-    	api.deleteItem('/profile/delete/', username, function(deletedUser){
+    	api.deleteItem('/profile/delete/', username, null, function(status, deletedUser){
 
-    		if (!deletedUser){
+    		if (!status){
     			console.log("User Deletion failed");
     		} else {
     			auth.logout();
-    			this.context.history.pushState(null, '/');
+    			this.history.pushState(null, '/');
     		}
     	});
 	},
@@ -45,7 +45,7 @@ var deleteAccount = React.createClass({
 	handleCancel: function(){
 		// prevent default browser submit
     	event.preventDefault();
-    	this.context.history.pushState(null, '/mainAppWin');
+    	this.history.pushState(null, '/mainAppWin');
 	}
 });
 

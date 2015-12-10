@@ -63,6 +63,8 @@
 	var viewFriends = __webpack_require__(11);
 	var friendProfile = __webpack_require__(12);
 	var deleteAccount = __webpack_require__(13);
+	var navBarSettings = __webpack_require__(14);
+	var contactUs = __webpack_require__(15);
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var indexLogger = React.createClass({
@@ -95,7 +97,9 @@
 	            React.createElement(Route, { name: 'friendProfile', path: '/friendProfile', component: friendProfile }),
 	            React.createElement(Route, { name: 'profile', path: '/profile', component: Profile }),
 	            React.createElement(Route, { name: 'updateWishList', path: '/updateWishList', component: updateWishList }),
-	            React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount })
+	            React.createElement(Route, { name: 'deleteAccount', path: '/deleteAccount', component: deleteAccount }),
+	            React.createElement(Route, { name: 'navBarSettings', path: '/navBarSettings', component: navBarSettings }),
+	            React.createElement(Route, { name: 'contactUs', path: '/contactUs', component: contactUs })
 	        )
 	    )
 	);
@@ -1419,6 +1423,7 @@
 	                localStorage.token = res.token;
 	                localStorage.username = username;
 	                localStorage.name = res.name;
+	                localStorage.colorScheme = "WHITE";
 	                if (cb) cb(true);
 	                this.onChange(true);
 	            }).bind(this),
@@ -1464,6 +1469,8 @@
 	                console.log("saving %s", username);
 	                localStorage.username = username;
 	                localStorage.name = res.name;
+	                console.log("saving color scheme %s", res.colorScheme);
+	                localStorage.colorScheme = res.colorScheme;
 	                console.log("name is %s", localStorage.name);
 	                if (cb) cb(true);
 	                this.onChange(true);
@@ -1498,6 +1505,12 @@
 	    // check if user is logged in
 	    loggedIn: function () {
 	        return !!localStorage.token;
+	    },
+	    getColorScheme: function () {
+	        return localStorage.colorScheme;
+	    },
+	    setColorScheme: function (newVal) {
+	        localStorage.colorScheme = newVal;
 	    },
 	    // default onChange function
 	    onChange: function () {}
@@ -2006,9 +2019,47 @@
 	                if (cb) cb(true, res);
 	            },
 	            error: function (xhr, status, err) {
-	                // if there is an error, remove any login token
-	                //delete localStorage.token;
 	                if (cb) cb(false, status);
+	            }
+	        });
+	    },
+	
+	    // changes the color scheme of the navbar
+	    changeColor: function (username, color, cb) {
+	        var url = '/profile/updateColor/' + username;
+	        $.ajax({
+	            url: url,
+	            type: 'PUT',
+	            data: {
+	                colorScheme: color
+	            },
+	            headers: { 'Authorization': localStorage.token },
+	            success: function (res) {
+	                if (cb) cb(true);
+	            },
+	            error: function (xhr, status, err) {
+	                if (cb) cb(false);
+	            }
+	        });
+	    },
+	
+	    // handles sending email in the contact us form
+	    sendEmail: function (username, senderEmail, subjectLine, message, cb) {
+	        var url = '/contactUs/sendEmail/' + username;
+	        $.ajax({
+	            url: url,
+	            type: 'POST',
+	            data: {
+	                senderEmail: senderEmail,
+	                subjectLine: subjectLine,
+	                message: message
+	            },
+	            headers: { 'Authorization': localStorage.token },
+	            success: function (res) {
+	                if (cb) cb(true);
+	            },
+	            error: function (xhr, status, err) {
+	                if (cb) cb(false);
 	            }
 	        });
 	    },
@@ -2247,7 +2298,7 @@
 	      null,
 	      React.createElement(
 	        'nav',
-	        { className: 'navbar navbar-default', role: 'navigation', id: 'mainPage' },
+	        { className: 'navbar navbar-default', role: 'navigation', id: 'mainPage', style: { "background-color": auth.getColorScheme() } },
 	        React.createElement(
 	          'div',
 	          { className: 'container' },
@@ -2359,8 +2410,26 @@
 	                null,
 	                React.createElement(
 	                  Link,
+	                  { to: 'contactUs' },
+	                  'Contact Us'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  Link,
 	                  { to: 'deleteAccount' },
 	                  'Delete Account'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  Link,
+	                  { to: 'navBarSettings' },
+	                  'Settings'
 	                )
 	              )
 	            )
@@ -2995,13 +3064,13 @@
 			event.preventDefault();
 	
 			var username = auth.getUsername();
-			api.deleteItem('/profile/delete/', username, function (deletedUser) {
+			api.deleteItem('/profile/delete/', username, null, function (status, deletedUser) {
 	
-				if (!deletedUser) {
+				if (!status) {
 					console.log("User Deletion failed");
 				} else {
 					auth.logout();
-					this.context.history.pushState(null, '/');
+					this.history.pushState(null, '/');
 				}
 			});
 		},
@@ -3009,11 +3078,312 @@
 		handleCancel: function () {
 			// prevent default browser submit
 			event.preventDefault();
-			this.context.history.pushState(null, '/mainAppWin');
+			this.history.pushState(null, '/mainAppWin');
 		}
 	});
 	
 	module.exports = deleteAccount;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var auth = __webpack_require__(3);
+	var api = __webpack_require__(6);
+	
+	var navBarSettings = React.createClass({
+	  displayName: 'navBarSettings',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h',
+	          null,
+	          'Choose Color!'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToBlack, id: 'blackNavBar', className: 'btn btn-default active' },
+	          'black'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToWhite, id: 'whiteNavBar', className: 'btn btn-default active' },
+	          'white'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToRed, id: 'redNavBar', className: 'btn btn-default active' },
+	          'red'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToBlue, id: 'blueNavBar', className: 'btn btn-default active' },
+	          'blue'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToYellow, id: 'yellowNavBar', className: 'btn btn-default active' },
+	          'yellow'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToOrange, id: 'orangeNavBar', className: 'btn btn-default active' },
+	          'orange'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.changeToPurple, id: 'purpleNavBar', className: 'btn btn-default active' },
+	          'purple'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h',
+	          null,
+	          ' For these changes to take affect you would need to log out and log back in '
+	        )
+	      )
+	    );
+	  },
+	
+	  changeToBlack: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "BLACK", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  },
+	
+	  changeToWhite: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "WHITE", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  },
+	
+	  changeToRed: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "RED", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  },
+	
+	  changeToBlue: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "BLUE", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  },
+	
+	  changeToYellow: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "YELLOW", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  },
+	
+	  changeToOrange: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "ORANGE", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  },
+	
+	  changeToPurple: function () {
+	    // prevent default browser submit
+	    event.preventDefault();
+	    var username = auth.getUsername();
+	    api.changeColor(username, "PURPLE", function (changedColor) {
+	      if (!changedColor) {
+	        console.log("failed to change Color");
+	      } else {
+	        console.log("color changed");
+	      }
+	    });
+	  }
+	
+	});
+	
+	module.exports = navBarSettings;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var api = __webpack_require__(6);
+	var auth = __webpack_require__(3);
+	
+	var contactUs = React.createClass({
+		displayName: 'contactUs',
+	
+		getInitialState: function () {
+			return {
+				senderEmail: '',
+				subjectLine: '',
+				message: ''
+			};
+		},
+	
+		render: function () {
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'h',
+						null,
+						' Use the following form to send your email and we will respond to you as soon as possible'
+					)
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'label',
+						null,
+						'Your Email'
+					),
+					React.createElement('input', {
+						value: this.state.senderEmail,
+						onChange: this.handleInputChange,
+						type: 'email',
+						className: 'form-control',
+						id: 'destinationEmail',
+						placeholder: 'Email' })
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'label',
+						null,
+						'Subject Line '
+					),
+					React.createElement('input', {
+						value: this.state.subjectLine,
+						onChange: this.handleInputChange,
+						type: 'email',
+						className: 'form-control',
+						id: 'subjLine',
+						placeholder: 'Subject Line' })
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'label',
+						null,
+						'Message'
+					),
+					React.createElement('input', {
+						value: this.state.message,
+						onChange: this.handleInputChange,
+						type: 'email',
+						className: 'form-control',
+						id: 'message',
+						placeholder: 'Message' })
+				),
+				React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'button',
+						{ onClick: this.handleClick, className: 'btn btn-default active' },
+						'Send Email '
+					)
+				)
+			);
+		},
+	
+		handleInputChange: function (event) {
+			if (event.target.id === "destinationEmail") {
+				this.setState({ senderEmail: event.target.value });
+			} else if (event.target.id === "subjLine") {
+				this.setState({ subjectLine: event.target.value });
+			} else if (event.target.id === "message") {
+				this.setState({ message: event.target.value });
+			}
+		},
+	
+		handleClick: function () {
+			// Prevent browser default
+			event.preventDefault();
+	
+			var username = auth.getUsername();
+			var email = this.state.senderEmail;
+			var subjectLine = this.state.subjectLine;
+			var message = this.state.message;
+	
+			console.log("email is %s", email);
+			console.log("subject line is %s", subjectLine);
+			console.log("message is %s", message);
+	
+			if (!email || !subjectLine || !message) {
+				console.log("error, missing a value");
+			}
+	
+			api.sendEmail(username, email, subjectLine, message, function (sentEmail) {
+				if (!sentEmail) {
+					console.log("contact us failed");
+				} else {
+					console.log("contact us worked");
+					this.history.pushState(null, '/mainAppWin');
+				}
+			});
+		}
+	
+	});
+	
+	module.exports = contactUs;
 
 /***/ }
 /******/ ]);

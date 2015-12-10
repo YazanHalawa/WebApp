@@ -139,12 +139,54 @@ var api = {
                     cb(true, res);
             },
             error: function(xhr, status, err) {
-                // if there is an error, remove any login token
-                //delete localStorage.token;
                 if (cb)
                     cb(false, status);
             }
         });
+    },
+
+    // changes the color scheme of the navbar
+    changeColor: function(username, color, cb){
+        var url = '/profile/updateColor/' + username;
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                colorScheme: color
+            },
+            headers: {'Authorization': localStorage.token},
+            success: function(res) {
+                if (cb)
+                    cb(true);
+            },
+            error: function(xhr, status, err) {
+                if (cb)
+                    cb(false);
+            }
+        });
+    },
+
+    // handles sending email in the contact us form
+    sendEmail: function(username, senderEmail, subjectLine, message, cb){
+        var url = '/contactUs/sendEmail/' + username;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data:{
+                senderEmail: senderEmail,
+                subjectLine: subjectLine,
+                message: message
+            },
+            headers: {'Authorization': localStorage.token},
+            success: function(res) {
+                if (cb)
+                    cb(true);
+            },
+            error: function(xhr, status, err) {
+                if (cb)
+                    cb(false);
+            }
+        })
     },
 
     getwish1ID: function(){

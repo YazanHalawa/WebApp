@@ -2,7 +2,7 @@ var express = require('express');
 var routerFriend = express.Router();
 var Person = require('../models/personSchema');
 var wishListItem = require('../models/wishListSchema');
-
+var Email = require('./emailAlert');
 
 routerFriend.post('/add/:username', function(req, res) {
 
@@ -98,9 +98,21 @@ routerFriend.delete('/remove/:username', function(req,res) {
 	console.log('in remove friend');
 
 
+	var notPerList = { 
+            _id: false,
+            __v: false,
+            passwordHash :false,
+            gender: false,
+             bdDay: false,
+            bdMonth: false,
+            bdYear: false,
+            profilePic: false
+        };
+
+
 	user = Person.verifyToken(req.headers.authorization, function(user) {
 		if (user){
-			Person.findOne({'username':req.params.username}, function(err, person) {
+			Person.findOne({'username':req.params.username}, notPerList,function(err, person) {
 				if (err) {
 	            	console.log("Err get person");
 	                res.sendStatus(403);
@@ -125,7 +137,7 @@ routerFriend.delete('/remove/:username', function(req,res) {
 				console.log(friendPosition);
 				if (friendPosition != -1) {
                     var mePosition = -1;
-                    Person.findOne({'username': person.friendList[friendPosition]}, function(err, friend){
+                    Person.findOne({'username': person.friendList[friendPosition]}, notPerList ,function(err, friend){
                         var i;
                         var mePosition = -1;
                         console.log(friend.friendList);
@@ -188,6 +200,9 @@ routerFriend.delete('/remove/:username', function(req,res) {
                                         }
                                              console.log(wl);
                                             
+                                            var sendEmail = new  Email(wl.friendUserName, wl.description,person.firstName,person.lastName); 
+                                             sendEmail.transporter; 
+
                                             wl.friendUserName = null; 
                                             wl.save(function(err) {
                                             if (err) {
