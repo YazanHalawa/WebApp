@@ -146,4 +146,3 @@ var Wish = React.createClass({
 
 
 module.exports = friendProfile
-module.exports

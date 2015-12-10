@@ -2003,11 +2003,15 @@
 	            },
 	            headers: { 'Authorization': localStorage.token },
 	            success: function (res) {
+	                if (route === "/profile/delete/") {
+	                    delete localStorage.token;
+	                }
+	                console.log("delete worked");
 	                if (cb) cb(true, res);
 	            },
 	            error: function (xhr, status, err) {
 	                // if there is an error, remove any login token
-	                //delete localStorage.token;
+	
 	                if (cb) cb(false, status);
 	            }
 	        });
@@ -2935,7 +2939,6 @@
 	});
 	
 	module.exports = friendProfile;
-	module.exports;
 
 /***/ },
 /* 13 */
@@ -2943,14 +2946,13 @@
 
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var deleteAccount = React.createClass({
 		displayName: 'deleteAccount',
 	
 		// context so the component can access the router
-		contextTypes: {
-			history: React.PropTypes.object.isRequired
-		},
+		mixins: [History],
 	
 		render: function () {
 			return React.createElement(
@@ -2995,13 +2997,12 @@
 			event.preventDefault();
 	
 			var username = auth.getUsername();
-			api.deleteItem('/profile/delete/', username, function (deletedUser) {
+			api.deleteItem('/profile/delete/', username, null, function (status, deletedUser) {
 	
-				if (!deletedUser) {
+				if (!status) {
 					console.log("User Deletion failed");
 				} else {
-					auth.logout();
-					this.context.history.pushState(null, '/');
+					this.history.pushState(null, '/');
 				}
 			});
 		},
@@ -3009,7 +3010,7 @@
 		handleCancel: function () {
 			// prevent default browser submit
 			event.preventDefault();
-			this.context.history.pushState(null, '/mainAppWin');
+			this.history.pushState(null, '/mainAppWin');
 		}
 	});
 	

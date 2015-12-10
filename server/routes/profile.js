@@ -102,7 +102,6 @@ routerProfile.delete ('/delete/:username', function(req,res){
             _id: false,
             __v: false,
             passwordHash :false,
-            friendList :false,
             bdDay: false,
             bdMonth: false,
             bdYear: false,
@@ -111,73 +110,126 @@ routerProfile.delete ('/delete/:username', function(req,res){
             lastName: false,
             profilePic: false
         };
-        
+
+    // Verify Token    
 	user = Person.verifyToken(req.headers.authorization, function(user) {
         
         if (user) {
-			
-        Person.findOne({username:req.params.username},notPerList, function(err, result) {
-            if (err) {
-            	console.log("First if");
-                res.sendStatus(403);
-                return;
-            }
-            
-            
-       	 	if (result.username != user.username) {
-       	 		//console.log(result.username);
-       	 		console.log("Second if");
-                res.sendStatus(403);
-	    		return;
-            }
-            
-            
-            
-        Person.remove({username:req.params.username}, function(err, result) {
-            if (err) {
-            	console.log("Remove user error");
-                res.sendStatus(403);
-                return;
-            }
-            
-            
-          
-            wishListItem.remove({ownerUserName:req.params.username }, function(err, wishlist) {
+    	    // Find User
+            Person.findOne({username:req.params.username}, notPerList, function(err, result) {
                 if (err) {
-                	console.log("Remove owneruernamename wishlist error");
+                	console.log("First if");
                     res.sendStatus(403);
                     return;
                 }
                 
-                wishListItem.find({friendUserName :req.params.username},function(err, wishlist) {
-                if (err) {
-                    console.log("Err remove friend username from wish");
+                
+           	 	if (result.username != user.username) {
+           	 		//console.log(result.username);
+           	 		console.log("Second if");
                     res.sendStatus(403);
-                    return;
+    	    		return;
                 }
-                if (wishlist === undefined || wishlist.length === 0)
-                    res.sendStatus(200); 
-                   // console.log("wish list is %s", wishlist);
-                    wishlist[0].friendUserName = null;  
-                    wishlist[0].save(function(err) {
-                        if (err) {
+                console.log(result);
+                // Find friends and remove me from their friendlist   
+                var i;
+                for (i = 0; i < result.friendList.length; i++){
+                    Person.findOne({username: result.friendList[i]}, notPerList, function(err, friend){
+                        var j;
+                        var mePosition = -1;
+                        for (j = 0; j < friend.friendList.length; j++){
+                            if (req.params.username === friend.friendList[j]){
+                                console.log(j);
+                                mePosition = j;
+                            }
+                        }
+                        if (mePosition != -1){
+                            console.log("friend username is %s", friend.username);
+                            friend.friendList.splice(mePosition, 1);
+                            Person.update({username: friend.username}, 
+                                {$set: {friendList: friend.friendList}},
+                                function(err, result) {
+                                if(err) {
+                                    console.log("could not update friend list");
+                                    return res.sendStatus(403);
+                                }
+                            });
+                            console.log("correctly removed");
+                        } else {
+                            console.log("could not find me in his friendList");
+                            res.sendStatus(403);
+                        }
+                    
+                    });
+                }
+
+
+                // Remove wishes i have reserved
+                wishListItem.find({friendUserName :req.params.username},function(err, wishlist) {
+                    console.log(wishlist);
+                    if (err) {
+                        console.log("Err find friend username from wish");
                         res.sendStatus(403);
                         return;
-                        }  
-             
+                    }
+                    if (wishlist === undefined){
+                        console.log("no wishes found when removing friend");
+                        return;
+                    } else {
+                        for (var i = 0; i < wishlist.length; i++){
+
+                            wishListItem.findById(wishlist[i]._id,function(err, wl) {
+
+                                if (err) {
+                                    console.log("Err retrieve wishliet id");
+                                    res.sendStatus(403);
+                                    return;
+                                }
+                                console.log(wl);
+                                
+                                wl.friendUserName = null; 
+                                wl.save(function(err) {
+                                    if (err) {
+                                    res.sendStatus(403);
+                                    return;
+                                    }  
+                        
+                                });
+
+                            });
+                        }
+                    }
+                    // Delete wishes that belong to me
+                    wishListItem.remove({ownerUserName:req.params.username}, function(err, wishlist) {
+                        if (err) {
+                            console.log("Remove owneruernamename wishlist error");
+                            res.sendStatus(403);
+                            return;
+                        }
+                        console.log("removed my wishlist");
                     });
-                });
-            });     
-        }); 
-        }); 
+
+                    //Finally Delete me as a user
+                    Person.remove({username:req.params.username}, function(err, result) {
+                        if (err) {
+                            console.log("Remove user error");
+                            res.sendStatus(403);
+                            return;
+                        }  
+                    });
+                    console.log("removed me");
+                    res.sendStatus(200);
+
+                }); 
+            }); 
           
-       }
+        }
         else {
         	console.log("Verify token failure");
             res.sendStatus(403);
         }
    
-    });
+    }); 
 });
 
 module.exports = routerProfile
