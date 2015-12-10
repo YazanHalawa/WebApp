@@ -82,8 +82,8 @@ router.post ('/login', function(req,res){
 				res.sendStatus(403);
 	    		return; 
 			};
-			console.log("color is %s", user.colorScheme);
 			if(user && user.checkPassword(req.body.password)){
+				console.log("color is %s", user.colorScheme);
 				console.log("found");
 				var token = Person.generateToken(user.username);
 				res.json({name: user.firstName, colorScheme: user.colorScheme, token:token});

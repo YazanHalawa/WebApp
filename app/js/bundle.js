@@ -114,13 +114,12 @@
 
 	var Link = ReactRouter.Link;
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
+	
 	var SignUp = React.createClass({
 		displayName: 'SignUp',
 	
-		// context so the component can access the router
-		contextTypes: {
-			history: React.PropTypes.object.isRequired
-		},
+		mixins: [History],
 	
 		getInitialState: function () {
 			return {
@@ -1335,7 +1334,7 @@
 			}
 		},
 	
-		handleClick: function () {
+		handleClick: function (event) {
 			//----- Send value of text input to Mongo------//
 	
 			// prevent default browser submit
@@ -1531,10 +1530,6 @@
 	  displayName: 'App',
 	
 	  mixins: [History],
-	  // context so the component can access the router
-	  //contextTypes: {
-	  //    history: React.PropTypes.object.isRequired
-	  //},
 	
 	  getInitialState: function () {
 	    return {
@@ -1640,7 +1635,8 @@
 	              )
 	            )
 	          )
-	        )
+	        ),
+	        React.createElement('div', { id: 'logInError' })
 	      )
 	    );
 	  },
@@ -1654,7 +1650,7 @@
 	    }
 	  },
 	
-	  handleClick: function () {
+	  handleClick: function (event) {
 	    //----- Send value of text input to Mongo------//
 	
 	    // prevent default browser submit
@@ -1671,6 +1667,7 @@
 	      // login callback
 	      if (!loggedIn) {
 	        console.log("failed");
+	        $("#logInError").html("<font size=15px color=red>User Does not exist!</font>");
 	        return this.setState({
 	          error: true
 	        });
@@ -1692,14 +1689,12 @@
 	var Link = ReactRouter.Link;
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var Profile = React.createClass({
 		displayName: 'Profile',
 	
-		// context so the component can access the router
-		contextTypes: {
-			history: React.PropTypes.object.isRequired
-		},
+		mixins: [History],
 	
 		getInitialState: function () {
 			return {
@@ -1878,7 +1873,8 @@
 			);
 		},
 	
-		handleClick: function () {
+		handleClick: function (event) {
+			event.preventDefault();
 			this.context.history.pushState(null, '/updateWishList');
 		}
 	
@@ -2110,11 +2106,6 @@
 	var addFriend = React.createClass({
 	  displayName: 'addFriend',
 	
-	  // context so the component can access the router
-	  contextTypes: {
-	    router: React.PropTypes.func
-	  },
-	
 	  getInitialState: function () {
 	    return {
 	      friendUsername: '',
@@ -2193,14 +2184,12 @@
 
 	var auth = __webpack_require__(3);
 	var api = __webpack_require__(6);
+	var History = ReactRouter.History;
 	
 	var removeFriend = React.createClass({
 	  displayName: 'removeFriend',
 	
-	  // context so the component can access the router
-	  contextTypes: {
-	    router: React.PropTypes.func
-	  },
+	  mixins: [History],
 	
 	  getInitialState: function () {
 	    return {
@@ -2239,7 +2228,7 @@
 	    this.setState({ friendUsername: event.target.value });
 	  },
 	
-	  handleClick: function () {
+	  handleClick: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    // get data from form
@@ -2279,10 +2268,6 @@
 	  displayName: 'mainAppWin',
 	
 	  mixins: [History],
-	  // context so the component can access the router
-	  //contextTypes: {
-	  //    history: React.PropTypes.object.isRequired
-	  //},
 	
 	  getInitialState: function () {
 	    return {
@@ -2444,7 +2429,7 @@
 	    );
 	  },
 	
-	  handleClick: function () {
+	  handleClick: function (event) {
 	    auth.logout();
 	    this.history.pushState(null, '/');
 	  }
@@ -2459,14 +2444,12 @@
 
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var updateWishList = React.createClass({
 		displayName: 'updateWishList',
 	
-		// context so the component can access the router
-		contextTypes: {
-			history: React.PropTypes.object.isRequired
-		},
+		mixins: [History],
 	
 		getInitialState: function () {
 			return {
@@ -2595,7 +2578,7 @@
 			}
 		},
 	
-		handleClick: function () {
+		handleClick: function (event) {
 			// prevent default browser submit
 			event.preventDefault();
 			// get data from form
@@ -2652,9 +2635,12 @@
 
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var viewFriends = React.createClass({
 		displayName: 'viewFriends',
+	
+		mixins: [History],
 	
 		getInitialState: function () {
 			return {
@@ -2792,7 +2778,7 @@
 			);
 		},
 	
-		handleClick: function () {
+		handleClick: function (event) {
 			api.setFriendUsername(this.props.item.username);
 			this.context.history.pushState(null, '/friendProfile');
 		}
@@ -2807,9 +2793,12 @@
 	var Link = ReactRouter.Link;
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var friendProfile = React.createClass({
 		displayName: 'friendProfile',
+	
+		mixins: [History],
 	
 		getInitialState: function () {
 			return {
@@ -2983,7 +2972,7 @@
 			);
 		},
 	
-		handleClick: function () {
+		handleClick: function (event) {
 			// prevent default browser submit
 			event.preventDefault();
 	
@@ -3012,14 +3001,12 @@
 
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var deleteAccount = React.createClass({
 		displayName: 'deleteAccount',
 	
-		// context so the component can access the router
-		contextTypes: {
-			history: React.PropTypes.object.isRequired
-		},
+		mixins: [History],
 	
 		render: function () {
 			return React.createElement(
@@ -3059,7 +3046,7 @@
 			);
 		},
 	
-		handleConfirm: function () {
+		handleConfirm: function (event) {
 			// prevent default browser submit
 			event.preventDefault();
 	
@@ -3076,7 +3063,7 @@
 			});
 		},
 	
-		handleCancel: function () {
+		handleCancel: function (event) {
 			// prevent default browser submit
 			event.preventDefault();
 			this.history.pushState(null, '/mainAppWin');
@@ -3091,9 +3078,12 @@
 
 	var auth = __webpack_require__(3);
 	var api = __webpack_require__(6);
+	var History = ReactRouter.History;
 	
 	var navBarSettings = React.createClass({
 	  displayName: 'navBarSettings',
+	
+	  mixins: [History],
 	
 	  render: function () {
 	    return React.createElement(
@@ -3159,7 +3149,7 @@
 	    );
 	  },
 	
-	  changeToBlack: function () {
+	  changeToBlack: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3172,7 +3162,7 @@
 	    });
 	  },
 	
-	  changeToWhite: function () {
+	  changeToWhite: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3185,7 +3175,7 @@
 	    });
 	  },
 	
-	  changeToRed: function () {
+	  changeToRed: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3198,7 +3188,7 @@
 	    });
 	  },
 	
-	  changeToBlue: function () {
+	  changeToBlue: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3211,7 +3201,7 @@
 	    });
 	  },
 	
-	  changeToYellow: function () {
+	  changeToYellow: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3224,7 +3214,7 @@
 	    });
 	  },
 	
-	  changeToOrange: function () {
+	  changeToOrange: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3237,7 +3227,7 @@
 	    });
 	  },
 	
-	  changeToPurple: function () {
+	  changeToPurple: function (event) {
 	    // prevent default browser submit
 	    event.preventDefault();
 	    var username = auth.getUsername();
@@ -3260,9 +3250,12 @@
 
 	var api = __webpack_require__(6);
 	var auth = __webpack_require__(3);
+	var History = ReactRouter.History;
 	
 	var contactUs = React.createClass({
 		displayName: 'contactUs',
+	
+		mixins: [History],
 	
 		getInitialState: function () {
 			return {
@@ -3355,7 +3348,7 @@
 			}
 		},
 	
-		handleClick: function () {
+		handleClick: function (event) {
 			// Prevent browser default
 			event.preventDefault();
 	

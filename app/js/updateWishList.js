@@ -1,13 +1,11 @@
 var api = require('./api');
 var auth = require('./auth');
+var History = ReactRouter.History;
 
 var updateWishList = React.createClass({
 
-	// context so the component can access the router
-  	contextTypes: {
-      history: React.PropTypes.object.isRequired
-  	},
-
+	mixins: [History],
+	
 	getInitialState: function(){
 		return{
 				wish1: '',
@@ -100,7 +98,7 @@ var updateWishList = React.createClass({
       	}
     },
 
-    handleClick: function(){
+    handleClick: function(event){
     	// prevent default browser submit
 	    event.preventDefault();
 	    // get data from form

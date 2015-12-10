@@ -4,10 +4,6 @@ var auth = require('./auth');
 
 var mainAppWin = React.createClass({
   mixins: [History],
-  // context so the component can access the router
-  //contextTypes: {
-  //    history: React.PropTypes.object.isRequired
-  //},
 
 getInitialState: function(){
     return{
@@ -67,7 +63,7 @@ getInitialState: function(){
     );
   },
 
-  handleClick: function(){
+  handleClick: function(event){
     auth.logout();
     this.history.pushState(null, '/');  
   },

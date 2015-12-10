@@ -2,10 +2,6 @@ var auth = require('./auth');
 var api = require('./api');
 
 var addFriend = React.createClass({
-  // context so the component can access the router
-  contextTypes: {
-      router: React.PropTypes.func
-  },
 
   getInitialState: function(){
     return {

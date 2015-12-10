@@ -1,8 +1,12 @@
 var auth = require('./auth');
 var api = require('./api');
+var History = ReactRouter.History;
+
 
 var navBarSettings = React.createClass({
 
+    mixins: [History],
+    
 	render: function(){
 		return(
 				<div>
@@ -25,7 +29,7 @@ var navBarSettings = React.createClass({
 			);
 	},
 
-	changeToBlack: function(){
+	changeToBlack: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();
@@ -38,7 +42,7 @@ var navBarSettings = React.createClass({
     	});
 	},
 
-	changeToWhite: function(){
+	changeToWhite: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();
@@ -51,7 +55,7 @@ var navBarSettings = React.createClass({
     	});
 	},
 
-	changeToRed: function(){
+	changeToRed: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();
@@ -64,7 +68,7 @@ var navBarSettings = React.createClass({
     	});
 	},
 
-	changeToBlue: function(){
+	changeToBlue: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();
@@ -77,7 +81,7 @@ var navBarSettings = React.createClass({
     	});
 	},
 
-	changeToYellow: function(){
+	changeToYellow: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();
@@ -90,7 +94,7 @@ var navBarSettings = React.createClass({
     	});
 	},
 
-	changeToOrange: function(){
+	changeToOrange: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();
@@ -103,7 +107,7 @@ var navBarSettings = React.createClass({
     	});
 	},
 
-	changeToPurple: function(){
+	changeToPurple: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	var username = auth.getUsername();

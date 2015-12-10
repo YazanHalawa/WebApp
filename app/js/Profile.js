@@ -1,13 +1,11 @@
 var Link = ReactRouter.Link;
 var api = require('./api');
 var auth = require('./auth');
+var History = ReactRouter.History;
 
 var Profile = React.createClass({
 
-	// context so the component can access the router
-  	contextTypes: {
-      history: React.PropTypes.object.isRequired
-  	},
+	mixins: [History],
 
 	getInitialState: function(){
 		    return{
@@ -114,7 +112,8 @@ var Profile = React.createClass({
     );
   },
 
-  handleClick: function(){
+  handleClick: function(event){
+  		event.preventDefault();
   	    this.context.history.pushState(null, '/updateWishList');  
 
   }

@@ -1,9 +1,13 @@
 var Link = ReactRouter.Link;
 var api = require('./api');
 var auth = require('./auth');
+var History = ReactRouter.History;
+
 
 var friendProfile = React.createClass({
 
+	mixins: [History],
+	
 	getInitialState: function(){
 		    return{
 		    	items : '',
@@ -123,7 +127,7 @@ var Wish = React.createClass({
 			);
 	},
 
-	handleClick: function(){
+	handleClick: function(event){
 		// prevent default browser submit
     	event.preventDefault();
 

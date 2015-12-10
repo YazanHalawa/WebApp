@@ -6,11 +6,7 @@ var auth = require ('./auth');
 var App = React.createClass({
 
   mixins: [History],
-  // context so the component can access the router
-  //contextTypes: {
-  //    history: React.PropTypes.object.isRequired
-  //},
-
+  
   getInitialState: function(){
     return{
       emailText: '',
@@ -67,6 +63,8 @@ var App = React.createClass({
                 </Link>
             </div>
           </div>
+          <div id="logInError">
+          </div>
         </form>
       </div>
       );
@@ -82,7 +80,7 @@ var App = React.createClass({
     }
   },
 
-  handleClick: function(){
+  handleClick: function(event){
     //----- Send value of text input to Mongo------//
 
     // prevent default browser submit
@@ -99,6 +97,7 @@ var App = React.createClass({
         // login callback
         if (!loggedIn){
           console.log("failed");
+            $("#logInError").html("<font size=15px color=red>User Does not exist!</font>");
             return this.setState({
                 error: true
             });

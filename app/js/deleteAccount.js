@@ -1,12 +1,10 @@
 var api = require('./api');
 var auth = require('./auth');
+var History = ReactRouter.History;
 
 var deleteAccount = React.createClass({
 	
-	// context so the component can access the router
-  	contextTypes: {
-      history: React.PropTypes.object.isRequired
-  	},
+	mixins: [History],
 
 	render: function(){
 		return(
@@ -26,7 +24,7 @@ var deleteAccount = React.createClass({
 		);
 	},
 
-	handleConfirm: function() {
+	handleConfirm: function(event) {
 		// prevent default browser submit
     	event.preventDefault();
 
@@ -43,7 +41,7 @@ var deleteAccount = React.createClass({
     	});
 	},
 
-	handleCancel: function(){
+	handleCancel: function(event){
 		// prevent default browser submit
     	event.preventDefault();
     	this.history.pushState(null, '/mainAppWin');

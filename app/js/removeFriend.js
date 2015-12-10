@@ -1,11 +1,9 @@
 var auth = require('./auth');
 var api = require('./api');
+var History = ReactRouter.History;
 
 var removeFriend = React.createClass({
-  // context so the component can access the router
-  contextTypes: {
-      router: React.PropTypes.func
-  },
+  mixins: [History],
 
   getInitialState: function(){
     return {
@@ -41,7 +39,7 @@ var removeFriend = React.createClass({
     this.setState({friendUsername: event.target.value});
   },
 
-  handleClick: function(){
+  handleClick: function(event){
     // prevent default browser submit
     event.preventDefault();
     // get data from form

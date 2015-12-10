@@ -1,7 +1,10 @@
 var api = require('./api');
 var auth = require('./auth');
+var History = ReactRouter.History;
 
 var contactUs = React.createClass({
+
+	mixins: [History],
 
 	getInitialState: function(){
 		return {
@@ -64,7 +67,7 @@ var contactUs = React.createClass({
 		}
 	},
 
-	handleClick: function(){
+	handleClick: function(event){
 		// Prevent browser default
 		event.preventDefault();
 

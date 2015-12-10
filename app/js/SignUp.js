@@ -1,11 +1,10 @@
 var Link = ReactRouter.Link;
-var auth = require('./auth')
+var auth = require('./auth');
+var History = ReactRouter.History;
+
 var SignUp = React.createClass({
 
-  	// context so the component can access the router
-  	contextTypes: {
-      history: React.PropTypes.object.isRequired
-  	},
+  	mixins: [History],
   	
   	getInitialState: function(){
 	    return{
@@ -456,7 +455,7 @@ var SignUp = React.createClass({
     	}
   	},
 
-  	handleClick: function(){
+  	handleClick: function(event){
     	//----- Send value of text input to Mongo------//
 
     	// prevent default browser submit

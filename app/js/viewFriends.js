@@ -1,7 +1,10 @@
 var api = require('./api');
 var auth = require('./auth');
+var History = ReactRouter.History;
 
 var viewFriends = React.createClass({
+
+	mixins: [History],
 
 	getInitialState: function(){
 	    return{
@@ -111,7 +114,7 @@ var Item = React.createClass({
         );
 	},
 
-	handleClick: function(){
+	handleClick: function(event){
 		api.setFriendUsername(this.props.item.username);
 		this.context.history.pushState(null, '/friendProfile');
 	}
