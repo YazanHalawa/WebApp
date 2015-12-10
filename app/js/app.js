@@ -1,13 +1,15 @@
 var Link = ReactRouter.Link;
 var Router = ReactRouter;
+var History = ReactRouter.History;
 var auth = require ('./auth');
 
 var App = React.createClass({
 
+  mixins: [History],
   // context so the component can access the router
-  contextTypes: {
-      history: React.PropTypes.object.isRequired
-  },
+  //contextTypes: {
+  //    history: React.PropTypes.object.isRequired
+  //},
 
   getInitialState: function(){
     return{
@@ -101,8 +103,11 @@ var App = React.createClass({
                 error: true
             });
           }
-        else 
-          this.context.history.pushState(null, '/mainAppWin');
+        else {
+          console.log("succeeded");
+          this.history.pushState(null,'/mainAppWin');
+          //this.context.history.pushState(null, '/mainAppWin');
+        }
     }.bind(this));
   }
 });

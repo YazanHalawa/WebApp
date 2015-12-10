@@ -25,13 +25,14 @@ router.post ('/register', function(req,res){
 					user.bdDay = req.body.bdDay;
 					user.bdYear = req.body.bdYear;
 					user.gender = req.body.gender;
+					user.profilePic = req.body.profilePic;
 					user.save(function(err) {
 					if (err) {
 					console.log('DB Save error');
 	  				res.sendStatus(403);
 	  				return;
 					}
-    wishListItem.create({ownerUserName:req.body.username ,description:req.body.wish1}, function (err,item){
+    wishListItem.create({ownerUserName:req.body.username ,friendUserName:null, description:req.body.wish1}, function (err,item){
 			
 			if (err) {
 					console.log('wish list 1 save error');
@@ -40,7 +41,7 @@ router.post ('/register', function(req,res){
 			}	
 	});
 	
-	 wishListItem.create({ownerUserName:req.body.username ,description:req.body.wish2}, function (err,item){
+	 wishListItem.create({ownerUserName:req.body.username ,friendUserName:null,description:req.body.wish2}, function (err,item){
 			
 			if (err) {
 					console.log('wish list 2 save error');
@@ -50,7 +51,7 @@ router.post ('/register', function(req,res){
 	});
 	
 	
-	 wishListItem.create({ownerUserName:req.body.username ,description:req.body.wish3}, function (err,item){
+	 wishListItem.create({ownerUserName:req.body.username ,friendUserName:null,description:req.body.wish3}, function (err,item){
 			
 			if (err) {
 					console.log('wish list 3 save error');

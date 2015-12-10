@@ -47,12 +47,16 @@ var auth = {
         cb = arguments[arguments.length - 1];
         // check if token in local storage
         if (localStorage.token) {
-            if (cb)
+            console.log("in token");
+            if (cb){
+                console.log("in cb");
                 cb(true);
+            }
+            console.log("before on change");
             this.onChange(true);
             return;
         }
-
+        console.log("Sending request to server");
         // submit request to server
         var url = "/login";
         $.ajax({

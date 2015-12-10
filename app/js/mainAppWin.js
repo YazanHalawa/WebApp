@@ -1,12 +1,13 @@
 var Link = ReactRouter.Link;
+var History = ReactRouter.History;
 var auth = require ('./auth');
 
 var mainAppWin = React.createClass({
-
+  mixins: [History],
   // context so the component can access the router
-  contextTypes: {
-      history: React.PropTypes.object.isRequired
-  },
+  //contextTypes: {
+  //    history: React.PropTypes.object.isRequired
+  //},
 
 getInitialState: function(){
     return{
@@ -51,6 +52,7 @@ getInitialState: function(){
                     id="LogOutBtn">
                     Log Out
                   </a></li>
+              <li><Link to="deleteAccount">Delete Account</Link></li>
       			</ul>
     		</div>
   		</div>
@@ -65,7 +67,7 @@ getInitialState: function(){
 
   handleClick: function(){
     auth.logout();
-    this.context.history.pushState(null, '/');  
+    this.history.pushState(null, '/');  
   },
 
 });

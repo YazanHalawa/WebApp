@@ -42,7 +42,7 @@ var friendProfile = React.createClass({
 
 	var list = this.state.wishes.map(function(item) {
 	        return (
-	            <Wish key={item._id} item={item} reload={this.props.reload}/>
+	            <Wish key={item._id} item={item} reload={this.reload}/>
 	            );
 	    }.bind(this));
 
@@ -124,7 +124,6 @@ var Wish = React.createClass({
 	},
 
 	handleClick: function(){
-		$('#message').html("<font size=15px color=red>Wish Item Reserved</font>");
 		// prevent default browser submit
     	event.preventDefault();
 
@@ -136,6 +135,7 @@ var Wish = React.createClass({
     		if (!reservedWish){
     			console.log("failed to reserve Wish");
     		} else {
+    			$('#message').html("<font size=15px color=red>Wish Item Reserved</font>");
     			this.context.history.pushState(null, '/mainAppWin');
     			$('#reserveWishBtn').prop('disabled', true);
  

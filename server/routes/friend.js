@@ -22,7 +22,7 @@ routerFriend.post('/add/:username', function(req, res) {
 
 	user = Person.verifyToken(req.headers.authorization, function(user) {
 		if (user){
-			Person.findOne({'username':req.body.item.friendUsername}, notPerList, function(err, person) {
+			Person.findOne({'username':req.body.item.friendUsername}, notPerList, function(err, friend) {
 				var found = 0;
 				Person.findOne({'username':req.params.username}, notPerList, function(err, person) {
 					if (err) {
@@ -36,6 +36,13 @@ routerFriend.post('/add/:username', function(req, res) {
 		                res.sendStatus(403);
 			    		return;
 		           	}
+		           	console.log("me %s", person.username);
+		           	console.log("him %s", friend.username);
+		           	if (person.username === friend.username){
+		           		console.log("adding yourself? You fool!");
+		           		res.sendStatus(403);
+		           		return;
+		           	}
 					var i;
 					console.log(person.friendList);
 					for (i = 0; i < person.friendList.length; i++) {
@@ -44,6 +51,7 @@ routerFriend.post('/add/:username', function(req, res) {
 						}
 					}
 					if (!found) {
+                        
 						Person.update(
 						{'username' : req.params.username },
 						{$push:{'friendList': req.body.item.friendUsername}},
@@ -53,8 +61,23 @@ routerFriend.post('/add/:username', function(req, res) {
 								return res.send(err);
 							}
 						console.log("friend added!");
-						return res.json({username:result.username});				
-						});
+                        
+                        
+                        Person.update(
+						{'username' : friend.username },
+						{$push:{'friendList':  person.username}},
+					 	function(err,result) {
+							if(err){
+								console.log(err);
+								return res.send(err);
+							}
+                        console.log(friend.username);
+                        console.log( person.username);
+						console.log("User addeded on friend's friendlist!");
+
+                        return res.json({username:result.username});				
+                        });
+                      });
 					}
 					else{
 						console.log("your friend is your list dummy	");
@@ -89,21 +112,47 @@ routerFriend.delete('/remove/:username', function(req,res) {
 	                res.sendStatus(403);
 		    		return;
 	           	}
+                // finding friend in my list
 				var i;
-				var position = -1;
+				var friendPosition = -1;
 				console.log(person.friendList);
 				for (i = 0; i < person.friendList.length; i++) {
 					if (req.body.friendUsername === person.friendList[i]){
-						position = i;
+						friendPosition = i;
 					}
 				}
-				console.log(position);
-				if (position != -1) {
+                // finding me in friend's friendlist
+				console.log(friendPosition);
+				if (friendPosition != -1) {
+                    var mePosition = -1;
+                    Person.findOne({'username': person.friendList[friendPosition]}, function(err, friend){
+                        var i;
+                        var mePosition = -1;
+                        console.log(friend.friendList);
+                        for (i = 0; i < friend.friendList.length; i++){
+                            if (req.params.username === friend.friendList[i]){
+                                mePosition = i;
+                            }
+                        }
+                        if (mePosition === -1){
+                            res.sendStatus(403);
+                            return;
+                        }
+
+                        friend.friendList.splice(mePosition, 1);
+                        Person.update({username: friend.username},
+                            {$set: {friendList: friend.friendList}}, function(err, result){
+                                if (err){
+                                    console.log("could not remove me from his friendList");
+                                    return res.send(403);
+                                }
+                        });
+                    });
 					console.log(person.friendList);
 					console.log("about to splice");
 					//var myFriendList = person.myFriendList;
 					//myFriendList.splice(position,1);
-					person.friendList.splice(position,1);
+					person.friendList.splice(friendPosition,1);
 					console.log("after splicing");
 					console.log(person.friendList);
 					
@@ -114,8 +163,45 @@ routerFriend.delete('/remove/:username', function(req,res) {
 							console.log(err);
 							return res.send(err);
 						}
-						res.json({username:result.username});
-					});
+                        
+                        
+                         wishListItem.find({ownerUserName:person.username, friendUserName :req.body.friendUsername},function(err, wishlist) {
+                            if (err) {
+                                console.log("Err find friend username from wish");
+                                res.sendStatus(403);
+                                return;
+                            }
+                        	if (wishlist === undefined){
+                        		console.log("no wishes found when removing friend");
+                        		res.sendStatus(403);
+                        		return;
+                        	}
+                        
+                                    for (var i = 0; i < wishlist.length; i++){
+     
+                                     wishListItem.findById(wishlist[i]._id,function(err, wl) {
+              
+                                        if (err) {
+                                            console.log("Err retrieve wishliet id");
+                                            res.sendStatus(403);
+                                            return;
+                                        }
+                                             console.log(wl);
+                                            
+                                            wl.friendUserName = null; 
+                                            wl.save(function(err) {
+                                            if (err) {
+                                            res.sendStatus(403);
+                                            return;
+                                            }  
+                                    
+                                    });                                                      
+                                  });
+                                } 
+                            });
+                                                    
+						      res.sendStatus(200);
+				    })
 				}
 				else {
 					console.log("That friend is not in your list");
@@ -130,7 +216,6 @@ routerFriend.delete('/remove/:username', function(req,res) {
 
 	});
 });
-
 
 routerFriend.get('/viewFriends/:username', function(req, res) {
 	console.log("view Friends route");

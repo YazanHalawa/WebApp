@@ -27,8 +27,6 @@ var SignUp = React.createClass({
   	},
 
 	render: function(){
-		if (this.state.error)
-			alert("user already exists");
 		return(
 			<div>
 			<div><span id="errorDiv" className="errorDiv"></span></div>
@@ -404,7 +402,7 @@ var SignUp = React.createClass({
 					name="sex" 
 					value="2" 
 					id="pickedMale"/><label className="_58mt" htmlFor="u_0_o">Male</label></span></span><i className="_5dbc _5k_6 img sp_7XMX65Pq0E7 sx_ee768b"></i><i className="_5dbd _5k_7 img sp_7XMX65Pq0E7 sx_067138"></i></div>
-					<div className="clearfix">
+					<div>
                   <button 
                   onClick={this.handleClick}
                   id="LogInBtn" 
