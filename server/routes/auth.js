@@ -25,7 +25,6 @@ router.post ('/register', function(req,res){
 					user.bdDay = req.body.bdDay;
 					user.bdYear = req.body.bdYear;
 					user.gender = req.body.gender;
-					user.profilePic = req.body.profilePic;
 					user.save(function(err) {
 					if (err) {
 					console.log('DB Save error');
