@@ -20,6 +20,8 @@ var deleteAccount = React.createClass({
 				<button onClick={this.handleConfirm} className="btn btn-default active">Confirm</button>
 				<button onClick={this.handleCancel} className="btn btn-default active">Cancel</button>
 			</div>
+			<div id="deletedAccount">
+			</div>
 			</div>	
 		);
 	},
@@ -32,8 +34,10 @@ var deleteAccount = React.createClass({
     	api.deleteItem('/profile/delete/', username, null, function(status, deletedUser){
 
     		if (!status){
+    			$("#deletedAccount").html("<font size=15px color=red>Account Deletion Failed</font>");
     			console.log("User Deletion failed");
     		} else {
+    			$("#deletedAccount").html("<font size=15px color=red>Account Deleted</font>");
     			console.log("account deleted");
     			auth.logout();
     			this.history.pushState(null, '/');
